@@ -1,0 +1,23 @@
+{
+	"development": {
+		"username": "postgres",
+		"password": "root@123",
+		"database": "sploot",
+		"host": "127.0.0.1",
+		"dialect": "mysql"
+	},
+	"test": {
+		"username": "postgres",
+		"password": "root@123",
+		"database": "sploot",
+		"host": "127.0.0.1",
+		"dialect": "mysql"
+	},
+	"production": {
+		"username": "postgres",
+		"password": "root@123",
+		"database": "sploot",
+		"host": "127.0.0.1",
+		"dialect": "mysql"
+	}
+}

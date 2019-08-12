@@ -1,0 +1,2414 @@
+﻿{
+  "basePath": "",
+
+  "host": "localhost:3000",
+  "info": {
+    "description": "SFA API",
+    "version": "1.0.0",
+    "title": "SFA API",
+    "termsOfService": "",
+    "contact": {
+      "email": "support@troondx.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags": [
+    {
+      "name": "User",
+      "description": "user"
+
+    },
+    {
+      "name": "Survey",
+      "description": "survey"
+    },
+    {
+      "name": "Lookup",
+      "description": "lookup"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "x-access-token",
+      "in": "header",
+      "description": "<token>"
+    }
+  },
+  "swagger": "2.0",
+  "paths": {
+    "/auth/adminlogin": {
+      "post": {
+        "description": "AdminLogin from Admin Web Portal.",
+        "operationId": "adminlogin",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Set Response token as Authorize Api-Key ( Value:<token> )",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/apia/createUser": {
+      "post": {
+        "description": "To Create New user",
+        "operationId": "adduser",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/user"
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/apia/updateUserbyId": {
+      "post": {
+        "description": "To Update a User",
+        "operationId": "update",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/user"
+            }
+          }
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/apia/getAllUsers": {
+      "post": {
+        "description": "Get List of Users",
+        "operationId": "usersList",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/filter"
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch List of Users in the system.",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/apia/getallRolesActivity": {
+      "post": {
+        "description": "Get List of role Activitys",
+        "operationId": "activitys",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/filter"
+            }
+          }
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch List of Activitys by UserId.",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/apia/getAllRoles": { 
+      "post": {
+        "description": "Get List of roles",
+        "operationId": "getRoles",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/filter"
+            }
+          }
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch List of Roles.",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/apia/getuserById": {
+      "post": {
+        "description": "Get User By UserId",
+        "operationId": "userbyid",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch user Basic Details.",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/apia/deleteUser": {
+      "put": {
+        "description": "To Delete the User By UserId",
+        "operationId": "userbyid",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch List of Activitys by UserId.",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/apia/getUserTypes": {
+      "post": {
+        "description": "Get List of User Types",
+        "operationId": "UserTypes",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/filter"
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch List of User Types in the system.",
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/getUserRoles": {
+      "post": {
+        "description": "Get List of User Roles",
+        "operationId": "UserRoles",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/filter"
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch List of User Roles in the system.",
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/addUserType": {
+      "post": {
+        "description": "To Create New user Type",
+        "operationId": "addusertype",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "userType":{"type":"string"},
+                "status": {"type":"string","enum":"['0','1']"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/updateUserTypeById": {
+      "put": {
+        "description": "To update user Type",
+        "operationId": "updateusertype",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "id":{"type":"integer"},
+                "userType":{"type":"string"},
+                "status": {"type":"string","enum":"['0','1']"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/deleteUserTypes": {
+      "put": {
+        "description": "To delete user Type",
+        "operationId": "deleteusertype",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "id":{"type":"integer"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/getZones": {
+      "post": {
+        "description": "Get List of Zones",
+        "operationId": "Zones",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/filter"
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch List of Country in the system.",
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/addZone": {
+      "post": {
+        "description": "To Create New Zone",
+        "operationId": "addZone",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "zoneName":{"type":"string"},
+                "countryId":{"type":"integer"},
+                "status": {"type":"string","enum":"['0','1']"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/updateZoneById": {
+      "put": {
+        "description": "To update country",
+        "operationId": "updateCountry",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "id":{"type":"integer"},
+                "countryId":{"type":"integer"},
+                "zoneName":{"type":"string"},
+                "status": {"type":"string","enum":"['0','1']"},
+                "modifiedBy":{"type":"string"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/deleteZone": {
+      "put": {
+        "description": "To delete Zone",
+        "operationId": "deleteZone",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "id":{"type":"integer"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/getZoneById": {
+      "post": {
+        "description": "To Get Zone By Id",
+        "operationId": "getZoneById",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "id":{"type":"integer"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/getCountries": {
+      "post": {
+        "description": "Get List of getCountries",
+        "operationId": "Countries",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/filter"
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch List of Country in the system.",
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/addCountry": {
+      "post": {
+        "description": "To Create New Country",
+        "operationId": "addCountry",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "countryname":{"type":"string"},
+                "status": {"type":"string","enum":"['0','1']"},
+                "modifiedBy":{"type":"string"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/updateCountryById": {
+      "put": {
+        "description": "To update country",
+        "operationId": "updateCountry",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "id":{"type":"integer"},
+                "countryname":{"type":"string"},
+                "status": {"type":"string","enum":"['0','1']"},
+                "modifiedBy":{"type":"string"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/deleteCountry": {
+      "put": {
+        "description": "To delete Country",
+        "operationId": "deleteCountry",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "id":{"type":"integer"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/getCountryById": {
+      "post": {
+        "description": "To getCountry By Id",
+        "operationId": "getCountryById",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "id":{"type":"integer"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/getStates": {
+      "post": {
+        "description": "Get List of States",
+        "operationId": "getStates",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/filter"
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch List of States in the system.",
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/addState": {
+      "post": {
+        "description": "To Create New State",
+        "operationId": "addState",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "statename":{"type":"string"},
+                "zoneid":{"type":"integer"},
+                "status": {"type":"string","enum":"['0','1']"},
+                "modifiedBy": {"type":"string"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/updateStateById": {
+      "put": {
+        "description": "To update StateById",
+        "operationId": "updateStateById",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "id":{"type":"integer"},
+                "zoneid":{"type":"integer"},
+                "statename":{"type":"string"},
+                "status": {"type":"string","enum":"['0','1']"},
+                "modifiedBy":{"type":"string"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/deleteState": {
+      "put": {
+        "description": "To delete StateById",
+        "operationId": "deleteState",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "id":{"type":"integer"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/getStateById": {
+      "post": {
+        "description": "To Get StateById",
+        "operationId": "getStateById",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "id":{"type":"integer"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/getDistricts": {
+      "post": {
+        "description": "Get List of Districts",
+        "operationId": "getDistricts",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/filter"
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch List of States in the system.",
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/addDistrict": {
+      "post": {
+        "description": "To Create New District",
+        "operationId": "addState",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "districtname":{"type":"string"},
+                "stateid":{"type":"integer"},
+                "status": {"type":"string","enum":"['0','1']"},
+                "modifiedBy": {"type":"string"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/updateDistrictById": {
+      "put": {
+        "description": "To updateDistrictById",
+        "operationId": "updateDistrictById",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "id":{"type":"integer"},
+                "stateid":{"type":"integer"},
+                "districtname":{"type":"string"},
+                "status": {"type":"string","enum":"['0','1']"},
+                "modifiedBy":{"type":"string"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/deleteDistrict": {
+      "put": {
+        "description": "To delete DistrictById",
+        "operationId": "deleteDistrictById",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "id":{"type":"integer"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/getDistrictById": {
+      "post": {
+        "description": "To Get DistrictById",
+        "operationId": "getDistrictById",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "id":{"type":"integer"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/getCities": {
+      "post": {
+        "description": "Get List of Cities",
+        "operationId": "getCities",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/filter"
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch List of City in the system.",
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/addCity": {
+      "post": {
+        "description": "To Create New City",
+        "operationId": "addCity",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "cityname":{"type":"string"},
+                "districtid":{"type":"integer"},
+                "status": {"type":"string","enum":"['0','1']"},
+                "modifiedBy": {"type":"string"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/updateCityById": {
+      "put": {
+        "description": "To updateCityById",
+        "operationId": "updateCityById",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "id":{"type":"integer"},
+                "districtid":{"type":"integer"},
+                "cityname":{"type":"string"},
+                "status": {"type":"string","enum":"['0','1']"},
+                "modifiedBy":{"type":"string"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/deleteCity": {
+      "put": {
+        "description": "To delete CityById",
+        "operationId": "deleteCityById",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "id":{"type":"integer"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/getCityById": {
+      "post": {
+        "description": "To Get CityById",
+        "operationId": "getCityById",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "id":{"type":"integer"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Lookup"
+        ]
+      }
+    },
+    "/apia/getsurveyList": {
+      "post": {
+        "description": "Get List of Survey",
+        "operationId": "getsurveyList",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/filter"
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch List of Survey.",
+        "tags": [
+          "Survey"
+        ]
+      }
+    },
+    "/apia/surveyFormLabel": {
+      "post": {
+        "description": "Get List of surveyFormLabel",
+        "operationId": "surveyFormLabel",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/filter"
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch List of Survey.",
+        "tags": [
+          "Survey"
+        ]
+      }
+    },
+    "/apia/survey": {
+      "post": {
+        "description": "To Create New Survey",
+        "operationId": "survey",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "surveyname":{"type":"string"},
+                "surveytitle":{"type":"string"},
+                "surveycategoryid":{"type":"integer"},
+                "surveytype":{"type":"integer"},
+                "surveyform":{"type":"boolean"},
+                "logopath":{"type":"string"},
+                "surveyformid":{"type":"string"},
+                "active":{"type":"boolean"},
+                "createddate":{"type":"string"},
+                "createdby":{"type":"string"},
+                "modifieddate":{"type":"string"},
+                "modifiedby": {"type":"string"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Survey"
+        ]
+      }
+    },
+    "/apia/surveyformsave": {
+      "post": {
+        "description": "To surveyformsave",
+        "operationId": "surveyformsave",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "surveyId":{"type":"string"},
+                "type": "array",
+                "properties":{
+                  "formlabels":{
+                       "labelname":{"type":"string"},
+                      "isvisible":{"type":"boolean"},
+                      "isrequired":{"type":"boolean"}
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Survey"
+        ]
+      }
+    },
+    "/apia/getsurveyById": {
+      "post": {
+        "description": "To Get surveyById",
+        "operationId": "getsurveyById",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "surveyId":{"type":"string"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Survey"
+        ]
+      }
+    },
+    "/apia/surveyDelete": {
+      "put": {
+        "description": "To delete Survey",
+        "operationId": "surveyDelete",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "surveyId":{"type":"string"}
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Survey"
+        ]
+      }
+    },
+    "/apia/questionSave": {
+      "post": {
+        "description": "To Create New Survey Question",
+        "operationId": "questionSave",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "surveyId":{"type":"string"},
+                "inputtype": {"type":"string"},
+                "inputtypeid": {"type":"integer"},
+                "isrequired":  {"type":"boolean"},
+                "requiredmsg": {"type":"string"},
+                "layoutforchoices":{"type":"string"},
+                "questionnumber": {"type":"string"},
+                "question":{"type":"string"},
+                "answerchoices":{
+                  "type": "array",
+                  "properties":{
+                    "option":{"type":"string"},
+                    "value": {"type":"string"}
+                }
+              },
+              "active": {"type":"boolean"},
+                "createddate":{"type":"string"},
+                "createdby": {"type":"string"},
+                "modifieddate":{"type":"string"},
+                "modifiedby":{"type":"string"}
+            }
+          }
+        }
+      ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Survey"
+        ]
+    }
+  },
+  "/apia/questionUpdate": {
+    "put": {
+      "description": "To Question Survey",
+      "operationId": "questionUpdate",
+      "parameters": [
+        {
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "type": "object",
+            "properties":{
+              "questionId":{"type":"string"},
+              "surveyId":{"type":"string"},
+              "inputtype": {"type":"string"},
+              "inputtypeid": {"type":"integer"},
+              "isrequired":  {"type":"boolean"},
+              "requiredmsg": {"type":"string"},
+              "layoutforchoices":{"type":"string"},
+              "questionnumber": {"type":"string"},
+              "question":{"type":"string"},
+              "answerchoices":{
+                "type": "array",
+                "properties":{
+                  "option":{"type":"string"},
+                  "value": {"type":"string"}
+              }
+            },
+            "active": {"type":"boolean"},
+              "createddate":{"type":"string"},
+              "createdby": {"type":"string"},
+              "modifieddate":{"type":"string"},
+              "modifiedby":{"type":"string"}
+          }
+        }
+      }
+    ],
+      "produces": [
+        "application/json",
+        "application/xml"
+      ],
+      "security": [
+        {
+          "api_key": []
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "successful operation",
+          "schema": {
+            "type": "object"
+          }
+        },
+        "403": {
+          "description": "You do not have necessary permissions for the resource",
+          "schema": {
+            "type": "object"
+          }
+        }
+      },
+      "tags": [
+        "Survey"
+      ]
+    }
+  },
+  "/apia/questionDelete": {
+    "put": {
+      "description": "To Delete questionById",
+      "operationId": "questionDelete",
+      "parameters": [
+        {
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "type": "object",
+            "properties":{
+              "questionId":{"type":"string"}
+            }
+          }
+        }
+      ],
+      "produces": [
+        "application/json",
+        "application/xml"
+      ],
+      "security": [
+        {
+          "api_key": []
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "successful operation",
+          "schema": {
+            "type": "object"
+          }
+        },
+        "403": {
+          "description": "You do not have necessary permissions for the resource",
+          "schema": {
+            "type": "object"
+          }
+        }
+      },
+      "tags": [
+        "Survey"
+      ]
+    }
+  },
+  "/apia/getquestionsById": {
+    "post": {
+      "description": "Get List of Survey questionsBy surveyId ",
+      "operationId": "getquestionsById",
+      "parameters": [
+        {
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "type": "object",
+            "surveyId": {"type":"string"}
+          }
+        }
+      ],
+      "produces": [
+        "application/json",
+        "application/xml"
+      ],
+      "security": [
+        {
+          "api_key": []
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "successful operation",
+          "schema": {
+            "type": "object"
+          }
+        },
+        "403": {
+          "description": "You do not have necessary permissions for the resource",
+          "schema": {
+            "type": "object"
+          }
+        }
+      },
+      "summary": "Fetch List of Survey Questions By SurveyId.",
+      "tags": [
+        "Survey"
+      ]
+    }
+  },
+  "/apia/getquestionById": {
+    "post": {
+      "description": "Get List of Survey questionsBy questionId",
+      "operationId": "getquestionById",
+      "parameters": [
+        {
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "type": "object",
+            "questionId": {"type":"string"}
+          }
+        }
+      ],
+      "produces": [
+        "application/json",
+        "application/xml"
+      ],
+      "security": [
+        {
+          "api_key": []
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "successful operation",
+          "schema": {
+            "type": "object"
+          }
+        },
+        "403": {
+          "description": "You do not have necessary permissions for the resource",
+          "schema": {
+            "type": "object"
+          }
+        }
+      },
+      "summary": "Fetch List of Survey Questions By SurveyId.",
+      "tags": [
+        "Survey"
+      ]
+    }
+  },
+  "/apia/getSurveyCategory": {
+    "post": {
+      "description": "Get List of Survey SurveyCategory",
+      "operationId": "getSurveyCategory",
+      "produces": [
+        "application/json",
+        "application/xml"
+      ],
+      "security": [
+        {
+          "api_key": []
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "successful operation",
+          "schema": {
+            "type": "object"
+          }
+        },
+        "403": {
+          "description": "You do not have necessary permissions for the resource",
+          "schema": {
+            "type": "object"
+          }
+        }
+      },
+      "summary": "Fetch List ofSurveyCategorys.",
+      "tags": [
+        "Survey"
+      ]
+    }
+  },
+  "definitions": {
+    "user": {
+      "type": "object",
+      "properties": {
+        "branchId": { "type": "integer" },
+        "branchName": { "type": "string" },
+        "userName": { "type": "string" },
+        "userTypeId": { "type":"integer" },
+        "phoneNo": { "type":"number" },
+        "email": { "type":"string" },
+        "gender": { "type":"string" },
+        "address": { "type":"string" },
+        "countryId": { "type":"integer" },
+        "zoneId": { "type":"integer" },
+        "stateId": { "type":"integer" },
+        "districtId": { "type":"integer" },
+        "reportingUserId": { "type":"integer" },
+        "active": { "type":"string" },
+        "modifiedBy": { "type":"string"}
+        }
+      },
+    "rolemodel": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "rolename": { "type": "string" },
+        "active": { "type": "boolean" },
+        "createddate": { "type": "string" },
+        "createdby": { "type": "string" },
+        "modifieddate": { "type": "string" },
+        "modifiedby": { "type": "string" }
+      }
+  },
+  "filter": {
+    "type": "object",
+    "properties": {
+      "isalldata": { "type": "boolean" },
+      "limit": { "type": "integer" },
+      "page": { "type": "integer" },
+      "search": { "type": "string" },
+      "sort": { "type": "string" }
+    }
+}
+  }
+}
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
