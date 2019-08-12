@@ -8,14 +8,10 @@ const User = db.TblUser;
 const UserOtp = db.TblUserOtp
 var xoauth2 = require('xoauth2');
 
-
-
-
 const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
 const token = otplib.authenticator.generate(secret);
 
 //const otp = otpGenerator.generate(6, { digits : true,upperCase: false, specialChars: false, upperCase: false, specialChars: false });
-
 
 var smtpTransport = nodemailer.createTransport({
 	service: "gmail",
@@ -68,11 +64,9 @@ const UserController = () => {
 										
 										//email
 										// setup e-mail data with unicode symbols
-										//var userId = db.sequelize.query("SELECT userId FROM TblUser WHERE email="+"'"+data.email+"'")
 										var userId = await User.findOne({
 											where:{email: data.email}
 										}, (err, data) => {
-										 console.log('----------------->userId', data)
 											return data
 										});
 		
@@ -87,10 +81,8 @@ const UserController = () => {
 										// send mail with defined transport object
 										await smtpTransport.sendMail(mailOptions, function (error, response) {
 											if (error) {
-												 console.log('------------------>sdfsdfa', error);
-											} else {
-												 console.log("Message sent: " + JSON.stringify(response), token);
-												console.log('---------->inside')
+												 console.log(error);
+											} else {						
 												const userOtp = UserOtp.create({
 													userId: userId.dataValues.userId,
 													email: data.email,
@@ -106,7 +98,7 @@ const UserController = () => {
 		
 										});
 									} else {
-										console.log('------------>err')
+										console.log('error')
 									}
 									return res.status(httpStatus.OK).json({
 										msg: "OTP sent successfully"
@@ -120,12 +112,10 @@ const UserController = () => {
 
 						
 					} catch (err) {
-						console.log('----------->1st')
 						return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
 					}
 				}
 			} catch (err) {
-				console.log('-------------->2nd')
 				return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
 			}
 		}
@@ -136,7 +126,6 @@ const UserController = () => {
 		const user = await UserOtp.findOne({
 			where:{email: verifyData.email}
 		},function(err,data){
-			
 			res.json(data)
 		}).catch(err => {
 			const errorMsg = err.errors ? err.errors[0].message : err.message;

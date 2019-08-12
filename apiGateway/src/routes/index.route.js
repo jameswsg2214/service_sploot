@@ -1,6 +1,6 @@
 const express = require("express");
 const authRoutes = require("./auth.route");
-// const mobileRoutes = require("./mobile.route");
+const mobileRoutes = require("./mobile.route");
 const adminRoutes = require("./admin.route");
 const authService = require("../services/auth.service");
 
@@ -31,7 +31,7 @@ function _validateToken(token) {
 router.use("/auth", authRoutes);
 
 
-// router.use("/apim", mobileRoutes);
+router.use("/apim", mobileRoutes);
 router.use("/apia", adminRoutes);
 
 
