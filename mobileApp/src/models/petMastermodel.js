@@ -12,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
       PetName: {
         type: DataTypes.STRING(50),
         allowNull: false,
-        unique: true,
         isEmail: true
       },
       PetCategoryId: {
@@ -23,7 +22,6 @@ module.exports = (sequelize, DataTypes) => {
       },
       Sex: {
         type: DataTypes.STRING(128),
-        unique: true,
         allowNull: true
       },
       BreedId:{
@@ -47,7 +45,11 @@ module.exports = (sequelize, DataTypes) => {
         type:  DataTypes.STRING(128),
         allowNull: false,
        },
-       MonthlyCycleId:{
+       MonthlyCycle:{
+        type:  DataTypes.STRING(128),
+        allowNull: false,
+       },
+       Period:{
         type:  DataTypes.STRING(128),
         allowNull: false,
        },
@@ -55,6 +57,12 @@ module.exports = (sequelize, DataTypes) => {
         type:  DataTypes.STRING(128),
         allowNull: false,
        },
+       Status:{
+        type: DataTypes.ENUM,
+          values: ["0", "1"],
+          defaultValue: "1"
+       },
+
 
     },
     {

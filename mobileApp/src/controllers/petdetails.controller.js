@@ -2,6 +2,7 @@ const httpStatus = require("http-status");
 const db = require("../config/sequelize");
 const _ = require("lodash");
 const bcryptService = require("../services/bcrypt.service");
+var fs = require("file-system")
 
 const petCategory = db.PetCategory;
 const breedTypeId = db.BreedTypeID;
@@ -104,53 +105,44 @@ const petDetailsController = () => {
 
   const postPetMaster = async (req, res, next) => {
 
-    const data = req.body;
-    console.log(data)
-    if (data) {
-      try {
-        console.log("hi1")
-        const pet = await petMaster.findOne({
-          where: {
-            PetId: data.PetId
-          }
-        }).catch(err => {
-          console.log("error")
+        const postData = req.body;
 
-          const errorMsg = err.errors ? err.errors[0].message : err.message;
-          return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
-        })
-        if (pet) {
-          console.log("hi2")
-          return res.status(httpStatus.BAD_REQUEST).json({ msg: "PetMaster already Exist" });
-        } else {
-          try {
-            console.log("hi3")
-            const postData = req.body;
-            console.log('postdata', postData)
-            const Petdata = await petMaster.create({
-              PetId: postData.PetId,
-              PetName: postData.PetName,
-              PetCategoryId: postData.PetCategoryId,
-              Sex: postData.Sex,
-              BreedId: postData.BreedId,
-              DOB: postData.DOB,
-              Color: postData.Color,
-              Photo: postData.Photo,
-              OwnerId: postData.OwnerId,
-              MonthlyCycleId: postData.MonthlyCycleId,
-              Weight: postData.Weight
-            }, {
-                returning: true
-              })
-          } catch (err) {
-            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error1" });
-          }
-        }
-      } catch (err) {
-        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error2" });
+        // image conversion
 
-      };
-    };
+        var data = postData.Photo
+        var pt = '';
+        var date = new Date();
+        var ptr = date.getFullYear() +""+ date.getMonth()+"" + date.getMilliseconds()+'.jpeg';
+        pts = './public/'+ ptr;
+         fs.writeFile(pts, data,'base64', (err) => {
+            if(err)
+            console.log(err)
+            else{
+                console.log('Image Svaed Success...');
+            }
+        });
+    
+        ptr = 'http://localhost:4000/'+ptr;
+
+        // image conversion completed........
+        
+        const Petdata = await petMaster.create({
+          PetName: postData.PetName,
+          PetCategoryId: postData.PetCategoryId,
+          Sex: postData.Sex,
+          BreedId: postData.BreedId,
+          DOB: postData.DOB,
+          Color: postData.Color,
+          Photo: ptr,
+          OwnerId: postData.OwnerId,
+          MonthlyCycle: postData.MonthlyCycle,
+          Period: postData.Period,
+          Weight: postData.Weight,
+          Status: postData.status
+        }, {
+            returning: true,
+          })
+          console.log(Petdata)
   };
 
 
