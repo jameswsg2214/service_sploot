@@ -4,11 +4,8 @@ const authService = require("../services/auth.service");
 const bcryptService = require("../services/bcrypt.service");
 const db = require("../config/sequelize");
 var nodemailer = require("nodemailer");
-var moment = require("moment");
 const config = require("../config/config");
 const User = db.TblUser;
-const UserTypes = db.TblUserTypes;
-const userDepartment = db.TblUserDepartment;
 const otpAuth = db.TblOtpAuth;
 
 const AuthController = () => {
@@ -19,11 +16,11 @@ const AuthController = () => {
    * @param next
    * @returns {*}
    */
+
   const login = async (req, res, next) => {
-    console.log('hitting')
+    
     const { username, password } = req.body;
-   
-    // userCond.userTypeId = 2;
+  
     if (username && password) {
       try {
         const user = await User.findOne({
@@ -39,7 +36,7 @@ const AuthController = () => {
           const token = authService().issue({ id: user.id });
           return res
             .status(httpStatus.OK)
-            .json({ status: "success", token, user: { TblUser: user } });
+            .json({ status: "success", token, User: user  });
         }
         return res
           .status(httpStatus.UNAUTHORIZED)
@@ -56,6 +53,7 @@ const AuthController = () => {
       .status(httpStatus.BAD_REQUEST)
       .json({ status: "error", msg: "Email or password is wrong works" });
   };
+
   const generateOTP = async () => {
     var digits = "0123456789";
     let OTP = "";
@@ -143,6 +141,7 @@ const AuthController = () => {
         .json({ status: "error", msg: "Username is missing." });
     }
   };
+
   const validateOtp = async (req, res, next) => {
     const { otpValue } = req.body;
     let otpCond = {};
@@ -182,6 +181,7 @@ const AuthController = () => {
       .status(httpStatus.BAD_REQUEST)
       .json({ status: "error", msg: "OtpValue missing." });
   };
+
   const passwordChange = async (req, res, next) => {
     const { userId, password } = req.body;
     if (userId && password) {
@@ -210,6 +210,44 @@ const AuthController = () => {
       .status(httpStatus.BAD_REQUEST)
       .json({ status: "error", msg: "UserId and Password is missing." });
   };
+
+  const verifyOtp = async (req, res, next) => {
+		const verifyData = req.body
+		console.log(verifyData)
+		const user = await User.findOne({
+			where: { email: verifyData.email }
+		}, function (err, data) {
+			res.json(data)
+		}).catch(err => {
+			const errorMsg = err.errors ? err.errors[0].message : err.message;
+			return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+		});
+		console.log('--------user', user);
+		if (user.dataValues.verified === 0) {
+			User.update(
+				{ verified: 1 },
+				{
+					where: {
+						email: verifyData.email
+					}
+				}
+			)
+				.then(() => {
+					return res.status(httpStatus.OK).json({
+						msg: "OTP verified successfully"
+					});
+				})
+				.catch(() => {
+					return res.status(httpStatus.OK).json({
+						msg: "Failed to verify OTP"
+					});
+				})
+		} else {
+			return res.status(httpStatus.OK).json({
+				msg: "OTP is already verified"
+			});
+		}
+	};
 
   const updateOtp = async (req, res, next) => {
     const { otpValue } = req.body;
@@ -246,6 +284,7 @@ const AuthController = () => {
     forgetPassword,
     passwordChange,
     validateOtp,
+    verifyOtp,
     updateOtp
   };
 };

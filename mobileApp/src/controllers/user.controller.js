@@ -28,28 +28,28 @@ const UserController = () => {
 	 * @property {string} req.body - user object.
 	 * 
 	 */
-	
+
 	const createUser = async (req, res, next) => {
 
-		const { userName } = req.body;
-		if (userName) {
+		const { email } = req.body;
+		if (email) {
 			try {
-				const user = await User.findOne({ //this is working
+				const user = await User.findOne({ 
 					where: {
-						userName: userName
+						email: email
 					}
 				}).catch(err => {
 					const errorMsg = err.errors ? err.errors[0].message : err.message;
 					return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
 				});
-				 console.log(user)
+				console.log(user)
 				if (user) {
 					return res.status(httpStatus.BAD_REQUEST).json({ msg: "User Name already Exist" });
 				} else {
 					try {
 						const postData = req.body;
-					     console.log('postdata', postData)
-						const data = await User.create({
+						console.log('postdata', postData)
+						User.create({
 							userName: postData.userName,
 							password: postData.password,
 							email: postData.email,
@@ -57,19 +57,18 @@ const UserController = () => {
 						}, {
 								returning: true
 							})
-							.then(async (data)=>{
+							.then(async (data) => {
 								if (data) {
 									if (isNaN(data.email)) {
-										console.log("-------------->",data.email);
-										
+										console.log("-------------->", data.email);
 										//email
 										// setup e-mail data with unicode symbols
 										var userId = await User.findOne({
-											where:{email: data.email}
+											where: { email: data.email }
 										}, (err, data) => {
 											return data
 										});
-		
+
 										var mailOptions = {
 											from: "chandubhimapalli4@gmail.com", // sender address
 											to: data.email, // list of receivers
@@ -77,12 +76,12 @@ const UserController = () => {
 											text: token, // plaintext body
 											html: `<b>Your OTP is ${token}</b>` // html body
 										}
-		
+
 										// send mail with defined transport object
 										await smtpTransport.sendMail(mailOptions, function (error, response) {
 											if (error) {
-												 console.log(error);
-											} else {						
+												console.log(error);
+											} else {
 												const userOtp = UserOtp.create({
 													userId: userId.dataValues.userId,
 													email: data.email,
@@ -95,7 +94,7 @@ const UserController = () => {
 														return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
 													});
 											}
-		
+
 										});
 									} else {
 										console.log('error')
@@ -106,10 +105,10 @@ const UserController = () => {
 								}
 							})
 							.catch(err => {
-								 const errorMsg = err.errors ? err.errors[0].message : err.message;
+								const errorMsg = err.errors ? err.errors[0].message : err.message;
 								return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
 							});
-						
+
 					} catch (err) {
 						return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
 					}
@@ -120,20 +119,19 @@ const UserController = () => {
 		}
 	};
 
-	const verifyOtp = async (req, res) => {
+	const verifyOtp = async (req, res, next) => {
 		const verifyData = req.body
 		console.log(verifyData)
 		const user = await User.findOne({
-			where:{email: verifyData.email}
-		},function(err,data){
+			where: { email: verifyData.email }
+		}, function (err, data) {
 			res.json(data)
 		}).catch(err => {
 			const errorMsg = err.errors ? err.errors[0].message : err.message;
 			return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
 		});
-		console.log('--------user',user);
-		
-		if(user.dataValues.verified===0){
+		console.log('--------user', user);
+		if (user.dataValues.verified === 0) {
 			User.update(
 				{ verified: 1 },
 				{
@@ -142,25 +140,59 @@ const UserController = () => {
 					}
 				}
 			)
-			.then(()=>{
-				return res.status(httpStatus.OK).json({
-					msg: "OTP verified successfully"
-				});
-			})
-			.catch(()=>{
-				return res.status(httpStatus.OK).json({
-					msg: "Failed to verify OTP"
-				});
-			})
+				.then(() => {
+					return res.status(httpStatus.OK).json({
+						msg: "OTP verified successfully"
+					});
+				})
+				.catch(() => {
+					return res.status(httpStatus.OK).json({
+						msg: "Failed to verify OTP"
+					});
+				})
 		} else {
 			return res.status(httpStatus.OK).json({
 				msg: "OTP is already verified"
 			});
 		}
+	};
+
+	const signupUser = async (req, res, next) => {
+		const profileData = req.body;
+		if (profileData) {
+			const user = await User.findOne({
+				where: {
+					email: email
+				}
+			}).catch(err => {
+				const errorMsg = err.errors ? err.errors[0].message : err.message;
+				return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+			});
+			console.log("============>>>>>>>>>>.", user)
+			if (user) {
+				return res.status(httpStatus.BAD_REQUEST).json({ msg: "Email already registered" });
+			} else {
+				User.create({
+					userName: profileData.userName,
+					email: profileData.email,
+					userId: profileData.userId
+				}, {
+						returning: true
+					})
+					.then(() => {
+						return res.status(httpStatus.OK).json({ msg: "Successfully registered" });
+					})
+					.catch(() => {
+						return res.status(httpStatus.BAD_REQUEST).json({ msg: "Failed to register" });
+					})
+			}
+		}
 	}
+
 	return {
 		createUser,
-		verifyOtp
+		verifyOtp,
+		signupUser
 	};
 };
 module.exports = UserController();
