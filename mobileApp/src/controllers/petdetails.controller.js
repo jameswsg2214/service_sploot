@@ -146,6 +146,80 @@ const petDetailsController = () => {
   };
 
 
+  
+  const deletePetdetails = async (req, res, next) => {
+    try {
+      console.log(req.body)
+      const data = await petMaster.update(
+        { Status: '0' },
+        {
+          where: {
+            PetId: req.body.PetId
+          }
+        }
+      )
+      if (!data) {
+        return res
+          .status(httpStatus.OK)
+          .json({ status: "error", msg: "Master Data's not found" });
+      }
+      return res
+        .status(httpStatus.OK)
+        .json({ status: "success", breedData: data });
+    } catch (err) {
+      const errorMsg = err.errors ? err.errors[0].message : err.message;
+      return res
+        .status(httpStatus.INTERNAL_SERVER_ERROR)
+        .json({ status: "error", msg: errorMsg });
+    }
+  };
+
+  const updatePetdetails = async (req, res, next) => {
+    updateData = req.body
+    try {
+      const data = await petMaster.update(
+        { 
+          PetName: updateData.PetName,
+          PetCategoryId: updateData.PetCategoryId,
+          Sex: updateData.Sex,
+          BreedId: updateData.BreedId,
+          DOB: updateData.DOB,
+          Color: updateData.Color,
+          Photo: updateData.Photo,
+          OwnerId: updateData.OwnerId,
+          MonthlyCycleId: updateData.MonthlyCycleId,
+          Weight: updateData.Weight,
+          Status: updateData.Status
+         },
+        {
+          where: {
+            PetId: updateData.PetId,
+          }
+        }
+      )
+      if (!data) {
+        return res
+          .status(httpStatus.OK)
+          .json({ status: "error", msg: "Master Data's not found" });
+      }
+      return res
+        .status(httpStatus.OK)
+        .json({ status: "success", breedData: data });
+    } catch (err) {
+      const errorMsg = err.errors ? err.errors[0].message : err.message;
+      return res
+        .status(httpStatus.INTERNAL_SERVER_ERROR)
+        .json({ status: "error", msg: errorMsg });
+    }
+  };
+
+
+
+
+
+
+
+
 
   // --------------------------------------------return----------------------------------
   return {
@@ -153,7 +227,9 @@ const petDetailsController = () => {
     getBreedTypeId,
     getPetMaster,
     getBreedMaster,
-    postPetMaster
+    postPetMaster,
+    deletePetdetails,
+    updatePetdetails
   };
 };
 

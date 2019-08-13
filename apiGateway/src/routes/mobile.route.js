@@ -20,5 +20,7 @@ router.route("/getBreedTypeId").post(petDetailCtrl.getBreedTypeId);
 router.route("/getBreedMaster").post(petDetailCtrl.getBreedMaster);
 router.route("/getPetMaster").post(petDetailCtrl.getPetMaster);
 router.route("/postPetMaster").post(petDetailCtrl.postPetMaster);
+router.route("/deletePetdetails").post(petDetailCtrl.deletePetdetails);
+router.route("/updatePetdetails").post(petDetailCtrl.updatePetdetails);
 
 module.exports = router;

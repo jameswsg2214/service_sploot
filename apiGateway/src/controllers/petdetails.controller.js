@@ -69,6 +69,28 @@ const petDetailsController = () => {
 				console.log(err.response.status);
 				res.status(err.response.status).json(err.response.data);
 			});
+	};
+	
+	const deletePetdetails = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/deletePetdetails", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
+	
+	const updatePetdetails = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/updatePetdetails", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
     };
 
 
@@ -77,7 +99,9 @@ const petDetailsController = () => {
 		getBreedTypeId,
 		getPetMaster,
 		getBreedMaster,
-		postPetMaster
+		postPetMaster,
+		deletePetdetails,
+		updatePetdetails
 	};
 };
 
