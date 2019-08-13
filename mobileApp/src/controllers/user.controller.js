@@ -34,7 +34,7 @@ const UserController = () => {
 		const { email } = req.body;
 		if (email) {
 			try {
-				const user = await User.findOne({ //this is working
+				const user = await User.findOne({ 
 					where: {
 						email: email
 					}
@@ -61,7 +61,6 @@ const UserController = () => {
 								if (data) {
 									if (isNaN(data.email)) {
 										console.log("-------------->", data.email);
-
 										//email
 										// setup e-mail data with unicode symbols
 										var userId = await User.findOne({
@@ -189,7 +188,7 @@ const UserController = () => {
 			}
 		}
 	}
-	
+
 	return {
 		createUser,
 		verifyOtp,
