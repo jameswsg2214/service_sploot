@@ -5,7 +5,7 @@ const bcryptService = require("../services/bcrypt.service");
 const Utils = require("../utils/generic");
 const api = require("../services/api.service");
 
-const MobileController = () => {
+const petDetailsController = () => {
 	/**
 	 * Returns jwt token if valid username and password is provided
 	 * @param req
@@ -13,12 +13,12 @@ const MobileController = () => {
 	 * @param next
 	 * @returns {*}
 	 */
-	const login = async (req, res, next) => {
-		console.log(req.body);
 
-		api.makeServiceCall("POST", "mobile", "/auth/login", req.body, req.headers)
+	
+	const getPetCategory = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/getPetCategory", req.body)
 			.then(response => {
-				res.send(response); // <= send data to the client
+				res.send(response.data); // <= send data to the client
 			})
 			.catch(err => {
 				console.log(err.response.status);
@@ -26,8 +26,20 @@ const MobileController = () => {
 			});
 	};
 	
-	const createUser = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/user/createUser", req.body, req.headers)
+
+	const getBreedTypeId = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/getBreedTypeId", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+    };
+
+	const getBreedMaster = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/getBreedMaster", req.body)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -36,22 +48,9 @@ const MobileController = () => {
 				res.status(err.response.status).json(err.response.data);
 			});
 	};
-
-	const verifyOtp = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/user/verifyOtp", req.body, req.headers)
-			.then(response => {
-				res.send(response.data); // <= send data to the client
-			})
-			.catch(err => {
-				console.log(err.response.status);
-				res.status(err.response.status).json(err.response.data);
-			});
-	};
-
 	
-
-	const deleteUser = async (req, res, next) => {
-		api.makeServiceCall("PUT", "mobile", "/user/deleteUser", req.body, req.headers)
+	const getPetMaster = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/getPetMaster", req.body)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -61,9 +60,19 @@ const MobileController = () => {
 			});
 	};
 
+	const postPetMaster = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/postPetMaster", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
 	
-	const getuserById = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/user/getuserById", req.body)
+	const deletePetdetails = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/deletePetdetails", req.body)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -72,8 +81,9 @@ const MobileController = () => {
 				res.status(err.response.status).json(err.response.data);
 			});
 	};
-	const updateUserbyId = async (req, res, next) => {
-		api.makeServiceCall("PUT", "mobile", "/user/updateUserbyId", req.body)
+	
+	const updatePetdetails = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/updatePetdetails", req.body)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -81,20 +91,18 @@ const MobileController = () => {
 				console.log(err.response.status);
 				res.status(err.response.status).json(err.response.data);
 			});
-	};
-
-
+    };
 
 
 	return {
-		login,
-		createUser,
-		verifyOtp,
-		deleteUser,
-		getuserById,
-		updateUserbyId,
-		
+		getPetCategory,
+		getBreedTypeId,
+		getPetMaster,
+		getBreedMaster,
+		postPetMaster,
+		deletePetdetails,
+		updatePetdetails
 	};
 };
 
-module.exports = MobileController();
+module.exports = petDetailsController();
