@@ -2,6 +2,7 @@ const express = require("express");
 const userRoutes = require("./user.route")
 const authRoutes = require("./auth.route");
 const config = require("../config/config");
+const petdetailsRoutes = require("./petdetails.route");
 
 const router = express.Router();
 
@@ -28,5 +29,7 @@ function _validateToken(token) {
 
 router.use('/user',userRoutes);
 router.use("/auth", authRoutes);
+router.use("/petdetails", petdetailsRoutes);
+
 
 module.exports = router
