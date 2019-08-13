@@ -8,14 +8,6 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true
       },
-      userId: {
-          type: DataTypes.INTEGER,
-          allowNull: false,
-      },
-      userType: {
-        type: DataTypes.STRING(50),
-        allowNull: true
-      },
       email: {
         type: DataTypes.STRING(128),
         unique: true,
@@ -24,13 +16,18 @@ module.exports = (sequelize, DataTypes) => {
       otp:{
           type: DataTypes.INTEGER,
           allowNull: false,
-      }
+      },
+      verified:{
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+      },
     },
     {
       tableName: "TblUserOtp",
       indexes: [
         {
-          fields: ["userId"]
+          fields: ["id"]
         }
       ]
     }

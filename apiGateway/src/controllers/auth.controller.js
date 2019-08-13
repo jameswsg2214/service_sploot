@@ -25,6 +25,33 @@ const AuthController = () => {
         res.status(err.response.status).json(err.response.data);
       });
   };
+
+  const sendOtp = async (req, res, next) => {
+    console.log(req.body);
+    api
+      .makeServiceCall("POST", "mobile", "/auth/sendOtp", req.body, req.headers)
+      .then(response => {
+        res.send(response.data); // <= send data to the client
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(err.response.status).json(err.response.data);
+      });
+  };
+
+  const verifyOtp = async (req, res, next) => {
+    console.log(req.body);
+    api
+      .makeServiceCall("POST", "mobile", "/auth/verifyOtp", req.body, req.headers)
+      .then(response => {
+        res.send(response.data); // <= send data to the client
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(err.response.status).json(err.response.data);
+      });
+  };
+
   const adminlogin = async (req, res, next) => {
     console.log(req.body);
     api
@@ -115,6 +142,8 @@ const AuthController = () => {
   };
   return {
     login,
+    sendOtp,
+    verifyOtp,
     forgetPassword,
     passwordChange,
     adminlogin,

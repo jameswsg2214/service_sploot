@@ -7,7 +7,6 @@ const userCtrl = require("../controllers/user.controller");
 const router = express.Router(); // eslint-disable-line new-cap
 
 router.route("/createUser").post(userCtrl.createUser);
-router.route("/verifyOtp").post(userCtrl.verifyOtp);
 router.route("/signupUser").post(userCtrl.signupUser);
 
 module.exports = router;

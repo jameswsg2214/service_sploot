@@ -8,20 +8,7 @@ const User = db.TblUser;
 const UserOtp = db.TblUserOtp
 var xoauth2 = require('xoauth2');
 
-const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
-const token = otplib.authenticator.generate(secret);
 
-//const otp = otpGenerator.generate(6, { digits : true,upperCase: false, specialChars: false, upperCase: false, specialChars: false });
-
-var smtpTransport = nodemailer.createTransport({
-	service: "gmail",
-	auth: {
-		user: "chandubhimapalli4@gmail.com",
-		pass: "cH@14421"
-	}
-});
-
-var rand, mailOptions, host, link;
 const UserController = () => {
 	/** 
 	 * Create new user here i need to do g authentication
@@ -50,59 +37,14 @@ const UserController = () => {
 						const postData = req.body;
 						console.log('postdata', postData)
 						User.create({
-							userName: postData.userName,
 							password: postData.password,
 							email: postData.email,
-							verified: 0,
+							userTypeId: 1
 						}, {
 								returning: true
 							})
-							.then(async (data) => {
-								if (data) {
-									if (isNaN(data.email)) {
-										console.log("-------------->", data.email);
-										//email
-										// setup e-mail data with unicode symbols
-										var userId = await User.findOne({
-											where: { email: data.email }
-										}, (err, data) => {
-											return data
-										});
-
-										var mailOptions = {
-											from: "chandubhimapalli4@gmail.com", // sender address
-											to: data.email, // list of receivers
-											subject: "Hello ✔", // Subject line
-											text: token, // plaintext body
-											html: `<b>Your OTP is ${token}</b>` // html body
-										}
-
-										// send mail with defined transport object
-										await smtpTransport.sendMail(mailOptions, function (error, response) {
-											if (error) {
-												console.log(error);
-											} else {
-												const userOtp = UserOtp.create({
-													userId: userId.dataValues.userId,
-													email: data.email,
-													otp: token
-												}, {
-														returning: true
-													})
-													.catch(err => {
-														const errorMsg = err.errors ? err.errors[0].message : err.message;
-														return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
-													});
-											}
-
-										});
-									} else {
-										console.log('error')
-									}
-									return res.status(httpStatus.OK).json({
-										msg: "OTP sent successfully"
-									});
-								}
+							.then((data)=>{
+								res.send({status: "success", msg:"User registered successfully",data: data})
 							})
 							.catch(err => {
 								const errorMsg = err.errors ? err.errors[0].message : err.message;
