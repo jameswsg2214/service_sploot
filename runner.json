@@ -1,0 +1,17 @@
+[
+  {
+    "uid": "apiGateway",
+    "script": "./apiGateway/index.js",
+    "append": true
+  },
+  {
+    "uid": "mobileApp",
+    "script": "./mobileApp/index.js",
+    "append": true
+  },
+  {
+    "uid": "adminApp",
+    "script": "./adminApp/index.js",
+    "append": true
+  }
+]
