@@ -17,39 +17,49 @@ const UserController = () => {
 	 */
 
 	const createUser = async (req, res, next) => {
-
-		const { email } = req.body;
-		if (email) {
+		const userData = req.body;
+		if (userData) {
 			try {
-				const user = await User.findOne({ 
+				const user = await User.findOne({
 					where: {
-						email: email
+						email: userData.email
 					}
 				}).catch(err => {
 					const errorMsg = err.errors ? err.errors[0].message : err.message;
 					return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
 				});
-				console.log(user)
 				if (user) {
-					return res.status(httpStatus.BAD_REQUEST).json({ msg: "User Name already Exist" });
+					return res.send({ status: "failed", msg: "User Name already Exist" });
 				} else {
 					try {
-						const postData = req.body;
-						console.log('postdata', postData)
-						User.create({
-							password: postData.password,
-							email: postData.email,
-							userTypeId: 1
-						}, {
-								returning: true
+						const verified = UserOtp.findOne({
+							where: {
+								email: userData.email,
+								verified: 1
+							}
+						})
+							.then((data) => {
+								if (data == null) {
+									res.send({ status: 'failed', msg: 'Email is not verified' })
+								} else {
+									const postData = req.body;
+									console.log('postdata', postData)
+									User.create({
+										password: postData.password,
+										email: postData.email,
+										userTypeId: 1
+									}, {
+											returning: true
+										})
+										.then((data) => {
+											res.send({ status: "success", msg: "User registered successfully", data: data })
+										})
+										.catch(err => {
+											const errorMsg = err.errors ? err.errors[0].message : err.message;
+											return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+										});
+								}
 							})
-							.then((data)=>{
-								res.send({status: "success", msg:"User registered successfully",data: data})
-							})
-							.catch(err => {
-								const errorMsg = err.errors ? err.errors[0].message : err.message;
-								return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
-							});
 
 					} catch (err) {
 						return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });

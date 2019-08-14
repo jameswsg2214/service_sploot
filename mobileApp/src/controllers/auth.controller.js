@@ -34,28 +34,27 @@ const AuthController = () => {
 
   const login = async (req, res, next) => {
 
-    const { username, password } = req.body;
-
-    if (username && password) {
+    const { email, password } = req.body;
+    if (email && password) {
+      console.log("if============>",email,password)
       try {
         const user = await User.findOne({
-          where: { email: username }
+          where: { email: email }
         })
-
-        if (!user) {
-          return res
-            .status(httpStatus.OK)
-            .json({ status: "error", msg: "User not found" });
+console.log('========>>>>>password',user)
+        if(user!=null){
+          if (password === user.dataValues.password) {
+            const token = authService().issue({ id: user.id });
+            return res
+              .status(httpStatus.OK)
+              .json({ status: "success", token, User: user });
+          } else {
+            res.send({status: 'failed', msg:'password is incorrect'})
+          }
+        }else{
+          res.send({status: 'failed', msg:'user not found'})
         }
-        if (password === user.password) {
-          const token = authService().issue({ id: user.id });
-          return res
-            .status(httpStatus.OK)
-            .json({ status: "success", token, User: user });
-        }
-        return res
-          .status(httpStatus.UNAUTHORIZED)
-          .json({ status: "error", msg: "Email or password is wrong" });
+       
       } catch (err) {
         const errorMsg = err.errors ? err.errors[0].message : err.message;
         return res
@@ -328,6 +327,11 @@ const AuthController = () => {
     console.log('------->>>>>>>>>user', user);
     if(user){
       if (user.dataValues.otp == verifyData.otp) {
+        UserOtp.update({ verified: 1 }, {
+          where: {
+            email: verifyData.email
+          }
+        })
         res.send({status: 'Success', msg: "Verified successfully"})
       } else {
         res.send({
