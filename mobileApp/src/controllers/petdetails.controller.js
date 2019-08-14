@@ -105,48 +105,50 @@ const petDetailsController = () => {
 
   const postPetMaster = async (req, res, next) => {
 
-        const postData = req.body;
+   
+    try {
+      const postData = req.body;
+      var data = postData.Photo
+      var pt = '';
+      var date = new Date();
+      var ptr = date.getFullYear() + "" + date.getMonth() + "" + date.getMilliseconds() + '.jpeg';
+      pts = './public/' + ptr;
+      fs.writeFile(pts, data, 'base64', (err) => {
+        if (err)
+          console.log(err)
+        else {
+          console.log('Image Svaed Success...');
+        }
+      });
 
-        // image conversion
+      ptr = 'http://localhost:4000/' + ptr;
 
-        var data = postData.Photo
-        var pt = '';
-        var date = new Date();
-        var ptr = date.getFullYear() +""+ date.getMonth()+"" + date.getMilliseconds()+'.jpeg';
-        pts = './public/'+ ptr;
-         fs.writeFile(pts, data,'base64', (err) => {
-            if(err)
-            console.log(err)
-            else{
-                console.log('Image Svaed Success...');
-            }
-        });
-    
-        ptr = 'http://localhost:4000/'+ptr;
+      // image conversion completed........
 
-        // image conversion completed........
-        
-        const Petdata = await petMaster.create({
-          PetName: postData.PetName,
-          PetCategoryId: postData.PetCategoryId,
-          Sex: postData.Sex,
-          BreedId: postData.BreedId,
-          DOB: postData.DOB,
-          Color: postData.Color,
-          Photo: ptr,
-          OwnerId: postData.OwnerId,
-          MonthlyCycle: postData.MonthlyCycle,
-          Period: postData.Period,
-          Weight: postData.Weight,
-          Status: postData.status
-        }, {
-            returning: true,
-          })
-          console.log(Petdata)
+      const Petdata = await petMaster.create({
+        PetName: postData.PetName,
+        PetCategoryId: postData.PetCategoryId,
+        Sex: postData.Sex,
+        BreedId: postData.BreedId,
+        DOB: postData.DOB,
+        Color: postData.Color,
+        Photo: ptr,
+        OwnerId: postData.OwnerId,
+        MonthlyCycle: postData.MonthlyCycle,
+        Period: postData.Period,
+        Weight: postData.Weight,
+        Status: postData.status
+      }, {
+          returning: true
+        }).then(data=>{
+          res.json({status: "success", msg: "Inserted Successfully"})
+        })
+    }
+   catch(err) {
+      res.json({ status: "error", msg: err })
+    };
   };
 
-
-  
   const deletePetdetails = async (req, res, next) => {
     try {
       console.log(req.body)
@@ -178,7 +180,7 @@ const petDetailsController = () => {
     updateData = req.body
     try {
       const data = await petMaster.update(
-        { 
+        {
           PetName: updateData.PetName,
           PetCategoryId: updateData.PetCategoryId,
           Sex: updateData.Sex,
@@ -190,7 +192,7 @@ const petDetailsController = () => {
           MonthlyCycleId: updateData.MonthlyCycleId,
           Weight: updateData.Weight,
           Status: updateData.Status
-         },
+        },
         {
           where: {
             PetId: updateData.PetId,
