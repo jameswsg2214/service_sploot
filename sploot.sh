@@ -1,4 +1,4 @@
-forever stopall
+pm2 stop all
 
 cd apiGateway/
 npm install -d
