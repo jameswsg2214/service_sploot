@@ -36,25 +36,24 @@ const AuthController = () => {
 
     const { email, password } = req.body;
     if (email && password) {
-      console.log("if============>",email,password)
+      console.log("if============>", email, password)
       try {
         const user = await User.findOne({
           where: { email: email }
         })
-console.log('========>>>>>password',user)
-        if(user!=null){
+        if (user != null) {
           if (password === user.dataValues.password) {
             const token = authService().issue({ id: user.id });
             return res
               .status(httpStatus.OK)
               .json({ status: "success", token, User: user });
           } else {
-            res.send({status: 'failed', msg:'password is incorrect'})
+            res.send({ status: 'failed', msg: 'password is incorrect' })
           }
-        }else{
-          res.send({status: 'failed', msg:'user not found'})
+        } else {
+          res.send({ status: 'failed', msg: 'user not found' })
         }
-       
+
       } catch (err) {
         const errorMsg = err.errors ? err.errors[0].message : err.message;
         return res
@@ -68,6 +67,34 @@ console.log('========>>>>>password',user)
       .json({ status: "error", msg: "Email or password is wrong works" });
   };
 
+  const userLogin = async (req, res, next) => {
+    const profileData = req.body;
+    if (profileData) {
+      const user = await User.findOne({
+        where: {
+          email: profileData.email,
+        }
+      })
+        .catch((error) => {
+          res.send({ error: error })
+        })
+      console.log("==============>>>>>>>>>>>", user)
+      if (user != null) {
+        if (user.dataValues.userId == profileData.userId) {
+          const token = authService().issue({ id: user.dataValues.userId });
+          return res
+            .status(httpStatus.OK)
+            .json({ status: "success", token, User: user });
+        } else {
+          res.send({ status: 'Failed', msg: 'userId is wrong' })
+        }
+      } else {
+        res.send({ status: 'Failed', msg: 'User not found' })
+      }
+
+    }
+  }
+
   const sendOtp = async (req, res, next) => {
     const { email } = req.body;
     var mailOptions = {
@@ -78,11 +105,11 @@ console.log('========>>>>>password',user)
       html: `<b>Your OTP is ${token}</b>` // html body
     }
     console.log(email);
-    
+
     if (email) {
       try {
         console.log('----<.>,');
-        
+
         const user = await UserOtp.findOne({
           where: {
             email: email
@@ -91,32 +118,32 @@ console.log('========>>>>>password',user)
           const errorMsg = err.errors ? err.errors[0].message : err.message;
           return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
         });
-        console.log('------------>>>>',user)
+        console.log('------------>>>>', user)
         if (user) {
           await smtpTransport.sendMail(mailOptions, function (error, response) {
             if (error) {
               console.log(error);
             } else {
               console.log('asdsdfsdfsdfsdf---------------');
-              
+
               const userOtp = UserOtp.update(
                 { otp: token },
                 {
                   where: {
-                   email: email
+                    email: email
                   }
                 }, {
                   returning: true
                 })
                 .then((data) => {
-                  res.send({msg: "OTP sent successfully"})
+                  res.send({ msg: "OTP sent successfully" })
                 })
                 .catch(err => {
                   const errorMsg = err.errors ? err.errors[0].message : err.message;
                   return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
                 });
-                console.log('-------->>>>>>>userotp');
-                
+              console.log('-------->>>>>>>userotp');
+
             }
           });
         } else {
@@ -129,7 +156,7 @@ console.log('========>>>>>password',user)
                 console.log(error);
               } else {
                 console.log('---------<>>sending');
-                
+
                 const userOtp = UserOtp.create({
                   email: email,
                   otp: token
@@ -325,24 +352,24 @@ console.log('========>>>>>password',user)
       return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
     });
     console.log('------->>>>>>>>>user', user);
-    if(user){
+    if (user) {
       if (user.dataValues.otp == verifyData.otp) {
         UserOtp.update({ verified: 1 }, {
           where: {
             email: verifyData.email
           }
         })
-        res.send({status: 'Success', msg: "Verified successfully"})
+        res.send({ status: 'Success', msg: "Verified successfully" })
       } else {
         res.send({
-          status:"failed",
+          status: "failed",
           msg: "OTP is Invalid"
         });
       }
     }
-    else{
+    else {
       res.send({
-        status:"failed",
+        status: "failed",
         msg: "user not exist"
       });
     }
@@ -381,6 +408,7 @@ console.log('========>>>>>password',user)
 
   return {
     login,
+    userLogin,
     forgetPassword,
     passwordChange,
     sendOtp,

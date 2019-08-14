@@ -6,6 +6,7 @@ const router = express.Router(); // eslint-disable-line new-cap
  * POST /api/auth/login - Returns token if correct username and password is provided
  */
 router.route("/login").post(authCtrl.login);
+router.route("/userLogin").post(authCtrl.userLogin);
 router.route("/sendOtp").post(authCtrl.sendOtp);
 router.route("/verifyOtp").post(authCtrl.verifyOtp);
 router.route("/adminlogin").post(authCtrl.adminlogin);
