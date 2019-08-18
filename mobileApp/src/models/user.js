@@ -15,8 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       userName: {
         type: DataTypes.STRING(50),
         allowNull: true,
-        unique: true,
-        isEmail: true
+        unique: true
       },
       password: {
         type: DataTypes.STRING(128),
@@ -25,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
       email: {
         type: DataTypes.STRING(128),
         unique: true,
-        allowNull: true
+        allowNull: true,
+        isEmail: true
       },
       phoneNo: {
         type: DataTypes.STRING(20),
@@ -41,8 +41,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0
-      },
-    
+      }    
     },
     {
       tableName: "TblUser",

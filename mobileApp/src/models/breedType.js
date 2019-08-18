@@ -1,30 +1,35 @@
 module.exports = (sequelize, DataTypes) => {
-  const BreedTypeID = sequelize.define(
-    "BreedTypeID",
+  const TblBreedType = sequelize.define(
+    "TblBreedType",
     {
-      BreedTypeId: {
+      breedTypeId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true
       },
     
-      BreedTypeName: {
+      breedTypeName: {
         type: DataTypes.STRING(50),
         allowNull: false,
         unique: true,
         isEmail: true
       },
+      active: {
+        type: DataTypes.ENUM,
+        values: ["0", "1"],
+        defaultValue: "1"
+      }
     },
     {
-      tableName: "BreedTypeID",
+      tableName: "TblBreedType",
       indexes: [
         {
-          fields: ["BreedTypeId"]
+          fields: ["breedTypeId"]
         }
       ]
     }
   );
 
-  return BreedTypeID;
+  return TblBreedType;
 };

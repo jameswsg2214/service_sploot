@@ -4,10 +4,10 @@ const _ = require("lodash");
 const bcryptService = require("../services/bcrypt.service");
 var fs = require("file-system")
 
-const petCategory = db.PetCategory;
-const breedTypeId = db.BreedTypeID;
-const petMaster = db.PetMaster;
-const breedMaster = db.BreedMaster;
+const petCategory = db.TblPetCategory;
+const breedType = db.TblBreedType;
+const petMaster = db.TblPetMaster;
+const breedMaster = db.TblBreedMaster;
 
 
 const petDetailsController = () => {
@@ -43,7 +43,7 @@ const petDetailsController = () => {
   const getBreedTypeId = async (req, res, next) => {
     try {
       /* Country Data */
-      const data = await breedTypeId.findAll({
+      const data = await breedType.findAll({
       });
       if (!data) {
         return res
@@ -63,7 +63,7 @@ const petDetailsController = () => {
 
   const getPetMaster = async (req, res, next) => {
     try {
-      /* Country Data */
+      console.log("testin>>>>>")
       const pet = await petMaster.findAll({
       });
       if (!pet) {
@@ -126,18 +126,17 @@ const petDetailsController = () => {
       // image conversion completed........
 
       const Petdata = await petMaster.create({
-        PetName: postData.PetName,
-        PetCategoryId: postData.PetCategoryId,
-        Sex: postData.Sex,
-        BreedId: postData.BreedId,
-        DOB: postData.DOB,
-        Color: postData.Color,
-        Photo: ptr,
-        OwnerId: postData.OwnerId,
-        MonthlyCycle: postData.MonthlyCycle,
-        Period: postData.Period,
-        Weight: postData.Weight,
-        Status: postData.status
+        petName: postData.petName,
+        petCategoryId: postData.petCategoryId,
+        sex: postData.sex,
+        breedId: postData.breedId,
+        dob: postData.dob,
+        color: postData.color,
+        photo: ptr,
+        monthlyCycle: postData.monthlyCycle,
+        period: postData.period,
+        weight: postData.weight,
+        status: postData.status
       }, {
           returning: true
         }).then(data=>{
@@ -156,7 +155,7 @@ const petDetailsController = () => {
         { Status: '0' },
         {
           where: {
-            PetId: req.body.PetId
+            petId: req.body.petId
           }
         }
       )
@@ -181,21 +180,21 @@ const petDetailsController = () => {
     try {
       const data = await petMaster.update(
         {
-          PetName: updateData.PetName,
-          PetCategoryId: updateData.PetCategoryId,
-          Sex: updateData.Sex,
-          BreedId: updateData.BreedId,
-          DOB: updateData.DOB,
-          Color: updateData.Color,
-          Photo: updateData.Photo,
-          OwnerId: updateData.OwnerId,
-          MonthlyCycleId: updateData.MonthlyCycleId,
-          Weight: updateData.Weight,
-          Status: updateData.Status
+          petName: updateData.petName,
+          petCategoryId: updateData.petCategoryId,
+          sex: updateData.sex,
+          BreedId: updateData.breedId,
+          dob: updateData.dob,
+          color: updateData.color,
+          photo: updateData.photo,
+          ownerId: updateData.ownerId,
+          monthlyCycle: updateData.monthlyCycle,
+          weight: updateData.weight,
+          status: updateData.status
         },
         {
           where: {
-            PetId: updateData.PetId,
+            petId: updateData.petId,
           }
         }
       )
