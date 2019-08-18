@@ -1,21 +1,21 @@
-forever stopall
+pm2 stop all
 
 cd apiGateway/
 npm install -d
-npm start
+pm2 start index.js
 
 echo "Apigateway Server Started...."
 cd ../
 
 cd mobileApp/
 npm install -d
-npm start
+pm2 start index.js
 echo "Mobile App Server Started...."
 cd ../
 
 cd adminApp/
 npm install -d
-npm start
+pm2 start index.js
 echo "Admin App Server Started...."
 cd ../
 
