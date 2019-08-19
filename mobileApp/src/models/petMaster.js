@@ -13,117 +13,118 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         foreignKey: true
 
-      },      
-      photo:{
-        type:  DataTypes.STRING(128),
+      },
+      photo: {
+        type: DataTypes.STRING(128),
         allowNull: false,
-       },
+      },
       petName: {
         type: DataTypes.STRING(50),
         allowNull: false
       },
-      breedId:{
-        type:  DataTypes.INTEGER,
+      breedId: {
+        type: DataTypes.INTEGER,
         allowNull: false,
-      foreignKey: true
-       },
+        foreignKey: true
+      },
       sex: {
         type: DataTypes.STRING(128),
         allowNull: true
       },
-      
-       dob:{
-        type:  DataTypes.BIGINT,
+
+      dob: {
+        type: DataTypes.BIGINT,
         allowNull: true,
-       },
-       monthlyCycle:{
-        type:  DataTypes.STRING(128),
+      },
+      monthlyCycle: {
+        type: DataTypes.STRING(128),
         allowNull: true,
-       },
-       period:{
-        type:  DataTypes.STRING(128),
+      },
+      period: {
+        type: DataTypes.STRING(128),
         allowNull: true,
-       },
-       height:{
-        type:  DataTypes.DECIMAL(2,2),
+      },
+      height: {
+        type: DataTypes.DECIMAL,
         allowNull: true,
-       },
-       length:{
-        type:  DataTypes.DECIMAL(2,2),
+      },
+      length: {
+        type: DataTypes.DECIMAL,
         allowNull: true,
-       },
-       weight:{
-        type:  DataTypes.DECIMAL(6,3),
+      },
+      weight: {
+        type: DataTypes.DECIMAL,
         allowNull: true,
-       },
-       color:{
-        type:  DataTypes.STRING(128),
+      },
+      color: {
+        type: DataTypes.STRING(128),
         allowNull: true,
-       },
-       marks:{
-        type:  DataTypes.STRING(128),
+      },
+      marks: {
+        type: DataTypes.STRING(128),
         allowNull: true,
-       },
-       parentFatherName:{
-        type:  DataTypes.STRING(128),
+      },
+      parentFatherName: {
+        type: DataTypes.STRING(128),
         allowNull: true,
-       },
-        parentFatherBreedName:{
-        type:  DataTypes.STRING(128),
+      },
+      parentFatherBreedName: {
+        type: DataTypes.STRING(128),
         allowNull: true,
-       },
-        parentAddress:{
-        type:  DataTypes.STRING(150),
+      },
+      parentAddress: {
+        type: DataTypes.STRING(150),
         allowNull: true,
-       },
-       parenOwnerName:{
-        type:  DataTypes.STRING(128),
+      },
+      parenOwnerName: {
+        type: DataTypes.STRING(128),
         allowNull: true,
-       },
-       parenMobileNumber:{
-        type:  DataTypes.STRING(50),
+      },
+      parenMobileNumber: {
+        type: DataTypes.STRING(50),
         allowNull: true,
-       },
-        parentOwnerAddress:{
-        type:  DataTypes.STRING(150),
+      },
+      parentOwnerAddress: {
+        type: DataTypes.STRING(150),
         allowNull: true,
-       },
-       drName:{
-        type:  DataTypes.STRING(50),
+      },
+      drName: {
+        type: DataTypes.STRING(50),
         allowNull: true,
-       },
-       drhospitalName:{
-        type:  DataTypes.STRING(128),
+      },
+      drhospitalName: {
+        type: DataTypes.STRING(128),
         allowNull: true,
-       },
-        drMobile:{
-        type:  DataTypes.STRING(50),
+      },
+      drMobile: {
+        type: DataTypes.STRING(50),
         allowNull: true,
-       },drEmail:{
-        type:  DataTypes.STRING(50),
+      },
+      drEmail: {
+        type: DataTypes.STRING(50),
         allowNull: true,
-       },
-       drAddress:{
-        type:  DataTypes.STRING(150),
+      },
+      drAddress: {
+        type: DataTypes.STRING(150),
         allowNull: true,
-       },
-       drCity:{
-        type:  DataTypes.STRING(128),
+      },
+      drCity: {
+        type: DataTypes.STRING(128),
         allowNull: true,
-       },
-       drState:{
-        type:  DataTypes.STRING(128),
+      },
+      drState: {
+        type: DataTypes.STRING(128),
         allowNull: true,
-       },
-       drCountry:{
-        type:  DataTypes.STRING(128),
+      },
+      drCountry: {
+        type: DataTypes.STRING(128),
         allowNull: true,
-       },      
-       status:{
+      },
+      status: {
         type: DataTypes.ENUM,
-          values: ["0", "1"],
-          defaultValue: "1"
-       }
+        values: ["0", "1"],
+        defaultValue: "1"
+      }
     },
     {
       tableName: "TblPetMaster",

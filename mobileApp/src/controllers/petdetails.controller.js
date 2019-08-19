@@ -6,7 +6,7 @@ var fs = require("file-system")
 
 const petCategory = db.TblPetCategory;
 const breedType = db.TblBreedType;
-const petMaster = db.TblPetMaster;
+const PetMaster = db.TblPetMaster;
 const breedMaster = db.TblBreedMaster;
 
 
@@ -64,7 +64,7 @@ const petDetailsController = () => {
   const getPetMaster = async (req, res, next) => {
     try {
       console.log("testin>>>>>")
-      const pet = await petMaster.findAll({
+      const pet = await PetMaster.findAll({
       });
       if (!pet) {
         return res
@@ -105,9 +105,9 @@ const petDetailsController = () => {
 
   const postPetMaster = async (req, res, next) => {
 
-   
     try {
       const postData = req.body;
+      console.log("postData================>",postData)
       var data = postData.Photo
       var pt = '';
       var date = new Date();
@@ -120,38 +120,54 @@ const petDetailsController = () => {
           console.log('Image Svaed Success...');
         }
       });
-
-      ptr = 'http://localhost:4000/' + ptr;
-
       // image conversion completed........
 
-      const Petdata = await petMaster.create({
-        petName: postData.petName,
+      const Petdata = PetMaster.create({
+
         petCategoryId: postData.petCategoryId,
-        sex: postData.sex,
-        breedId: postData.breedId,
-        dob: postData.dob,
-        color: postData.color,
         photo: ptr,
+        petName: postData.petName,
+        breedId: postData.breedId,
+        sex: postData.sex,
+        dob: postData.dob,
         monthlyCycle: postData.monthlyCycle,
         period: postData.period,
+        height: postData.height,
+        length: postData.length,
         weight: postData.weight,
-        status: postData.status
+        color: postData.color,
+        marks: postData.marks,
+        parentFatherName: postData.parentFatherName,
+        parentFatherBreedName: postData.parentFatherBreedName,
+        parentAddress: postData.parentAddress,
+        parenOwnerName: postData.parenOwnerName,
+        parenMobileNumber: postData.parenMobileNumber,
+        parentOwnerAddress: postData.parentOwnerAddress,
+        drName: postData.drName,
+        drhospitalName: postData.drhospitalName,
+        drMobile: postData.drMobile,
+        drEmail: postData.drEmail,
+        drAddress: postData.drAddress,
+        drCity: postData.drCity,
+        drState: postData.drState,
+        drCountry: postData.drCountry,
+        status: postData.status  
       }, {
           returning: true
         }).then(data=>{
+          console.log(data)
           res.json({status: "success", msg: "Inserted Successfully"})
         })
     }
    catch(err) {
-      res.json({ status: "error", msg: err })
+      res.json({ status: "error", msg: "Inserted Unsuccessfully" })
     };
   };
 
   const deletePetdetails = async (req, res, next) => {
     try {
       console.log(req.body)
-      const data = await petMaster.update(
+      const data = await PetMaster.update(
         { Status: '0' },
         {
           where: {
@@ -178,7 +194,7 @@ const petDetailsController = () => {
   const updatePetdetails = async (req, res, next) => {
     updateData = req.body
     try {
-      const data = await petMaster.update(
+      const data = await PetMaster.update(
         {
           petName: updateData.petName,
           petCategoryId: updateData.petCategoryId,
