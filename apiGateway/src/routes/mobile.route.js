@@ -8,7 +8,6 @@ const petDetailCtrl = require("../controllers/petdetails.controller");
 
 /** Users Routes */
 router.route("/deleteUser").put(mobileCtrl.deleteUser);
-router.route("/createUser").post(mobileCtrl.createUser);
 router.route("/verifyOtp").post(mobileCtrl.verifyOtp);
 
 /* Departments */

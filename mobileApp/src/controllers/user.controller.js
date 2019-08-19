@@ -1,5 +1,6 @@
 const httpStatus = require("http-status");
 const db = require("../config/sequelize");
+const authService = require("../services/auth.service");
 const _ = require("lodash");
 var nodemailer = require("nodemailer");
 const bcryptService = require("../services/bcrypt.service");
@@ -7,7 +8,6 @@ var otplib = require('otplib')
 const User = db.TblUser;
 const UserOtp = db.TblUserOtp
 var xoauth2 = require('xoauth2');
-
 
 const UserController = () => {
 	/** 
@@ -52,7 +52,10 @@ const UserController = () => {
 											returning: true
 										})
 										.then((data) => {
-											res.send({ status: "success", msg: "User registered successfully", data: data })
+											console.log('data=============>>>>>>', data)
+											const token = authService().issue({ id: data.dataValues.userId });
+											console.log('token==========>>>', token)
+											res.send({ status: "success", msg: "User registered successfully", token: token, data: data })
 										})
 										.catch(err => {
 											const errorMsg = err.errors ? err.errors[0].message : err.message;
@@ -114,7 +117,7 @@ const UserController = () => {
 		if (profileData) {
 			const user = await User.findOne({
 				where: {
-					email: email
+					email: profileData.email
 				}
 			}).catch(err => {
 				const errorMsg = err.errors ? err.errors[0].message : err.message;
@@ -122,20 +125,22 @@ const UserController = () => {
 			});
 			console.log("============>>>>>>>>>>.", user)
 			if (user) {
-				return res.status(httpStatus.BAD_REQUEST).json({ msg: "Email already registered" });
+				res.send({ status: 'failed', msg: "Email already registered" });
 			} else {
 				User.create({
 					userName: profileData.userName,
 					email: profileData.email,
-					userId: profileData.userId
+					password: profileData.userId,
+					userTypeId: 1
 				}, {
 						returning: true
 					})
-					.then(() => {
-						return res.status(httpStatus.OK).json({ msg: "Successfully registered" });
+					.then((data) => {
+						const token = authService().issue({ id: data.dataValues.userId });
+						res.send({ status: 'success', token: token, msg: "Successfully registered", data: data });
 					})
-					.catch(() => {
-						return res.status(httpStatus.BAD_REQUEST).json({ msg: "Failed to register" });
+					.catch((err) => {
+						res.send({ status: 'failed', msg: "Failed to register" , err: err });
 					})
 			}
 		}

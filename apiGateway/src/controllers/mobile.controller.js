@@ -13,29 +13,40 @@ const MobileController = () => {
 	 * @param next
 	 * @returns {*}
 	 */
-	const login = async (req, res, next) => {
-		console.log(req.body);
+	// const login = async (req, res, next) => {
+	// 	console.log(req.body);
 
-		api.makeServiceCall("POST", "mobile", "/auth/login", req.body, req.headers)
-			.then(response => {
-				res.send(response); // <= send data to the client
-			})
-			.catch(err => {
-				console.log(err.response.status);
-				res.status(err.response.status).json(err.response.data);
-			});
-	};
+	// 	api.makeServiceCall("POST", "mobile", "/auth/login", req.body, req.headers)
+	// 		.then(response => {
+	// 			res.send(response); // <= send data to the client
+	// 		})
+	// 		.catch(err => {
+	// 			console.log(err.response.status);
+	// 			res.status(err.response.status).json(err.response.data);
+	// 		});
+	// };
 	
-	const createUser = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/user/createUser", req.body, req.headers)
-			.then(response => {
-				res.send(response.data); // <= send data to the client
-			})
-			.catch(err => {
-				console.log(err.response.status);
-				res.status(err.response.status).json(err.response.data);
-			});
-	};
+	// const createUser = async (req, res, next) => {
+	// 	api.makeServiceCall("POST", "mobile", "/auth/createUser", req.body, req.headers)
+	// 		.then(response => {
+	// 			res.send(response.data); // <= send data to the client
+	// 		})
+	// 		.catch(err => {
+	// 			console.log(err.response.status);
+	// 			res.status(err.response.status).json(err.response.data);
+	// 		});
+	// };
+	
+	// const signupUser = async (req, res, next) => {
+	// 	api.makeServiceCall("POST", "mobile", "/auth/signupUser", req.body, req.headers)
+	// 		.then(response => {
+	// 			res.send(response.data); // <= send data to the client
+	// 		})
+	// 		.catch(err => {
+	// 			console.log(err.response.status);
+	// 			res.status(err.response.status).json(err.response.data);
+	// 		});
+	// };
 
 	const verifyOtp = async (req, res, next) => {
 		api.makeServiceCall("POST", "mobile", "/user/verifyOtp", req.body, req.headers)
@@ -87,8 +98,6 @@ const MobileController = () => {
 
 
 	return {
-		login,
-		createUser,
 		verifyOtp,
 		deleteUser,
 		getuserById,

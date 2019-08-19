@@ -31,8 +31,39 @@ function _validateToken(token) {
 // mount auth routes at /auth
 router.use("/auth", authRoutes);
 
+var anonymousUrls = ["api-docs", "/auth"];
+router.use(function(req, res, next) {
+  try {
+    var isAnonymousUrl = anonymousUrls.some(function(regex) {
+      var buf = Buffer.from(req.originalUrl);
+      return buf.indexOf(regex) > -1;
+    });
+    if (isAnonymousUrl) return next();
+    else if (req.method !== "OPTIONS") {
+      var token = req.headers["x-access-token"];
+      console.log(token, "Token Undefined");
+      _validateToken(token).then(
+        res => {
+          console.log("_validateToken", res);
+          next();
+        },
+        err => {
+          res.status(403).send({
+            status: "error",
+            msg: "Failed to authenticate user",
+            err: err
+          });
+        }
+      );
+    } else {
+      next();
+    }
+  } catch (e) {
+    return res.status(400).json({ message: e });
+  }
+});
 
-router.use("/apim", mobileRoutes);
+// router.use("/apim", mobileRoutes);
 router.use("/apia", adminRoutes);
 
 
