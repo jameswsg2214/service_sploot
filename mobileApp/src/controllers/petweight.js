@@ -25,7 +25,6 @@ const weightController = () => {
 			if (postData.activityWeightId != undefined) {
 
 				console.log("activityWeightId")
-
 				const findPet = await petWeightdb.findAll(
 					{
 						where: { activityWeightId: postData.activityWeightId }
@@ -72,7 +71,8 @@ const weightController = () => {
 
 				}, {
 						returning: true
-					}).then(data => {
+					})
+					.then(data => {
 						console.log(data)
 						res.json({ status: "success", msg: "Inserted Successfully" })
 					})
@@ -87,12 +87,43 @@ const weightController = () => {
 
 
 
+const deletepetweight = async (req, res, next) => {
+		try {
+		  console.log(req.body)
+		  const data = await petWeightdb.update(
+			{ active: '0' },
+			{
+			  where: {
+				activityWeightId: req.body.activityWeightId
+			  }
+			}
+		  )
+		  if (!data) {
+			return res
+			  .status(httpStatus.OK)
+			  .json({ status: "error", msg: "petweight Data's not found" });
+		  }
+		  return res
+			.status(httpStatus.OK)
+			.json({ status: "success", WeightData: data });
+		} catch (err) {
+		  const errorMsg = err.errors ? err.errors[0].message : err.message;
+		  return res
+			.status(httpStatus.INTERNAL_SERVER_ERROR)
+			.json({ status: "error", msg: errorMsg });
+		}
+	  };
+
+
+
+
 
 
 
 
 	return {
 		postPetWeight,
+		deletepetweight,
 	};
 };
 

@@ -31,6 +31,132 @@ const AuthController = () => {
    * @returns {*}
    */
 
+  const sendOtp = async (req, res, next) => {
+    const { email } = req.body;
+    var date = new Date()
+    const secret = JSON.stringify(await date.getMilliseconds())
+    const otp = auth.generate(secret);
+    if (email) {
+      try {
+        const user = await UserOtp.findOne({
+          where: {
+            email: email
+          }
+        }).catch(err => {
+          const errorMsg = err.errors ? err.errors[0].message : err.message;
+          return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+        });
+        console.log('------------>>>>', user)
+        if (user) {
+          var mailOptions = {
+            from: "sploot.oasys@gmail.com", // sender address
+            to: email, // list of receivers
+            subject: "Sploot ", // Subject line
+            text: otp, // plaintext body
+            html: `<b>Your OTP is ${otp}</b>` // html body
+          }
+          await smtpTransport.sendMail(mailOptions, function (error, response) {
+            if (error) {
+              console.log(error);
+            } else {
+              const userOtp = UserOtp.update(
+                { otp: otp },
+                {
+                  where: {
+                    email: email
+                  }
+                }, {
+                  returning: true
+                })
+                .then((data) => {
+                  console.log(data)
+                  res.send({ status: 'success', msg: "OTP resend successfully" })
+                })
+                .catch(err => {
+                  const errorMsg = err.errors ? err.errors[0].message : err.message;
+                  return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+                });
+            }
+          });
+        } else {
+          try {
+            const postData = req.body;
+            console.log('postdata', postData)
+            var mailOptions = {
+              from: "sploot.oasys@gmail.com", // sender address
+              to: email, // list of receivers
+              subject: "Sploot ", // Subject line
+              text: otp, // plaintext body
+              html: `<b>Your OTP is ${otp}</b>` // html body
+            }
+            // send mail with defined transport object
+            await smtpTransport.sendMail(mailOptions, function (error, response) {
+              if (error) {
+                console.log(error);
+              } else {
+                const userOtp = UserOtp.create({
+                  email: email,
+                  otp: otp
+                }, {
+                    returning: true
+                  })
+                  .then((data) => {
+                    console.log(data)
+                    return res.send({ status: 'success', msg: "OTP sent successfully" })
+                  })
+                  .catch(err => {
+                    const errorMsg = err.errors ? err.errors[0].message : err.message;
+                    return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+                  });
+              }
+            });
+          }
+          catch (err) {
+            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal servers error" });
+          }
+        }
+      } catch (err) {
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal serverfsd1 error" });
+      }
+    }
+  };
+
+  const verifyOtp = async (req, res, next) => {
+    const verifyData = req.body
+    console.log(verifyData)
+    const user = await UserOtp.findOne({
+      where: { email: verifyData.email }
+    }, function (err, data) {
+      res.json(data)
+    }).catch(err => {
+      const errorMsg = err.errors ? err.errors[0].message : err.message;
+      return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+    });
+    console.log('------->>>>>>>>>user', user);
+    if (user) {
+      if (user.dataValues.otp == verifyData.otp) {
+        UserOtp.update({ verified: 1 }, {
+          where: {
+            email: verifyData.email
+          }
+        })
+        res.send({ status: 'success', msg: "Verified successfully" })
+      } else {
+        res.send({
+          status: "failed",
+          msg: "OTP is Invalid"
+        });
+      }
+    }
+    else {
+      res.send({
+        status: "failed",
+        msg: "user not exist"
+      });
+    }
+
+  };
+
   const login = async (req, res, next) => {
 
     const { email, password } = req.body;
@@ -148,6 +274,7 @@ const AuthController = () => {
 			}
 		}
   };
+
   const signupUser = async (req, res, next) => {
 		const profileData = req.body;
 		if (profileData) {
@@ -181,96 +308,6 @@ const AuthController = () => {
 			}
 		}
 	}
-
-  const sendOtp = async (req, res, next) => {
-    const { email } = req.body;
-    var date = new Date()
-    const secret = JSON.stringify(await date.getMilliseconds())
-    const otp = auth.generate(secret);
-    if (email) {
-      try {
-        const user = await UserOtp.findOne({
-          where: {
-            email: email
-          }
-        }).catch(err => {
-          const errorMsg = err.errors ? err.errors[0].message : err.message;
-          return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
-        });
-        console.log('------------>>>>', user)
-        if (user) {
-          var mailOptions = {
-            from: "sploot.oasys@gmail.com", // sender address
-            to: email, // list of receivers
-            subject: "Sploot ", // Subject line
-            text: otp, // plaintext body
-            html: `<b>Your OTP is ${otp}</b>` // html body
-          }
-          await smtpTransport.sendMail(mailOptions, function (error, response) {
-            if (error) {
-              console.log(error);
-            } else {
-              const userOtp = UserOtp.update(
-                { otp: otp },
-                {
-                  where: {
-                    email: email
-                  }
-                }, {
-                  returning: true
-                })
-                .then((data) => {
-                  console.log(data)
-                  res.send({ status: 'success', msg: "OTP resend successfully" })
-                })
-                .catch(err => {
-                  const errorMsg = err.errors ? err.errors[0].message : err.message;
-                  return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
-                });
-            }
-          });
-        } else {
-          try {
-            const postData = req.body;
-            console.log('postdata', postData)
-            var mailOptions = {
-              from: "sploot.oasys@gmail.com", // sender address
-              to: email, // list of receivers
-              subject: "Sploot ", // Subject line
-              text: otp, // plaintext body
-              html: `<b>Your OTP is ${otp}</b>` // html body
-            }
-            // send mail with defined transport object
-            await smtpTransport.sendMail(mailOptions, function (error, response) {
-              if (error) {
-                console.log(error);
-              } else {
-                const userOtp = UserOtp.create({
-                  email: email,
-                  otp: otp
-                }, {
-                    returning: true
-                  })
-                  .then((data) => {
-                    console.log(data)
-                    return res.send({ status: 'success', msg: "OTP sent successfully" })
-                  })
-                  .catch(err => {
-                    const errorMsg = err.errors ? err.errors[0].message : err.message;
-                    return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
-                  });
-              }
-            });
-          }
-          catch (err) {
-            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal servers error" });
-          }
-        }
-      } catch (err) {
-        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal serverfsd1 error" });
-      }
-    }
-  };
 
   const generateOTP = async () => {
     var digits = "0123456789";
@@ -360,46 +397,6 @@ const AuthController = () => {
     }
   };
 
-  const validateOtp = async (req, res, next) => {
-    const { otpValue } = req.body;
-    let otpCond = {};
-
-    if (otpValue) {
-      otpCond.active = "1";
-      otpCond.otpValue = otpValue;
-      try {
-        const otpValues = await otpAuth.findOne({
-          where: otpCond
-        });
-        if (!otpValues) {
-          return res
-            .status(httpStatus.OK)
-            .json({ status: "error", msg: "Otp not found" });
-        }
-
-        otpAuth.update(
-          { active: "0" },
-          {
-            where: { otpValue: otpValue },
-            returning: true
-          }
-        );
-        return res
-          .status(httpStatus.OK)
-          .json({ status: "success", msg: "Successfully updated." });
-      } catch (err) {
-        const errorMsg = err.errors ? err.errors[0].message : err.message;
-        return res
-          .status(httpStatus.INTERNAL_SERVER_ERROR)
-          .json({ status: "error", msg: errorMsg });
-      }
-    }
-
-    return res
-      .status(httpStatus.BAD_REQUEST)
-      .json({ status: "error", msg: "OtpValue missing." });
-  };
-
   const passwordChange = async (req, res, next) => {
     const { userId, password } = req.body;
     if (userId && password) {
@@ -429,72 +426,6 @@ const AuthController = () => {
       .json({ status: "error", msg: "UserId and Password is missing." });
   };
 
-  const verifyOtp = async (req, res, next) => {
-    const verifyData = req.body
-    console.log(verifyData)
-    const user = await UserOtp.findOne({
-      where: { email: verifyData.email }
-    }, function (err, data) {
-      res.json(data)
-    }).catch(err => {
-      const errorMsg = err.errors ? err.errors[0].message : err.message;
-      return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
-    });
-    console.log('------->>>>>>>>>user', user);
-    if (user) {
-      if (user.dataValues.otp == verifyData.otp) {
-        UserOtp.update({ verified: 1 }, {
-          where: {
-            email: verifyData.email
-          }
-        })
-        res.send({ status: 'success', msg: "Verified successfully" })
-      } else {
-        res.send({
-          status: "failed",
-          msg: "OTP is Invalid"
-        });
-      }
-    }
-    else {
-      res.send({
-        status: "failed",
-        msg: "user not exist"
-      });
-    }
-
-  };
-
-  const updateOtp = async (req, res, next) => {
-    const { otpValue } = req.body;
-    let otpCond = {};
-
-    if (otpValue) {
-      otpCond.active = "1";
-      otpCond.otpValue = otpValue;
-      try {
-        otpAuth.update(
-          { active: "0" },
-          {
-            where: { otpValue: otpValue },
-            returning: true
-          }
-        );
-        return res
-          .status(httpStatus.OK)
-          .json({ status: "success", msg: "Successfully updated." });
-      } catch (err) {
-        const errorMsg = err.errors ? err.errors[0].message : err.message;
-        return res
-          .status(httpStatus.INTERNAL_SERVER_ERROR)
-          .json({ status: "error", msg: errorMsg });
-      }
-    }
-    return res
-      .status(httpStatus.BAD_REQUEST)
-      .json({ status: "error", msg: "OtpValue missing." });
-  };
-
   return {
     login,
     userLogin,
@@ -503,9 +434,7 @@ const AuthController = () => {
     forgetPassword,
     passwordChange,
     sendOtp,
-    validateOtp,
     verifyOtp,
-    updateOtp,
   };
 };
 
