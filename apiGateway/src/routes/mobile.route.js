@@ -10,7 +10,7 @@ router.route("/getPetMaster").post(petDetailCtrl.getPetMaster);
 router.route("/postPetMaster").post(petDetailCtrl.postPetMaster);
 router.route("/deletePetdetails").post(petDetailCtrl.deletePetdetails);
 router.route("/updatePetdetails").post(petDetailCtrl.updatePetdetails);
-
 router.route("/postPetWeight").post(petDetailCtrl.postPetWeight);
+router.route("/deletePetWeight").post(petDetailCtrl.deletePetWeight);
 
 module.exports = router;

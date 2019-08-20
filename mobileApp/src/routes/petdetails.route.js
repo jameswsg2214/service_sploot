@@ -15,6 +15,7 @@ router.route("/updatePetdetails").post(petdetailsCtrl.updatePetdetails);
 
 router.route("/postPetWeight").post(petWeightCtrl.postPetWeight);
 
+router.route("/deletepetweight").post(petWeightCtrl.deletepetweight);
 
 
 
