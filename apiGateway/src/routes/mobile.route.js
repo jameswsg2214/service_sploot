@@ -1,14 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const mobileCtrl = require("../controllers/mobile.controller");
 const petDetailCtrl = require("../controllers/petdetails.controller");
-
-
-
-
-/** Users Routes */
-router.route("/deleteUser").put(mobileCtrl.deleteUser);
-router.route("/verifyOtp").post(mobileCtrl.verifyOtp);
 
 /* Departments */
 router.route("/getuserById").post(mobileCtrl.getuserById);
