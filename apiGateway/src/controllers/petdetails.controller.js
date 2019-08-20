@@ -91,7 +91,18 @@ const petDetailsController = () => {
 				console.log(err.response.status);
 				res.status(err.response.status).json(err.response.data);
 			});
-    };
+	};
+	
+	const postPetWeight = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/postPetWeight", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
 
 
 	return {
@@ -101,7 +112,8 @@ const petDetailsController = () => {
 		getBreedMaster,
 		postPetMaster,
 		deletePetdetails,
-		updatePetdetails
+		updatePetdetails,
+		postPetWeight
 	};
 };
 
