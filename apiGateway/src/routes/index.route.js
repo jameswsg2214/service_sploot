@@ -2,7 +2,7 @@ const express = require("express");
 const authRoutes = require("./auth.route");
 const mobileRoutes = require("./mobile.route");
 const adminRoutes = require("./admin.route");
-
+const secret = require('../config/config')
 const authService = require("../services/auth.service");
 
 // swaggerUI API
@@ -14,15 +14,18 @@ const router = express.Router(); // eslint-disable-line new-cap
 function _validateToken(token) {
   return new Promise(async (resolve, reject) => {
     try {
-      var verify = await authService().verify(token);
-      var decoded = await authService().decode(token);
+      console.log('=============>>>>>>>>token',token)
+      var verify = await authService().verify(token,secret.jwtSecret,(err,result)=>{
+        console.log('================>>>>result',result)
+      });
       resolve({
         status: "success",
         msg: "Successful Authorization!",
-        decoded: decoded
+        verify:verify
       });
     } catch (err) {
       // err
+      console.log('failed')
       reject({ status: "error", msg: "Invalid Token", err: err });
     }
   });
