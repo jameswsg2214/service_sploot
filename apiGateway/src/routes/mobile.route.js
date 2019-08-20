@@ -2,9 +2,6 @@ const express = require("express");
 const router = express.Router();
 const petDetailCtrl = require("../controllers/petdetails.controller");
 
-/* Departments */
-router.route("/getuserById").post(mobileCtrl.getuserById);
-
 // ------------------------petdetails-----------------------
 router.route("/getPetCategory").post(petDetailCtrl.getPetCategory);
 router.route("/getBreedTypeId").post(petDetailCtrl.getBreedTypeId);
