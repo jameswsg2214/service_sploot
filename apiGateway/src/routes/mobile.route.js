@@ -23,5 +23,9 @@ router.route("/deletePetdetails").post(petDetailCtrl.deletePetdetails);
 router.route("/updatePetdetails").post(petDetailCtrl.updatePetdetails);
 
 router.route("/postPetWeight").post(petDetailCtrl.postPetWeight);
+router.route("/postRx").post(petDetailCtrl.postRx);
+router.route("/deleteRx").post(petDetailCtrl.deleteRx);
+
+
 
 module.exports = router;
