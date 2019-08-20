@@ -63,7 +63,6 @@ const petDetailsController = () => {
 
   const getPetMaster = async (req, res, next) => {
     try {
-      console.log("testin>>>>>")
       const pet = await PetMaster.findAll({
       });
       if (!pet) {
@@ -108,7 +107,6 @@ const petDetailsController = () => {
     try {
 
       const postData = req.body;
-      console.log("postData================>", postData)
       var data = postData.Photo
       var pt = '';
       var date = new Date();
@@ -124,8 +122,6 @@ const petDetailsController = () => {
       // image conversion completed........
       var flag = 'insert';
       if (postData.petId != '') {
-
-        console.log("petId")
         const findPet = await PetMaster.findAll(
           {
             where: { petId: postData.petId }
@@ -138,7 +134,6 @@ const petDetailsController = () => {
       if(flag == 'update')
       {
           //update
-          console.log("findPet==========>")
           PetMaster.update(
             {
               petCategoryId: postData.petCategoryId,
@@ -188,7 +183,6 @@ const petDetailsController = () => {
             })
           }      
       else {
-        console.log("undefined")
         const Petdata = PetMaster.create({
 
           petCategoryId: postData.petCategoryId,
@@ -222,21 +216,18 @@ const petDetailsController = () => {
         }, {
             returning: true
           }).then(data => {
-            console.log(data)
             res.json({ status: "success", msg: "Inserted Successfully" })
           })
       }
 
     }
     catch (err) {
-      console.log(err);
       res.json({ status: "error", msg: "Inserted Unsuccessfully" })
     };
   };
 
   const deletePetdetails = async (req, res, next) => {
     try {
-      console.log(req.body)
       const data = await PetMaster.update(
         { Status: '0' },
         {

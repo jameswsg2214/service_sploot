@@ -66,7 +66,7 @@ router.use(function(req, res, next) {
   }
 });
 
-// router.use("/apim", mobileRoutes);
+router.use("/apim", mobileRoutes);
 router.use("/apia", adminRoutes);
 
 
