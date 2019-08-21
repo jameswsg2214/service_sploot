@@ -1,8 +1,8 @@
 const axios = require("axios");
 const ENDPOINTS = require("../config/gateway");
 const config = require("../config/config");
-// const logsModel = require("../models/logsModel");
-// const userLoginActivityModel = require("../models/userLoginActivityModel");
+const logsModel = require("../models/logsModel");
+const userLoginActivityModel = require("../models/userLoginActivityModel");
 
 axios.interceptors.request.use(
 	function (req_data) {
@@ -40,8 +40,8 @@ const apiService = () => {
                         deviceOS: headers['device-os'],
                         Token: headers['x-access-token'],
                         Status: response.status,
-                        request: base_url,
-                        response: response.statusText,
+                        request: response.data.User.email,
+                        response: response.data.status,
                         LoginDate: headers['login-date']
                     };
                     var logObj = JSON.parse(JSON.stringify(userLogActivityObj));
@@ -49,12 +49,12 @@ const apiService = () => {
                     logObj.LogLevel = 'info';
                     logObj.APIRequestTime = reqTime;
                     logObj.APIResponseTime = new Date();
-                    // logsModel.create(logObj, (err, data) => {
-                    //     if (err) console.log("Error in creating user log:", err);
-                    // });
-                    // userLoginActivityModel.create(userLogActivityObj, (err, data) => {
-                    //     if (err) console.log("Error in creating user log activity:", err);
-                    // });
+                    logsModel.create(logObj, (err, data) => {
+                        if (err) console.log("Error in creating user log:", err);
+                    });
+                    userLoginActivityModel.create(userLogActivityObj, (err, data) => {
+                        if (err) console.log("Error in creating user log activity:", err);
+                    });
                 }
             } catch (error) {
                 console.log("**********ERROR", error);

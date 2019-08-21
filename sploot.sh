@@ -19,4 +19,4 @@ echo "Admin App Server Started...."
 cd ../
 
 echo "Server Started...."
-echo "Check forever list"
+
