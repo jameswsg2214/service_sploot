@@ -10,7 +10,7 @@ const PetMaster = db.TblPetMaster;
 const breedMaster = db.TblBreedMaster;
 const RxDlt = db.TblActivityRxDtl;
 const RXMst = db.TblActivityRxMaster;
-
+const RxFreq = db.TblActivityRxFreq;
 
 const petDetailsController = () => {
 	/**
@@ -133,46 +133,45 @@ const petDetailsController = () => {
         }
       }
 
-      if(flag == 'update')
-      {
-          //update
-          PetMaster.update(
-            {
-              petCategoryId: postData.petCategoryId,
-              photo: ptr,
-              petName: postData.petName,
-              breedId: postData.breedId,
-              sex: postData.sex,
-              dob: postData.dob,
-              monthlyCycle: postData.monthlyCycle,
-              period: postData.period,
-              height: postData.height,
-              length: postData.length,
-              weight: postData.weight,
-              color: postData.color,
-              marks: postData.marks,
-              parentFatherName: postData.parentFatherName,
-              parentFatherBreedName: postData.parentFatherBreedName,
-              parentAddress: postData.parentAddress,
-              parenOwnerName: postData.parenOwnerName,
-              parenMobileNumber: postData.parenMobileNumber,
-              parentOwnerAddress: postData.parentOwnerAddress,
-              drName: postData.drName,
-              drhospitalName: postData.drhospitalName,
-              drMobile: postData.drMobile,
-              drEmail: postData.drEmail,
-              drAddress: postData.drAddress,
-              drCity: postData.drCity,
-              drState: postData.drState,
-              drCountry: postData.drCountry,
-              status: postData.status
-            },
-            {
-              where: {
-                petId: postData.petId
-              }
+      if (flag == 'update') {
+        //update
+        PetMaster.update(
+          {
+            petCategoryId: postData.petCategoryId,
+            photo: ptr,
+            petName: postData.petName,
+            breedId: postData.breedId,
+            sex: postData.sex,
+            dob: postData.dob,
+            monthlyCycle: postData.monthlyCycle,
+            period: postData.period,
+            height: postData.height,
+            length: postData.length,
+            weight: postData.weight,
+            color: postData.color,
+            marks: postData.marks,
+            parentFatherName: postData.parentFatherName,
+            parentFatherBreedName: postData.parentFatherBreedName,
+            parentAddress: postData.parentAddress,
+            parenOwnerName: postData.parenOwnerName,
+            parenMobileNumber: postData.parenMobileNumber,
+            parentOwnerAddress: postData.parentOwnerAddress,
+            drName: postData.drName,
+            drhospitalName: postData.drhospitalName,
+            drMobile: postData.drMobile,
+            drEmail: postData.drEmail,
+            drAddress: postData.drAddress,
+            drCity: postData.drCity,
+            drState: postData.drState,
+            drCountry: postData.drCountry,
+            status: postData.status
+          },
+          {
+            where: {
+              petId: postData.petId
             }
-          )
+          }
+        )
           .then(() => {
             return res.status(httpStatus.OK).json({
               status: "success", msg: "Updated Successfully"
@@ -292,10 +291,89 @@ const petDetailsController = () => {
     }
   };
 
-  const postRx = async (req, res, next) => {
+  /*=============== Prescription API's =================*/
+
+  // const postRxMaster = async (req, res, next) => {
+
+  //   try {
+
+  //     const postData = req.body;
+  //     console.log("postData========>", postData)
+  //     var data = postData.Photo
+  //     var pt = '';
+  //     var date = new Date();
+  //     var ptr = date.getFullYear() + "" + date.getMonth() + "" + date.getMilliseconds() + '.jpeg';
+  //     pts = './public/' + ptr;
+  //     fs.writeFile(pts, data, 'base64', (err) => {
+  //       if (err)
+  //         console.log(err)
+  //       else {
+  //         console.log('Image Svaed Success...');
+  //       }
+  //     });
+  //     var flag = 'insert';
+  //     if (postData.rxMasterId != undefined) {
+  //       // console.log("inter", postData)
+  //       const findPet = await RXMst.findAll(
+  //         {
+  //           where: { rxMasterId: postData.rxMasterId }
+  //         });
+  //       if (findPet.length > 0) {
+  //         flag = 'update';
+  //         if (flag == 'update') {
+  //           //create
+  //           console.log("Adding details into RxDtle table", postData)
+  //           RxDlt.create(
+  //             {
+  //               petId: postData.petId,
+  //               doctorId: postData.doctorId,
+  //               durationFrom: postData.durationFrom,
+  //               durationTo: postData.durationTo,
+  //               rxDate: postData.rxDate,
+  //               photo: ptr,
+  //               active: postData.active,
+  //             },
+  //             {
+  //               returning: true
+  //             }).then(data => {
+  //               console.log(data)
+  //               res.json({ status: "success", msg: "Inserted Successfully" })
+  //             })
+  //         }
+  //       }
+  //     }
+  //     else {
+  //       console.log("========> adding data into RxMaster table", postData)
+  //       const Masterd = RXMst.create({
+  //         petId: postData.petId,
+  //         rxDate: postData.rxDate,
+  //         active: postData.active,
+  //       }, {
+  //           returning: true
+  //         }).then(data => {
+  //           console.log("========> adding data into RxDtl table", data)
+  //           const masterDtl = RxDlt.create({
+  //             rxMasterId: data.dataValues.rxMasterId,
+  //             petId: postData.petId,
+  //             doctorId: postData.doctorId,
+  //             durationFrom: postData.durationFrom,
+  //             durationTo: postData.durationTo,
+  //             rxDate: postData.rxDate,
+  //             photo: ptr,
+  //             active: postData.active,
+  //           })
+  //           res.json({ status: "success", msg: "Inserted Successfully" })
+  //         })
+  //     }
+  //   }
+  //   catch (err) {
+  //     res.json({ status: "error", msg: "Inserted Unsuccessfully" })
+  //   };
+  // }
+
+  const postRxMaster = async (req, res, next) => {
 
     try {
-
       const postData = req.body;
       console.log("postData========>", postData)
       var data = postData.Photo
@@ -310,60 +388,85 @@ const petDetailsController = () => {
           console.log('Image Svaed Success...');
         }
       });
-      var flag = 'insert';
-      if (postData.rxMasterId != undefined) {
-        // console.log("inter", postData)
-        const findPet = await RXMst.findAll(
+      if (postData) {
+        RXMst.create(
           {
-            where: { rxMasterId: postData.rxMasterId }
-          });
-        if (findPet.length > 0) {
-          flag = 'update';
-          if (flag == 'update') {
-            //create
-            console.log("Adding details into RxDtle table", postData)
-            RxDlt.create(
-              {
-                rxMasterId: postData.rxMasterId,
-                petId: postData.petId,
-                doctorId: postData.doctorId,
-                durationFrom: postData.durationFrom,
-                durationTo: postData.durationTo,
-                rxDate: postData.rxDate,
-                photo: ptr,
-                active: postData.active,
-              },
-              {
-                returning: true
-              }).then(data => {
-                console.log(data)
-                res.json({ status: "success", msg: "Inserted Successfully" })
-              })
-          }
-        }
-      }
-      else {
-        console.log("========> adding data into RxMaster table", postData)
-        const Masterd = RXMst.create({
-          petId: postData.petId,
-          rxDate: postData.rxDate,
-          active: postData.active,
-        }, {
+            petId: postData.petId,
+            doctorId: postData.doctorId,
+            durationFrom: postData.durationFrom,
+            durationTo: postData.durationTo,
+            rxDate: postData.rxDate,
+            photo: ptr,
+            active: postData.active,
+          },
+          {
             returning: true
           }).then(data => {
-            console.log("========> adding data into RxDtl table", data)
-            const masterDtl = RxDlt.create({
-              rxMasterId: data.dataValues.rxMasterId,
-              petId: postData.petId,
-              doctorId: postData.doctorId,
-              durationFrom: postData.durationFrom,
-              durationTo: postData.durationTo,
-              rxDate: postData.rxDate,
-              photo: ptr,
-              active: postData.active,
-            })
-            res.json({ status: "success", msg: "Inserted Successfully" })
+            console.log(data)
+            res.send({ status: "success", msg: "Inserted Successfully", data: data })
           })
+      }
+      else {
+        res.send({ status: 'failed', msg: 'Please enter prescription data' })
+      }
+    }
+    catch (err) {
+      res.json({ status: "error", msg: "Inserted Unsuccessfully" })
+    };
+  }
+
+  const postRxDtl = async (req, res, next) => {
+
+    try {
+      const postData = req.body;
+      console.log("postData========>", postData)     
+      if (postData) {
+        RxDlt.create(
+          {
+            rxMasterId: postData.rxMasterId,
+            medId: postData.medId,
+            startDate: postData.startDate,
+            endDate: postData.endDate,
+            active: postData.active,
+          },
+          {
+            returning: true
+          }).then(data => {
+            console.log(data)
+            res.send({ status: "success", msg: "Inserted Successfully", data: data })
+          })
+      }
+      else {
+        res.send({ status: 'failed', msg: 'Please enter medicine data' })
+      }
+    }
+    catch (err) {
+      res.json({ status: "error", msg: "Inserted Unsuccessfully" })
+    };
+  }
+
+  const postFreqDtl = async (req, res, next) => {
+
+    try {
+      const postData = req.body;
+      console.log("postData========>", postData)
+     
+      if (postData) {
+        RxFreq.create(
+          {
+            rxDtlId: postData.rxDtlId,
+            freqInTake: postData.freqInTake,
+            active: postData.active,
+          },
+          {
+            returning: true
+          }).then(data => {
+            console.log(data)
+            res.send({ status: "success", msg: "Inserted Successfully", data: data })
+          })
+      }
+      else {
+        res.send({ status: 'failed', msg: 'Please enter medicine data' })
       }
     }
     catch (err) {
@@ -408,7 +511,9 @@ const petDetailsController = () => {
     postPetMaster,
     deletePetdetails,
     updatePetdetails,
-    postRx,
+    postRxMaster,
+    postRxDtl,
+    postFreqDtl,
     deleteRx
   };
 };

@@ -23,7 +23,11 @@ module.exports = (sequelize, DataTypes) => {
         durationTo: {
           type: DataTypes.BIGINT,
           allowNull: false        
-        },      
+        },
+        photo: {
+          type: DataTypes.STRING, 
+          allowNull: false,
+        },    
       rxDate: {
         type: DataTypes.BIGINT,
         allowNull: false

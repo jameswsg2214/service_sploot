@@ -11,9 +11,10 @@ router.route("/postPetMaster").post(petDetailCtrl.postPetMaster);
 router.route("/deletePetdetails").post(petDetailCtrl.deletePetdetails);
 router.route("/updatePetdetails").post(petDetailCtrl.updatePetdetails);
 router.route("/postPetWeight").post(petDetailCtrl.postPetWeight);
-router.route("/postRx").post(petDetailCtrl.postRx);
+router.route("/postRxMaster").post(petDetailCtrl.postRxMaster);
+router.route("/postRxDtl").post(petDetailCtrl.postRxDtl);
+router.route("/postRxFreq").post(petDetailCtrl.postRxFreq);
 router.route("/deleteRx").post(petDetailCtrl.deleteRx);
-
 
 router.route("/deletePetWeight").post(petDetailCtrl.deletePetWeight);
 
