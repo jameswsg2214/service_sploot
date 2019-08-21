@@ -11,7 +11,19 @@ module.exports = (sequelize, DataTypes) => {
        petId: {
         type: DataTypes.INTEGER,
         allowNull: false        
-      },       
+      }, 
+      doctorId: {
+          type: DataTypes.INTEGER,
+          allowNull: false        
+        }, 
+        durationFrom: {
+          type: DataTypes.BIGINT,
+          allowNull: false        
+        },
+        durationTo: {
+          type: DataTypes.BIGINT,
+          allowNull: false        
+        },      
       rxDate: {
         type: DataTypes.BIGINT,
         allowNull: false

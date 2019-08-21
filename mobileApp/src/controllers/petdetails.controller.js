@@ -291,14 +291,6 @@ const petDetailsController = () => {
     }
   };
 
-
-
-
-
-
-
-
-
   // --------------------------------------------return----------------------------------
   return {
     getPetCategory,

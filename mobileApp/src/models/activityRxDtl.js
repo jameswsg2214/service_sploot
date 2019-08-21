@@ -12,26 +12,14 @@ module.exports = (sequelize, DataTypes) => {
           type: DataTypes.INTEGER,
           allowNull: false         
         },
-         petId: {
-          type: DataTypes.INTEGER,
-          allowNull: false        
-        },  
-        doctorId: {
-            type: DataTypes.INTEGER,
-            allowNull: false        
-          }, 
-          durationFrom: {
+          startDate: {
             type: DataTypes.BIGINT,
             allowNull: false        
           },
-          durationTo: {
+          endDate: {
             type: DataTypes.BIGINT,
             allowNull: false        
-          },      
-        rxDate: {
-          type: DataTypes.BIGINT,
-          allowNull: false
-        },   
+          },   
         active: {
           type: DataTypes.ENUM,
           values: ["0", "1"],
