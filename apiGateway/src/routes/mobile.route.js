@@ -13,6 +13,9 @@ router.route("/updatePetdetails").post(petDetailCtrl.updatePetdetails);
 router.route("/postPetWeight").post(petDetailCtrl.postPetWeight);
 router.route("/postRx").post(petDetailCtrl.postRx);
 router.route("/deleteRx").post(petDetailCtrl.deleteRx);
+router.route("/getMedication").post(petDetailCtrl.getMedication);
+router.route("/getbrandmst").post(petDetailCtrl.getbrandmst);
+
 
 
 router.route("/deletePetWeight").post(petDetailCtrl.deletePetWeight);

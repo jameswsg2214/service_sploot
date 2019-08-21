@@ -1,6 +1,7 @@
 const express = require("express");
 const petdetailsCtrl = require("../controllers/petdetails.controller");
-const petWeightCtrl = require("../controllers/petweight")
+const petWeightCtrl = require("../controllers/petweight");
+const petMedicationCtrl = require('../controllers/petmedication.controller')
 
 // const multer = require("multer");
 const router = express.Router(); // eslint-disable-line new-cap
@@ -15,12 +16,11 @@ router.route("/updatePetdetails").post(petdetailsCtrl.updatePetdetails);
 
 router.route("/postPetWeight").post(petWeightCtrl.postPetWeight);
 router.route("/postRx").post(petdetailsCtrl.postRx);
-
 router.route("/deleteRx").post(petdetailsCtrl.deleteRx);
-
 
 router.route("/deletepetweight").post(petWeightCtrl.deletepetweight);
 
-
+router.route("/getMedication").post(petMedicationCtrl.getMedication);
+router.route("/getbrandmst").post(petMedicationCtrl.getbrandmst)
 
 module.exports = router;
