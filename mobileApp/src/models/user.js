@@ -12,20 +12,32 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      loginType:{
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       userName: {
         type: DataTypes.STRING(50),
         allowNull: true,
         unique: true
-      },
-      password: {
-        type: DataTypes.STRING(128),
-        allowNull: true
       },
       email: {
         type: DataTypes.STRING(128),
         unique: true,
         allowNull: true,
         isEmail: true
+      },
+      password: {
+        type: DataTypes.STRING(128),
+        allowNull: true
+      },
+      googlePassword: {
+        type: DataTypes.STRING(128),
+        allowNull: true
+      },
+      facebookPassword: {
+        type: DataTypes.STRING(128),
+        allowNull: true
       },
       phoneNo: {
         type: DataTypes.STRING(20),
