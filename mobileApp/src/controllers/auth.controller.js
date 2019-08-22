@@ -31,93 +31,247 @@ const AuthController = () => {
    * @returns {*}
    */
 
+  const createUser = async (req, res, next) => {
+    const userData = req.body;
+    if (userData) {
+      try {
+        const user = await User.findOne({
+          where: {
+            email: userData.email
+          }
+        }).catch(err => {
+          const errorMsg = err.errors ? err.errors[0].message : err.message;
+          return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+        });
+        console.log('====================.......>>>>>>>', user)
+        if (user) {
+          const loginType = user.dataValues.loginType
+          loginType == 1 ? res.send({ status: "failed", msg: "User Name already Exist" }) :
+            (loginType == 2 ? res.send({ status: "failed", msg: "User already have account with google" }) :
+              (loginType == 3 ? res.send({ status: "failed", msg: "User already have account with facebook" }) :
+                res.send({ status: "failed", msg: "Invalid login type" })));
+        }
+        else {
+          if (userData.loginType == 1) {
+            try {
+              const verified = UserOtp.findOne({
+                where: {
+                  email: userData.email,
+                  verified: 1
+                }
+              })
+                .then((data) => {
+                  if (data == null) {
+                    res.send({ status: 'failed', msg: 'Email is not verified' })
+                  } else {
+                    const postData = req.body;
+                    console.log('postdata', postData)
+                    User.create({
+                      password: postData.password,
+                      email: postData.email,
+                      loginType: postData.loginType,
+                      userTypeId: 1
+                    }, {
+                        returning: true
+                      })
+                      .then((data) => {
+                        console.log('data=============>>>>>>', data)
+                        const token = authService().issue({ id: data.dataValues.userId });
+                        console.log('token==========>>>', token)
+                        res.send({ status: "success", msg: "User registered successfully", token: token, data: data })
+                      })
+                      .catch(err => {
+                        const errorMsg = err.errors ? err.errors[0].message : err.message;
+                        return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+                      });
+                  }
+                })
+
+            } catch (err) {
+              return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
+            }
+          } else if (userData.loginType == 2) {
+            User.create({
+              userName: userData.userName,
+              email: userData.email,
+              googlePassword: userData.userId,
+              loginType: userData.loginType,
+              userTypeId: 1
+            }, {
+                returning: true
+              })
+              .then((data) => {
+                const token = authService().issue({ id: data.dataValues.userId });
+                res.send({ status: 'success', token: token, msg: "Successfully registered", data: data });
+              })
+              .catch((err) => {
+                res.send({ status: 'failed', msg: "Failed to register", err: err });
+              })
+          } else if (userData.loginType == 3) {
+            User.create({
+              userName: userData.userName,
+              email: userData.email,
+              facebookPassword: userData.userId,
+              loginType: userData.loginType,
+              userTypeId: 1
+            }, {
+                returning: true
+              })
+              .then((data) => {
+                const token = authService().issue({ id: data.dataValues.userId });
+                res.send({ status: 'success', token: token, msg: "Successfully registered", data: data });
+              })
+              .catch((err) => {
+                res.send({ status: 'failed', msg: "Failed to register", err: err });
+              })
+          } else {
+            res.send({ status: "failed", msg: "Invalid login type" })
+          }
+
+        }
+      } catch (err) {
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
+      }
+    } else {
+      res.send({ status: 'failed', msg: 'please provide data' })
+    }
+
+  };
+
+  // const signupUser = async (req, res, next) => {
+  //   const profileData = req.body;
+  //   if (profileData) {
+  //     const user = await User.findOne({
+  //       where: {
+  //         email: profileData.email
+  //       }
+  //     }).catch(err => {
+  //       const errorMsg = err.errors ? err.errors[0].message : err.message;
+  //       return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+  //     });
+  //     console.log("============>>>>>>>>>>.", user)
+  //     if (user) {
+  //       res.send({ status: 'failed', msg: "Email already registered" });
+  //     } else {
+  //       User.create({
+  //         userName: profileData.userName,
+  //         email: profileData.email,
+  //         password: profileData.userId,
+  //         userTypeId: 1
+  //       }, {
+  //           returning: true
+  //         })
+  //         .then((data) => {
+  //           const token = authService().issue({ id: data.dataValues.userId });
+  //           res.send({ status: 'success', token: token, msg: "Successfully registered", data: data });
+  //         })
+  //         .catch((err) => {
+  //           res.send({ status: 'failed', msg: "Failed to register", err: err });
+  //         })
+  //     }
+  //   }
+  // }
+
   const sendOtp = async (req, res, next) => {
     const { email } = req.body;
     var date = new Date()
     const secret = JSON.stringify(await date.getMilliseconds())
     const otp = auth.generate(secret);
     if (email) {
-      try {
-        const user = await UserOtp.findOne({
-          where: {
-            email: email
-          }
-        }).catch(err => {
-          const errorMsg = err.errors ? err.errors[0].message : err.message;
-          return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
-        });
-        console.log('------------>>>>', user)
-        if (user) {
-          var mailOptions = {
-            from: "sploot.oasys@gmail.com", // sender address
-            to: email, // list of receivers
-            subject: "Sploot ", // Subject line
-            text: otp, // plaintext body
-            html: `<b>Your OTP is ${otp}</b>` // html body
-          }
-          await smtpTransport.sendMail(mailOptions, function (error, response) {
-            if (error) {
-              console.log(error);
-            } else {
-              const userOtp = UserOtp.update(
-                { otp: otp },
-                {
-                  where: {
-                    email: email
-                  }
-                }, {
-                  returning: true
-                })
-                .then((data) => {
-                  console.log(data)
-                  res.send({ status: 'success', msg: "OTP resend successfully" })
-                })
-                .catch(err => {
-                  const errorMsg = err.errors ? err.errors[0].message : err.message;
-                  return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
-                });
-            }
-          });
-        } else {
-          try {
-            const postData = req.body;
-            console.log('postdata', postData)
-            var mailOptions = {
-              from: "sploot.oasys@gmail.com", // sender address
-              to: email, // list of receivers
-              subject: "Sploot ", // Subject line
-              text: otp, // plaintext body
-              html: `<b>Your OTP is ${otp}</b>` // html body
-            }
-            // send mail with defined transport object
-            await smtpTransport.sendMail(mailOptions, function (error, response) {
-              if (error) {
-                console.log(error);
-              } else {
-                const userOtp = UserOtp.create({
-                  email: email,
-                  otp: otp
-                }, {
-                    returning: true
-                  })
-                  .then((data) => {
-                    console.log(data)
-                    return res.send({ status: 'success', msg: "OTP sent successfully" })
-                  })
-                  .catch(err => {
-                    const errorMsg = err.errors ? err.errors[0].message : err.message;
-                    return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
-                  });
-              }
-            });
-          }
-          catch (err) {
-            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal servers error" });
-          }
+      User.findOne({
+        where: {
+          email: email
         }
-      } catch (err) {
-        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal serverfsd1 error" });
-      }
+      })
+        .then(async (data) => {
+          if (data != null) {
+            res.send({ status: 'failed', msg: 'User already existed' })
+          } else {
+            try {
+              const user = await UserOtp.findOne({
+                where: {
+                  email: email
+                }
+              }).catch(err => {
+                const errorMsg = err.errors ? err.errors[0].message : err.message;
+                return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+              });
+              if (user) {
+                var mailOptions = {
+                  from: "sploot.oasys@gmail.com", // sender address
+                  to: email, // list of receivers
+                  subject: "Sploot account verification", // Subject line
+                  text: otp, // plaintext body
+                  html: `<b>Your OTP is ${otp}</b>` // html body
+                }
+                await smtpTransport.sendMail(mailOptions, function (error, response) {
+                  if (error) {
+                    console.log(error);
+                  } else {
+                    const userOtp = UserOtp.update(
+                      { otp: otp },
+                      {
+                        where: {
+                          email: email
+                        }
+                      }, {
+                        returning: true
+                      })
+                      .then((data) => {
+                        console.log(data)
+                        res.send({ status: 'success', msg: "OTP resend successfully" })
+                      })
+                      .catch(err => {
+                        const errorMsg = err.errors ? err.errors[0].message : err.message;
+                        return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+                      });
+                  }
+                });
+              } else {
+                try {
+                  const postData = req.body;
+                  console.log('postdata', postData)
+                  var mailOptions = {
+                    from: "sploot.oasys@gmail.com", // sender address
+                    to: email, // list of receivers
+                    subject: "Sploot ", // Subject line
+                    text: otp, // plaintext body
+                    html: `<b>Your OTP is ${otp}</b>` // html body
+                  }
+                  // send mail with defined transport object
+                  await smtpTransport.sendMail(mailOptions, function (error, response) {
+                    if (error) {
+                      console.log(error);
+                    } else {
+                      const userOtp = UserOtp.create({
+                        email: email,
+                        otp: otp
+                      }, {
+                          returning: true
+                        })
+                        .then((data) => {
+                          console.log(data)
+                          return res.send({ status: 'success', msg: "OTP sent successfully" })
+                        })
+                        .catch(err => {
+                          const errorMsg = err.errors ? err.errors[0].message : err.message;
+                          return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+                        });
+                    }
+                  });
+                }
+                catch (err) {
+                  return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal servers error" });
+                }
+              }
+            } catch (err) {
+              return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
+            }
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        })
     }
   };
 
@@ -216,98 +370,6 @@ const AuthController = () => {
 
     }
   }
-
-  const createUser = async (req, res, next) => {
-		const userData = req.body;
-		if (userData) {
-			try {
-				const user = await User.findOne({
-					where: {
-						email: userData.email
-					}
-				}).catch(err => {
-					const errorMsg = err.errors ? err.errors[0].message : err.message;
-					return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
-				});
-				if (user) {
-					return res.send({ status: "failed", msg: "User Name already Exist" });
-				} else {
-					try {
-						const verified = UserOtp.findOne({
-							where: {
-								email: userData.email,
-								verified: 1
-							}
-						})
-							.then((data) => {
-								if (data == null) {
-									res.send({ status: 'failed', msg: 'Email is not verified' })
-								} else {
-									const postData = req.body;
-									console.log('postdata', postData)
-									User.create({
-										password: postData.password,
-										email: postData.email,
-										userTypeId: 1
-									}, {
-											returning: true
-										})
-										.then((data) => {
-											console.log('data=============>>>>>>', data)
-											const token = authService().issue({ id: data.dataValues.userId });
-											console.log('token==========>>>', token)
-											res.send({ status: "success", msg: "User registered successfully", token: token, data: data })
-										})
-										.catch(err => {
-											const errorMsg = err.errors ? err.errors[0].message : err.message;
-											return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
-										});
-								}
-							})
-
-					} catch (err) {
-						return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
-					}
-				}
-			} catch (err) {
-				return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
-			}
-		}
-  };
-
-  const signupUser = async (req, res, next) => {
-		const profileData = req.body;
-		if (profileData) {
-			const user = await User.findOne({
-				where: {
-					email: profileData.email
-				}
-			}).catch(err => {
-				const errorMsg = err.errors ? err.errors[0].message : err.message;
-				return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
-			});
-			console.log("============>>>>>>>>>>.", user)
-			if (user) {
-				res.send({ status: 'failed', msg: "Email already registered" });
-			} else {
-				User.create({
-					userName: profileData.userName,
-					email: profileData.email,
-					password: profileData.userId,
-					userTypeId: 1
-				}, {
-						returning: true
-					})
-					.then((data) => {
-						const token = authService().issue({ id: data.dataValues.userId });
-						res.send({ status: 'success', token: token, msg: "Successfully registered", data: data });
-					})
-					.catch((err) => {
-						res.send({ status: 'failed', msg: "Failed to register" , err: err });
-					})
-			}
-		}
-	}
 
   const generateOTP = async () => {
     var digits = "0123456789";
@@ -430,7 +492,7 @@ const AuthController = () => {
     login,
     userLogin,
     createUser,
-    signupUser,
+    // signupUser,
     forgetPassword,
     passwordChange,
     sendOtp,
