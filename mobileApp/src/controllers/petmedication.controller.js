@@ -22,7 +22,7 @@ const metMedicationController = () => {
 
           try {
               /* Country Data */
-              const met = await brandmed.findAll({
+              const met = await Medication.findAll({
                   where: {
                        medicationId: postData.medicationId
                      }
