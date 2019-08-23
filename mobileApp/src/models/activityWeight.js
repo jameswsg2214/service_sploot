@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false    
       },   
       weighDate: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.DATEONLY,
         allowNull: false
       },   
       active: {

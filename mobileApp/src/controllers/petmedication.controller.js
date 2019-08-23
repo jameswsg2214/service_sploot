@@ -16,7 +16,6 @@ const metMedicationController  = () => {
 	 * @param next
 	 * @returns {*}
 	 */
-
 	const getMedication  = async (req, res, next) => {
         const postData = req.body; 
         console.log("=============>Get medication",postData)

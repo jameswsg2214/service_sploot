@@ -178,7 +178,7 @@ const AuthController = () => {
     login,
     userLogin,
     createUser,
-    signupUser,
+   // signupUser,
     sendOtp,
     verifyOtp,
     forgetPassword,

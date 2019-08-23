@@ -186,6 +186,16 @@ const petDetailsController = () => {
 	};
 
 
+	    const getweightByDate = async (req, res, next) => {
+		        api.makeServiceCall("POST", "mobile", "/petdetails/getweightByDate", req.body)
+		            .then(response => {
+		                res.send(response.data); // <= send data to the client
+		            })
+		            .catch(err => {
+		                console.log(err.response.status);
+		                res.status(err.response.status).json(err.response.data);
+		            });
+	}
 
 	return {
 		getPetCategory,
@@ -202,7 +212,8 @@ const petDetailsController = () => {
 		deleteRx,
 		deletePetWeight,
 		getMedication,
-		getbrandmst
+		getbrandmst,
+		getweightByDate
 	};
 };
 
