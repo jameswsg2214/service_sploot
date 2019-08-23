@@ -193,7 +193,8 @@ const petDetailsController = () => {
 
 
 	
-	const getbrandmst = async (req, res, next) => {
+	const getBrandmst = async (req, res, next) => {
+		// console.log("U in api gateway.................")
 		api.makeServiceCall("POST", "mobile", "/petdetails/getbrandmst", req.body)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
@@ -215,6 +216,16 @@ const petDetailsController = () => {
 			});
 	};
 
+	    const getweightByDate = async (req, res, next) => {
+		        api.makeServiceCall("POST", "mobile", "/petdetails/getweightByDate", req.body)
+		            .then(response => {
+		                res.send(response.data); // <= send data to the client
+		            })
+		            .catch(err => {
+		                console.log(err.response.status);
+		                res.status(err.response.status).json(err.response.data);
+		            });
+	}
 
 	return {
 		getPetCategory,
@@ -233,8 +244,9 @@ const petDetailsController = () => {
 		updateRxMaster,
 		deletePetWeight,
 		getMedication,
-		getbrandmst,
-		getActivity
+		getActivity,
+		getweightByDate,
+		getBrandmst
 	};
 };
 

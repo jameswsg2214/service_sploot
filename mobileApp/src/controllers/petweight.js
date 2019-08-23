@@ -15,6 +15,58 @@ const weightController = () => {
 	 * @returns {*}
 	 */
 
+	const getweightByDate = async (req, res, next) => {
+
+		const postData = req.body;
+
+		console.log("=============>Get weghtid", postData)
+
+		try {
+			const met = await petWeightdb.findAll({
+			});
+			console.log(met)
+			var responseArray = [];
+			var responseData = [];
+			if (!met) {
+				return res
+					.status(httpStatus.OK)
+					.json({ status: "error", msg: "Weight Date's not found" });
+			}
+			else {
+				var todayDate = new Date();
+				var tdate = todayDate.toJSON().slice(0, 10);
+				var nDate = tdate.slice(0, 4) + '-' + tdate.slice(5, 7) + '-' + tdate.slice(8, 10)
+				console.log("Today--------------------------------------------------------------->>>>>>>>>>>>>>>", nDate)
+				for (let i = 0; i < met.length; i++) {
+					var date = met[i].weighDate;
+					if (date <= postData.weighDate) {
+						responseArray.push(met[i]);
+					}
+				}
+				if (responseArray.length > 0) {
+
+					responseArray.sort(function (a, b) {
+						return new Date(b.weighDate) - new Date(a.weighDate);
+					});
+					responseData.push(responseArray[0]);
+					responseData.push(responseArray[1]);
+					res.send(responseData);
+
+				} else {
+					return res.status(404).json({ Error: "No Records Found" });
+				}
+			}
+
+		}
+		catch (err) {
+			const errorMsg = err.errors ? err.errors[0].message : err.message;
+			return res
+				.status(httpStatus.INTERNAL_SERVER_ERROR)
+				.json({ status: "error", msg: errorMsg });
+		}
+
+	}
+
 	const postPetWeight = async (req, res, next) => {
 
 		try {
@@ -42,7 +94,7 @@ const weightController = () => {
 						petId: postData.petId,
 						weightValue: postData.weightValue,
 						weighDate: postData.weighDate,
-						active: postData.active	
+						active: postData.active
 					},
 					{
 						where: {
@@ -87,32 +139,32 @@ const weightController = () => {
 
 
 
-const deletepetweight = async (req, res, next) => {
+	const deletepetweight = async (req, res, next) => {
 		try {
-		  console.log(req.body)
-		  const data = await petWeightdb.update(
-			{ active: '0' },
-			{
-			  where: {
-				activityWeightId: req.body.activityWeightId
-			  }
+			console.log(req.body)
+			const data = await petWeightdb.update(
+				{ active: '0' },
+				{
+					where: {
+						activityWeightId: req.body.activityWeightId
+					}
+				}
+			)
+			if (!data) {
+				return res
+					.status(httpStatus.OK)
+					.json({ status: "error", msg: "petweight Data's not found" });
 			}
-		  )
-		  if (!data) {
 			return res
-			  .status(httpStatus.OK)
-			  .json({ status: "error", msg: "petweight Data's not found" });
-		  }
-		  return res
-			.status(httpStatus.OK)
-			.json({ status: "success", WeightData: data });
+				.status(httpStatus.OK)
+				.json({ status: "success", WeightData: data });
 		} catch (err) {
-		  const errorMsg = err.errors ? err.errors[0].message : err.message;
-		  return res
-			.status(httpStatus.INTERNAL_SERVER_ERROR)
-			.json({ status: "error", msg: errorMsg });
+			const errorMsg = err.errors ? err.errors[0].message : err.message;
+			return res
+				.status(httpStatus.INTERNAL_SERVER_ERROR)
+				.json({ status: "error", msg: errorMsg });
 		}
-	  };
+	};
 
 
 
@@ -124,6 +176,7 @@ const deletepetweight = async (req, res, next) => {
 	return {
 		postPetWeight,
 		deletepetweight,
+		getweightByDate
 	};
 };
 

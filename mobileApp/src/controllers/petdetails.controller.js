@@ -554,7 +554,6 @@ const petDetailsController = () => {
         }
       }).then(async (rxDtl) => {
         // res.send({ data: rxDtl })
-        const med = []
         await rxDtl.forEach((item, i) => {
           console.log("+=================>>>>>>>>>>>..item", item, "=assssssssssssss==============", item.dataValues.medicationId)
           const medicationId = item.dataValues.medicationId
@@ -572,7 +571,7 @@ const petDetailsController = () => {
       })
 
     })
-   
+
   };
 
   // --------------------------------------------return----------------------------------
