@@ -27,6 +27,6 @@ router.route("/deleteRx").post(petdetailsCtrl.deleteRx);
 router.route("/deletepetweight").post(petWeightCtrl.deletepetweight);
 
 router.route("/getMedication").post(petMedicationCtrl.getMedication);
-router.route("/getbrandmst").post(petMedicationCtrl.getbrandmst)
+router.route("/getBrandmst").post(petMedicationCtrl.getBrandmst)
 
 module.exports = router;

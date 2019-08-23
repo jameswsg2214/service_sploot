@@ -174,7 +174,8 @@ const petDetailsController = () => {
 
 
 	
-	const getbrandmst = async (req, res, next) => {
+	const getBrandmst = async (req, res, next) => {
+		// console.log("U in api gateway.................")
 		api.makeServiceCall("POST", "mobile", "/petdetails/getbrandmst", req.body)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
@@ -202,7 +203,7 @@ const petDetailsController = () => {
 		deleteRx,
 		deletePetWeight,
 		getMedication,
-		getbrandmst
+		getBrandmst
 	};
 };
 
