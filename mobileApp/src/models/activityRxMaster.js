@@ -17,11 +17,11 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: false        
         }, 
         durationFrom: {
-          type: DataTypes.BIGINT,
+          type: DataTypes.DATEONLY,
           allowNull: false        
         },
         durationTo: {
-          type: DataTypes.BIGINT,
+          type: DataTypes.DATEONLY,
           allowNull: false        
         },
         photo: {
@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: false,
         },    
       rxDate: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.DATEONLY,
         allowNull: false
       },   
       active: {

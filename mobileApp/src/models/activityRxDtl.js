@@ -12,16 +12,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      medId: {
+      medicationId: {
         type: DataTypes.INTEGER,
         allowNull: false
       },
       startDate: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.DATEONLY,
         allowNull: false
       },
       endDate: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.DATEONLY,
         allowNull: false
       },
       active: {
@@ -39,6 +39,20 @@ module.exports = (sequelize, DataTypes) => {
       ]
     }
   );
+
+
+
+  TblActivityRxDtl.associate = models => {
+    TblActivityRxDtl.hasOne(models.TblMedication, {
+      foreignKey: "medicationId",
+      onDelete: "CASCADE"
+    });
+    TblActivityRxDtl.hasOne(models.TblActivityRxMaster, {
+      foreignKey: "rxMasterId",
+      onDelete: "CASCADE"
+    });
+
+  };
 
   return TblActivityRxDtl;
 };

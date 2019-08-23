@@ -11,6 +11,10 @@ const breedMaster = db.TblBreedMaster;
 const RxDlt = db.TblActivityRxDtl;
 const RXMst = db.TblActivityRxMaster;
 const RxFreq = db.TblActivityRxFreq;
+const petWeightTbl = db.TblActivityWeight;
+const medicationTbl = db.TblMedication;
+
+
 
 const petDetailsController = () => {
 	/**
@@ -437,124 +441,140 @@ const petDetailsController = () => {
   }
 
   const postRxDtl = async (req, res, next) => {
-
-    try {
-      const postData = req.body;
-      console.log("postData========>", postData)
-      if (postData) {
-        RxDlt.create(
-          {
-            rxMasterId: postData.rxMasterId,
-            medId: postData.medId,
-            startDate: postData.startDate,
-            endDate: postData.endDate,
-            active: postData.active,
-          },
-          {
-            returning: true
-          }).then(data => {
-            console.log(data)
-            res.send({ status: "success", msg: "Inserted Successfully", data: data })
-          })
-      }
-      else {
-        res.send({ status: 'failed', msg: 'Please enter medicine data' })
-      }
+    const postData = req.body;
+    if (postData) {
+      RxDlt.create(
+        {
+          rxMasterId: postData.rxMasterId,
+          medicationId: postData.medicationId,
+          startDate: postData.startDate,
+          endDate: postData.endDate,
+          active: postData.active,
+        },
+        {
+          returning: true
+        }).then(data => {
+          console.log(data)
+          res.send({ status: "success", msg: "Inserted Successfully", data: data })
+        }).catch(err => {
+          res.send({ status: "failed", msg: "failed to insert data", error: err })
+        })
     }
-    catch (err) {
-      res.json({ status: "error", msg: "Inserted Unsuccessfully" })
-    };
+    else {
+      res.send({ status: 'failed', msg: 'Please enter medicine data' })
+    }
   }
 
   const postFreqDtl = async (req, res, next) => {
-
-    try {
-      const postData = req.body;
-      console.log("postData========>", postData)
-
-      if (postData) {
-        RxFreq.create(
-          {
-            rxDtlId: postData.rxDtlId,
-            freqInTake: postData.freqInTake,
-            active: postData.active,
-          },
-          {
-            returning: true
-          }).then(data => {
-            console.log(data)
-            res.send({ status: "success", msg: "Inserted Successfully", data: data })
-          })
-      }
-      else {
-        res.send({ status: 'failed', msg: 'Please enter medicine data' })
-      }
+    const postData = req.body;
+    if (postData) {
+      await RxFreq.create(
+        {
+          rxDtlId: postData.rxDtlId,
+          freqInTake: postData.freqInTake,
+          active: postData.active,
+        },
+        {
+          returning: true
+        }).then(data => {
+          res.send({ status: "success", msg: "Inserted Successfully", data: data })
+        }).catch(err => {
+          res.send({ status: "failed", msg: "failed to insert data", error: err })
+        })
     }
-    catch (err) {
-      res.json({ status: "error", msg: "Inserted Unsuccessfully" })
-    };
+    else {
+      res.send({ status: 'failed', msg: 'Please enter medicine data' })
+    }
   }
 
   const deleteRxMaster = async (req, res, next) => {
-    console.log("delete RxDtl file.........")
-    try {
-      console.log(req.body)
-      const data = await RXMst.update(
-        { active: '0' },
-        {
-          where: {
-            rxMasterId: req.body.rxMasterId
-          }
+    const postData = req.body
+    await RXMst.update(
+      { active: '0' },
+      {
+        where: {
+          rxMasterId: postData.rxMasterId
         }
-      )
-      if (!data) {
-        return res
-          .status(httpStatus.OK)
-          .json({ status: "error", msg: "Master Data's not found" });
       }
-      return res
-        .status(httpStatus.OK)
-        .json({ status: "success", breedData: data });
-    } catch (err) {
-      const errorMsg = err.errors ? err.errors[0].message : err.message;
-      return res
-        .status(httpStatus.INTERNAL_SERVER_ERROR)
-        .json({ status: "error", msg: 'Data deleted successfully', msg: errorMsg });
-    }
+    ).then((data) => {
+      res.send({ status: "success", msg: "Deleted Successfully", data: data })
+    }).catch(err => {
+      res.send({ status: "failed", msg: "failed to delete data", error: err })
+    })
   }
 
   const updateRxMaster = async (req, res, next) => {
-    console.log("update RxMst file.........")
-    try {
-      console.log(req.body)
-      const data = await RXMst.update(
-        {
-          durationFrom: postData.durationFrom,
-          durationTo: postData.durationTo,
-          rxDate: postData.rxDate,
-          photo: ptr,
-        },
-        {
-          where: {
-            rxMasterId: req.body.rxMasterId
-          }
+    const postData = req.body
+    await RXMst.update(
+      {
+        petId: postData.petId,
+        doctorId: postData.doctorId,
+        durationFrom: postData.durationFrom,
+        durationTo: postData.durationTo,
+        rxDate: postData.rxDate,
+        active: postData.active,
+      },
+      {
+        where: {
+          rxMasterId: postData.rxMasterId
         }
-      )
-      if (!data) {
-        return res
-          .status(httpStatus.OK)
-          .json({ status: "error", msg: "Master Data's not found" });
       }
-      return res
-        .status(httpStatus.OK)
-        .json({ status: "success", msg: 'Data updated successfully', breedData: data });
-    } catch (err) {
-      const errorMsg = err.errors ? err.errors[0].message : err.message;
-      return res
-        .status(httpStatus.INTERNAL_SERVER_ERROR)
-        .json({ status: "error", msg: errorMsg });
-    }
+    ).then((data) => {
+      res.send({ status: "success", msg: "Updated Successfully", data: data })
+    }).catch(err => {
+      res.send({ status: "failed", msg: "failed to update data", error: err })
+    })
   }
+
+  const getActivity = async (req, res, next) => {
+    /* Activity Data */
+    const postData = req.body;
+    const finalData = []
+    petWeightTbl.findOne({
+      where: {
+        weighDate: postData.Date
+      }
+    }).then(async (weighData) => {
+      const weightData = { weightData: weighData }
+      finalData.push(weightData)
+      //weightData == null ? res.send({ status: "failed", msg: "weight data is empty" }) : res.send({ status: "failed", weightData: weightData })
+    })
+      .catch(err => { res.send({ status: "failed", error: err }) })
+    await RXMst.findOne({
+      where: {
+        rxDate: postData.Date
+      }
+    }).then(async (rxData) => {
+      const rxMasterData = { rxData: rxData }
+      finalData.push(rxMasterData)
+      // rxData == null ? res.send({ status: "failed", msg: "rx data is empty" }) : res.send({ status: "failed", rxData: rxData })
+      await RxDlt.findAll({
+        where: {
+          rxMasterId: rxData.rxMasterId
+        }
+      }).then(async (rxDtl) => {
+        // res.send({ data: rxDtl })
+        const med = []
+        await rxDtl.forEach((item, i) => {
+          console.log("+=================>>>>>>>>>>>..item", item, "=assssssssssssss==============", item.dataValues.medicationId)
+          const medicationId = item.dataValues.medicationId
+          medicationTbl.findAll({
+            where: {
+              medicationId: medicationId
+            }
+          }).then((medDtl) => {
+            console.log('=============medDtl[i].dataValues===========',medDtl[i].dataValues)
+            finalData.push(medDtl[i].dataValues)
+            res.send({ data: finalData })
+          })
+        })
+        // finalData.push(med)
+      })
+
+    })
+   
+  };
+
   // --------------------------------------------return----------------------------------
   return {
     getPetCategory,
@@ -569,7 +589,8 @@ const petDetailsController = () => {
     postRxDtl,
     postFreqDtl,
     deleteRxMaster,
-    updateRxMaster
+    updateRxMaster,
+    getActivity
   };
 };
 
