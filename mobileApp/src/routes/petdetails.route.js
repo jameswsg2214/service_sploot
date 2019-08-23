@@ -1,10 +1,12 @@
 const express = require("express");
+const router = express.Router(); // eslint-disable-line new-cap
+
+/*================ Core components =========================*/
 const petdetailsCtrl = require("../controllers/petdetails.controller");
 const petWeightCtrl = require("../controllers/petweight");
 const petMedicationCtrl = require('../controllers/petmedication.controller')
 
-// const multer = require("multer");
-const router = express.Router(); // eslint-disable-line new-cap
+/*====================== Pet details Routes =====================*/
 
 router.route("/getPetCategory").post(petdetailsCtrl.getPetCategory);
 router.route("/getBreedTypeId").post(petdetailsCtrl.getBreedTypeId);
@@ -17,12 +19,11 @@ router.route("/updatePetdetails").post(petdetailsCtrl.updatePetdetails);
 router.route("/postPetWeight").post(petWeightCtrl.postPetWeight);
 
 /*====================== Rx Routes =====================*/
+router.route("/getRxMaster").get(petdetailsCtrl.getRxMaster)
 router.route("/postRxMaster").post(petdetailsCtrl.postRxMaster);
 router.route("/postRxDtl").post(petdetailsCtrl.postRxDtl);
 router.route("/postFreqDtl").post(petdetailsCtrl.postFreqDtl);
-
-
-router.route("/deleteRx").post(petdetailsCtrl.deleteRx);
+router.route("/deleteRxMaster").post(petdetailsCtrl.deleteRxMaster);
 
 router.route("/deletepetweight").post(petWeightCtrl.deletepetweight);
 

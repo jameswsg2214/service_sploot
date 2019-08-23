@@ -371,6 +371,27 @@ const petDetailsController = () => {
   //   };
   // }
 
+  const getRxMaster = async (req, res, next) => {
+    try {
+      /* Country Data */
+      const rxMst = await RXMst.findAll({
+      });
+      if (!rxMst) {
+        return res
+          .status(httpStatus.OK)
+          .json({ status: "error", msg: "Master Data's not found" });
+      }
+      return res
+        .status(httpStatus.OK)
+        .json({ status: "success", rxMasterDetails: rxMst });
+    } catch (err) {
+      const errorMsg = err.errors ? err.errors[0].message : err.message;
+      return res
+        .status(httpStatus.INTERNAL_SERVER_ERROR)
+        .json({ status: "error", msg: errorMsg });
+    }
+  };
+
   const postRxMaster = async (req, res, next) => {
 
     try {
@@ -419,7 +440,7 @@ const petDetailsController = () => {
 
     try {
       const postData = req.body;
-      console.log("postData========>", postData)     
+      console.log("postData========>", postData)
       if (postData) {
         RxDlt.create(
           {
@@ -450,7 +471,7 @@ const petDetailsController = () => {
     try {
       const postData = req.body;
       console.log("postData========>", postData)
-     
+
       if (postData) {
         RxFreq.create(
           {
@@ -474,11 +495,11 @@ const petDetailsController = () => {
     };
   }
 
-  const deleteRx = async (req, res, next) => {
+  const deleteRxMaster = async (req, res, next) => {
     console.log("delete RxDtl file.........")
     try {
       console.log(req.body)
-      const data = await RxDlt.update(
+      const data = await RXMst.update(
         { active: '0' },
         {
           where: {
@@ -498,9 +519,41 @@ const petDetailsController = () => {
       const errorMsg = err.errors ? err.errors[0].message : err.message;
       return res
         .status(httpStatus.INTERNAL_SERVER_ERROR)
+        .json({ status: "error", msg: 'Data deleted successfully', msg: errorMsg });
+    }
+  }
+
+  const updateRxMaster = async (req, res, next) => {
+    console.log("update RxMst file.........")
+    try {
+      console.log(req.body)
+      const data = await RXMst.update(
+        {
+          durationFrom: postData.durationFrom,
+          durationTo: postData.durationTo,
+          rxDate: postData.rxDate,
+          photo: ptr,
+        },
+        {
+          where: {
+            rxMasterId: req.body.rxMasterId
+          }
+        }
+      )
+      if (!data) {
+        return res
+          .status(httpStatus.OK)
+          .json({ status: "error", msg: "Master Data's not found" });
+      }
+      return res
+        .status(httpStatus.OK)
+        .json({ status: "success", msg: 'Data updated successfully', breedData: data });
+    } catch (err) {
+      const errorMsg = err.errors ? err.errors[0].message : err.message;
+      return res
+        .status(httpStatus.INTERNAL_SERVER_ERROR)
         .json({ status: "error", msg: errorMsg });
     }
-
   }
   // --------------------------------------------return----------------------------------
   return {
@@ -511,10 +564,12 @@ const petDetailsController = () => {
     postPetMaster,
     deletePetdetails,
     updatePetdetails,
+    getRxMaster,
     postRxMaster,
     postRxDtl,
     postFreqDtl,
-    deleteRx
+    deleteRxMaster,
+    updateRxMaster
   };
 };
 

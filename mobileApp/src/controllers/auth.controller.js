@@ -94,7 +94,7 @@ const AuthController = () => {
             User.create({
               userName: userData.userName,
               email: userData.email,
-              googlePassword: userData.userId,
+              googlePassword: userData.password,
               loginType: userData.loginType,
               userTypeId: 1
             }, {
@@ -111,7 +111,7 @@ const AuthController = () => {
             User.create({
               userName: userData.userName,
               email: userData.email,
-              facebookPassword: userData.userId,
+              facebookPassword: userData.password,
               loginType: userData.loginType,
               userTypeId: 1
             }, {
@@ -322,7 +322,6 @@ const AuthController = () => {
           if (user != null) {
             if (userData.password == (user.dataValues.password || user.dataValues.googlePassword || user.dataValues.facebookPassword)) {
               const token = authService().issue({ id: user.dataValues.userId });
-              console.log(token)
               return res
                 .status(httpStatus.OK)
                 .json({ status: "success", token, User: user });
