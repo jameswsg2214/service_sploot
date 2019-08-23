@@ -94,7 +94,7 @@ const AuthController = () => {
             User.create({
               userName: userData.userName,
               email: userData.email,
-              googlePassword: userData.userId,
+              googlePassword: userData.password,
               loginType: userData.loginType,
               userTypeId: 1
             }, {
@@ -111,7 +111,7 @@ const AuthController = () => {
             User.create({
               userName: userData.userName,
               email: userData.email,
-              facebookPassword: userData.userId,
+              facebookPassword: userData.password,
               loginType: userData.loginType,
               userTypeId: 1
             }, {
@@ -312,64 +312,71 @@ const AuthController = () => {
   };
 
   const login = async (req, res, next) => {
-
-    const { email, password } = req.body;
-    if (email && password) {
-      console.log("if============>", email, password)
-      try {
-        const user = await User.findOne({
-          where: { email: email }
-        })
-        if (user != null) {
-          if (password === user.dataValues.password) {
-            const token = authService().issue({ id: user.dataValues.userId });
-            console.log(token)
-            return res
-              .status(httpStatus.OK)
-              .json({ status: "success", token, User: user });
+    const userData = req.body;
+    if (userData) {
+      //if (userData.loginType == 1) {
+        try {
+          const user = await User.findOne({
+            where: { email: userData.email }
+          })
+          if (user != null) {
+            if (userData.password == (user.dataValues.password || user.dataValues.googlePassword || user.dataValues.facebookPassword)) {
+              const token = authService().issue({ id: user.dataValues.userId });
+              return res
+                .status(httpStatus.OK)
+                .json({ status: "success", token, User: user });
+            } else {
+              res.send({ status: 'failed', msg: 'password is incorrect' })
+            }
           } else {
-            res.send({ status: 'failed', msg: 'password is incorrect' })
+            res.send({ status: 'failed', msg: 'user not found' })
           }
-        } else {
-          res.send({ status: 'failed', msg: 'user not found' })
+        } catch (err) {
+          const errorMsg = err.errors ? err.errors[0].message : err.message;
+          return res
+            .status(httpStatus.INTERNAL_SERVER_ERROR)
+            .json({ status: "error", msg: errorMsg });
         }
-      } catch (err) {
-        const errorMsg = err.errors ? err.errors[0].message : err.message;
-        return res
-          .status(httpStatus.INTERNAL_SERVER_ERROR)
-          .json({ status: "error", msg: errorMsg });
-      }
+      //} 
+      // else if (userData.loginType == 2) {
+      //   //google
+      // } 
+      // else if (userData.loginType == 3) {
+      //   //facebook
+      // }
+    } else {
+      res.send({ status: 'failed', msg: 'please provide data' })
     }
     return res
       .status(httpStatus.BAD_REQUEST)
       .json({ status: "failed", msg: "Email or password is wrong" });
   };
 
-  const userLogin = async (req, res, next) => {
-    const profileData = req.body;
-    if (profileData) {
-      const user = await User.findOne({
-        where: {
-          email: profileData.email,
-        }
-      })
-        .catch((error) => {
-          res.send({ error: error })
-        })
-      console.log("==============>>>>>>>>>>>", user)
-      if (user != null) {
-        if (user.dataValues.password == profileData.userId) {
-          const token = authService().issue({ id: user.dataValues.password });
-          return res.send({ status: "success", msg: 'Login successfull', token: token, User: user });
-        } else {
-          res.send({ status: 'Failed', msg: 'userId is wrong' })
-        }
-      } else {
-        res.send({ status: 'Failed', msg: 'User not found' })
-      }
+  // const userLogin = async (req, res, next) => {
+  //   const profileData = req.body;
+  //   if (profileData) {
+  //     const user = await User.findOne({
+  //       where: {
+  //         email: profileData.email,
+  //       }
+  //     })
+  //       .catch((error) => {
+  //         res.send({ error: error })
+  //       })
+  //     console.log("==============>>>>>>>>>>>", user)
+  //     if (user != null) {
+  //       if (user.dataValues.password == profileData.userId) {
+  //         const token = authService().issue({ id: user.dataValues.password });
+  //         return res.send({ status: "success", msg: 'Login successfull', token: token, User: user });
+  //       } else {
+  //         res.send({ status: 'Failed', msg: 'userId is wrong' })
+  //       }
+  //     } else {
+  //       res.send({ status: 'Failed', msg: 'User not found' })
+  //     }
 
-    }
-  }
+  //   }
+  // }
 
   const generateOTP = async () => {
     var digits = "0123456789";
@@ -490,7 +497,7 @@ const AuthController = () => {
 
   return {
     login,
-    userLogin,
+    // userLogin,
     createUser,
     // signupUser,
     forgetPassword,

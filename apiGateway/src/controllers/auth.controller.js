@@ -25,18 +25,18 @@ const AuthController = () => {
         res.status(err.response.status).json(err.response.data);
       });
   };
-  const userLogin = async (req, res, next) => {
-    console.log(req.body);
-    api
-      .makeServiceCall("POST", "mobile", "/auth/userLogin", req.body, req.headers)
-      .then(response => {
-        res.send(response.data); // <= send data to the client
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(err.response.status).json(err.response.data);
-      });
-  };
+  // const userLogin = async (req, res, next) => {
+  //   console.log(req.body);
+  //   api
+  //     .makeServiceCall("POST", "mobile", "/auth/userLogin", req.body, req.headers)
+  //     .then(response => {
+  //       res.send(response.data); // <= send data to the client
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //       res.status(err.response.status).json(err.response.data);
+  //     });
+  // };
 
   const createUser = async (req, res, next) => {
 		api.makeServiceCall("POST", "mobile", "/auth/createUser", req.body, req.headers)
@@ -176,9 +176,9 @@ const AuthController = () => {
   };
   return {
     login,
-    userLogin,
+    // userLogin,
     createUser,
-   // signupUser,
+    // signupUser,
     sendOtp,
     verifyOtp,
     forgetPassword,

@@ -114,7 +114,16 @@ const petDetailsController = () => {
 			});
 	};
 
-
+	const getRxMaster = async (req, res, next) => {
+		api.makeServiceCall("GET", "mobile", "/petdetails/getRxMaster", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
 
 	const postRxMaster = async (req, res, next) => {
 		api.makeServiceCall("POST", "mobile", "/petdetails/postRxMaster", req.body)
@@ -149,8 +158,8 @@ const petDetailsController = () => {
 			});
 	};
 
-	const deleteRx = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/deleteRx", req.body)
+	const deleteRxMaster = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/deleteRxMaster", req.body)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -160,7 +169,17 @@ const petDetailsController = () => {
 			});
 	};
 
-	
+	const updateRxMaster = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/updateRxMaster", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
+
 	const getMedication = async (req, res, next) => {
 		api.makeServiceCall("POST", "mobile", "/petdetails/getMedication", req.body)
 			.then(response => {
@@ -174,7 +193,8 @@ const petDetailsController = () => {
 
 
 	
-	const getbrandmst = async (req, res, next) => {
+	const getBrandmst = async (req, res, next) => {
+		// console.log("U in api gateway.................")
 		api.makeServiceCall("POST", "mobile", "/petdetails/getbrandmst", req.body)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
@@ -206,14 +226,16 @@ const petDetailsController = () => {
 		deletePetdetails,
 		updatePetdetails,
 		postPetWeight,
+		getRxMaster,
 		postRxMaster,
 		postRxDtl,
 		postRxFreq,
-		deleteRx,
+		deleteRxMaster,
+		updateRxMaster,
 		deletePetWeight,
 		getMedication,
-		getbrandmst,
-		getweightByDate
+		getweightByDate,
+		getBrandmst
 	};
 };
 
