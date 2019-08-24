@@ -15,7 +15,6 @@ const petWeightTbl = db.TblActivityWeight;
 const medicationTbl = db.TblMedication;
 
 
-
 const petDetailsController = () => {
 	/**
 	 * Returns jwt token if valid username and password is provided
@@ -443,7 +442,7 @@ const petDetailsController = () => {
   const postRxDtl = async (req, res, next) => {
     const postData = req.body;
     if (postData) {
-      RxDlt.create(
+      await RxDlt.create(
         {
           rxMasterId: postData.rxMasterId,
           medicationId: postData.medicationId,
@@ -465,7 +464,7 @@ const petDetailsController = () => {
     }
   }
 
-  const postFreqDtl = async (req, res, next) => {
+  const postRxFreq = async (req, res, next) => {
     const postData = req.body;
     if (postData) {
       await RxFreq.create(
@@ -529,7 +528,7 @@ const petDetailsController = () => {
   const getActivity = async (req, res, next) => {
     /* Activity Data */
     const postData = req.body;
-    const finalData = []
+    finalData = []
     petWeightTbl.findOne({
       where: {
         weighDate: postData.Date
@@ -554,25 +553,157 @@ const petDetailsController = () => {
         }
       }).then(async (rxDtl) => {
         // res.send({ data: rxDtl })
-        await rxDtl.forEach((item, i) => {
-          console.log("+=================>>>>>>>>>>>..item", item, "=assssssssssssss==============", item.dataValues.medicationId)
+        let j = 0, k = rxDtl.length
+        
+        console.log(k)
+        await rxDtl.forEach(async (item, i) => {
           const medicationId = item.dataValues.medicationId
-          medicationTbl.findAll({
+          console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', medicationId)
+          await medicationTbl.findOne({
             where: {
               medicationId: medicationId
             }
-          }).then((medDtl) => {
-            console.log('=============medDtl[i].dataValues===========',medDtl[i].dataValues)
-            finalData.push(medDtl[i].dataValues)
-            res.send({ data: finalData })
           })
+            .then(async (medDtl) => {
+              console.log(j, k);
+              if (medDtl) {
+                finalData.push(medDtl.dataValues)
+                if (j == k - 1) {
+                  console.log('===========78888888888', j, k - 1, finalData)
+                  res.send({ finalData });
+                } else{
+                  j++
+                }
+              } else {
+                j++
+              }
+            })
         })
-        // finalData.push(med)
       })
-
     })
-
   };
+
+  const rxMasterBulk = async (req, res, next) => {
+    const rxMasterList = req.body;
+    if (rxMasterList.length > 0) {
+    try {
+    var _rxMasterList = [];
+    rxMasterList.forEach(function (arrayItem) {
+    const obj = {
+      petId: arrayItem.petId,
+      doctorId: arrayItem.doctorId,
+      durationFrom: arrayItem.durationFrom,
+      durationTo: arrayItem.durationTo,
+      rxDate: arrayItem.rxDate,
+      photo: arrayItem.photo,
+      active: arrayItem.active
+    }
+    _rxMasterList.push(obj);
+    })
+    console.log("-----------------------------__>>>>>>>>>>>>>>>>>_rxMasterList",_rxMasterList)
+    const rxMasterImport = await RXMst.bulkCreate(
+    _rxMasterList,
+    {
+    fields: ["petName","breedId","petCategoryId","photo","status","sex","monthlyCycle","dob","period","height","length","weight","color","marks","parentFatherName","parentFatherBreedName","parentAddress","parenOwnerName","parenMobileNumber","parentOwnerAddress","drName","drhospitalName",""],
+    updateOnDuplicate: ["petName"],
+    },
+    {
+    returning: true
+    })
+    return res.status(httpStatus.OK).json({ rxMasterImport });
+    }
+    catch (err) {
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
+    }
+    }
+    };
+  const getPetMasterById = async (req, res, next) => {
+    const postData = req.body
+    console.log("----------------------->>>postData", postData)
+    try {
+      const pet = await PetMaster.findAll({
+        where: { petId: postData.petId }
+      });
+      if (pet == '' || pet == undefined) {
+        return res
+          .status(httpStatus.OK)
+          .json({ status: "error", msg: "Master Data's not found" });
+      }
+      else {
+        return res
+          .status(httpStatus.OK)
+          .json({ status: "success", petMasterDetailsById: pet });
+      }
+
+    } catch (err) {
+      const errorMsg = err.errors ? err.errors[0].message : err.message;
+      return res
+        .status(httpStatus.INTERNAL_SERVER_ERROR)
+        .json({ status: "error", msg: errorMsg });
+    }
+  };
+
+
+
+  // BULK PETMASTER
+  const petMstBulkInsert = async (req, res, next) => {
+    const petMasterlist = req.body;
+    if (petMasterlist.length > 0) {
+      try {
+        var _petMasterlist = [];
+        petMasterlist.forEach(function (arrayItem) {
+          const obj = {
+            petName: arrayItem.petName,
+            status: arrayItem.status,
+            breedId: arrayItem.breedId,
+            petCategoryId: arrayItem.petCategoryId,
+            photo: arrayItem.photo,
+            monthlyCycle: arrayItem.monthlyCycle,
+            status: arrayItem.status,
+            monthlyCycle: arrayItem.monthlyCycle,
+            dob: arrayItem.dob,
+            period: arrayItem.period,
+            height: arrayItem.height,
+            weight: arrayItem.weight,
+            color: arrayItem.color,
+            marks: arrayItem.marks,
+            parentFatherName: arrayItem.parentFatherName,
+            parentFatherBreedName: arrayItem.parentFatherBreedName,
+            parentAddress: arrayItem.parentAddress,
+            parenOwnerName: arrayItem.parenOwnerName,
+            parenMobileNumber: arrayItem.parenMobileNumber,
+            parentOwnerAddress: arrayItem.parentOwnerAddress,
+            drName: arrayItem.drName,
+            drhospitalName: arrayItem.drhospitalName,
+            drMobile: arrayItem.drMobile,
+            drEmail: arrayItem.drEmail,
+            drAddress: arrayItem.drAddress,
+            drCity: arrayItem.drCity,
+            drState: arrayItem.drState,
+            drCountry: arrayItem.drCountry
+          }
+          _petMasterlist.push(obj);
+        })
+        const petMasterImport = await PetMaster.bulkCreate(
+          _petMasterlist,
+          {
+            fields: ["petName", "breedId", "petCategoryId", "photo", "status", "sex", "monthlyCycle", "dob",
+              "period", "height", "length", "weight", "color", "marks", "parentFatherName", "parentFatherBreedName",
+              "parentAddress", "parenOwnerName", "parenMobileNumber", "parentOwnerAddress", "drName", "drhospitalName",
+              "drMobile", "drEmail", "drAddress", "drCity", "drState", "drCountry"],
+            updateOnDuplicate: ["petName"],
+          },
+          {
+            returning: true
+          })
+        return res.status(httpStatus.OK).json({ petMasterImport });
+      }
+      catch (err) {
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
+      }
+    }
+  };
+  //bulk completed
 
   // --------------------------------------------return----------------------------------
   return {
@@ -586,10 +717,13 @@ const petDetailsController = () => {
     getRxMaster,
     postRxMaster,
     postRxDtl,
-    postFreqDtl,
+    postRxFreq,
     deleteRxMaster,
     updateRxMaster,
-    getActivity
+    getActivity,
+    rxMasterBulk,
+    petMstBulkInsert,
+    getPetMasterById
   };
 };
 

@@ -11,6 +11,8 @@ router.route("/postPetMaster").post(petDetailCtrl.postPetMaster);
 router.route("/deletePetdetails").post(petDetailCtrl.deletePetdetails);
 router.route("/updatePetdetails").post(petDetailCtrl.updatePetdetails);
 router.route("/postPetWeight").post(petDetailCtrl.postPetWeight);
+router.route("/getPetMasterById").post(petDetailCtrl.getPetMasterById);
+router.route("/petMasterBulk").post(petDetailCtrl.petMstBulkInsert);
 
 /*===================== Rx Routes ==========================*/
 router.route("/getRxMaster").post(petDetailCtrl.getRxMaster);
@@ -25,6 +27,7 @@ router.route("/getMedication").post(petDetailCtrl.getMedication);
 router.route("/postMedication").post(petDetailCtrl.postMedication);
 router.route("/getBrandmst").post(petDetailCtrl.getBrandmst);
 router.route("/getActivity").post(petDetailCtrl.getActivity);
+router.route("/rxMasterBulk").post(petDetailCtrl.rxMasterBulk);
 
 
 router.route("/deletePetWeight").post(petDetailCtrl.deletePetWeight);

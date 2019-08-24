@@ -44,8 +44,8 @@ const metMedicationController = () => {
             }
 	
   };
-  
 
+  
   ////post medication///////////////////
 
   const postMedication = async(req, res, next)=>{
