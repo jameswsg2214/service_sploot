@@ -554,7 +554,7 @@ const petDetailsController = () => {
       }).then(async (rxDtl) => {
         // res.send({ data: rxDtl })
         let j = 0, k = rxDtl.length
-        
+
         console.log(k)
         await rxDtl.forEach(async (item, i) => {
           const medicationId = item.dataValues.medicationId
@@ -571,7 +571,7 @@ const petDetailsController = () => {
                 if (j == k - 1) {
                   console.log('===========78888888888', j, k - 1, finalData)
                   res.send({ finalData });
-                } else{
+                } else {
                   j++
                 }
               } else {
@@ -586,37 +586,37 @@ const petDetailsController = () => {
   const rxMasterBulk = async (req, res, next) => {
     const rxMasterList = req.body;
     if (rxMasterList.length > 0) {
-    try {
-    var _rxMasterList = [];
-    rxMasterList.forEach(function (arrayItem) {
-    const obj = {
-      petId: arrayItem.petId,
-      doctorId: arrayItem.doctorId,
-      durationFrom: arrayItem.durationFrom,
-      durationTo: arrayItem.durationTo,
-      rxDate: arrayItem.rxDate,
-      photo: arrayItem.photo,
-      active: arrayItem.active
+      try {
+        var _rxMasterList = [];
+        rxMasterList.forEach(function (arrayItem) {
+          const obj = {
+            petId: arrayItem.petId,
+            doctorId: arrayItem.doctorId,
+            durationFrom: arrayItem.durationFrom,
+            durationTo: arrayItem.durationTo,
+            rxDate: arrayItem.rxDate,
+            photo: arrayItem.photo,
+            active: "1"
+          }
+          _rxMasterList.push(obj);
+        })
+        console.log("-----------------------------__>>>>>>>>>>>>>>>>>_rxMasterList", _rxMasterList)
+        const rxMasterImport = await RXMst.bulkCreate(
+          _rxMasterList,
+          {
+            fields: ["petId", "doctorId", "durationFrom", "durationTo", "rxDate", "photo", "active"],
+            updateOnDuplicate: ["rxDate"],
+          },
+          {
+            returning: true
+          })
+        return res.status(httpStatus.OK).json({ rxMasterImport });
+      }
+      catch (err) {
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
+      }
     }
-    _rxMasterList.push(obj);
-    })
-    console.log("-----------------------------__>>>>>>>>>>>>>>>>>_rxMasterList",_rxMasterList)
-    const rxMasterImport = await RXMst.bulkCreate(
-    _rxMasterList,
-    {
-    fields: ["petName","breedId","petCategoryId","photo","status","sex","monthlyCycle","dob","period","height","length","weight","color","marks","parentFatherName","parentFatherBreedName","parentAddress","parenOwnerName","parenMobileNumber","parentOwnerAddress","drName","drhospitalName",""],
-    updateOnDuplicate: ["petName"],
-    },
-    {
-    returning: true
-    })
-    return res.status(httpStatus.OK).json({ rxMasterImport });
-    }
-    catch (err) {
-    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
-    }
-    }
-    };
+  };
   const getPetMasterById = async (req, res, next) => {
     const postData = req.body
     console.log("----------------------->>>postData", postData)
