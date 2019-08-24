@@ -28,6 +28,7 @@ router.route("/postMedication").post(petDetailCtrl.postMedication);
 router.route("/getBrandmst").post(petDetailCtrl.getBrandmst);
 router.route("/getActivity").post(petDetailCtrl.getActivity);
 router.route("/rxMasterBulk").post(petDetailCtrl.rxMasterBulk);
+router.route("/medBulkInsert").post(petDetailCtrl.medBulkInsert);
 
 
 router.route("/deletePetWeight").post(petDetailCtrl.deletePetWeight);
