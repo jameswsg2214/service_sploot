@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       },
 
       dob: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.DATEONLY,
         allowNull: true,
       },
       monthlyCycle: {
