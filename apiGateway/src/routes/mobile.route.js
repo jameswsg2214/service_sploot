@@ -22,6 +22,7 @@ router.route("/updateRxMaster").post(petDetailCtrl.updateRxMaster);
 router.route("/getMedication").post(petDetailCtrl.getMedication);
 router.route("/getBrandmst").post(petDetailCtrl.getBrandmst);
 router.route("/getActivity").post(petDetailCtrl.getActivity);
+router.route("/rxMasterBulk").post(petDetailCtrl.rxMasterBulk);
 
 
 router.route("/deletePetWeight").post(petDetailCtrl.deletePetWeight);
