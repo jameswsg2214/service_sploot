@@ -26,6 +26,7 @@ router.route("/getActivity").post(petDetailCtrl.getActivity);
 
 router.route("/deletePetWeight").post(petDetailCtrl.deletePetWeight);
 router.route("/getweightByDate").post(petDetailCtrl.getweightByDate);
+router.route("/petWeightBulk").post(petDetailCtrl.petWeightBulk);
 module.exports = router;
 
 
