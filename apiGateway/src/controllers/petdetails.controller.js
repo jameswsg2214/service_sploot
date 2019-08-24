@@ -347,7 +347,9 @@ const petDetailsController = () => {
 		getPetMasterById,
 		petMstBulkInsert,
 		addNoteBulk,
-		medBulkInsert
+		medBulkInsert,
+		postNote
+		
 	}
 };
 module.exports = petDetailsController();
