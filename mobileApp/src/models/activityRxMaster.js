@@ -8,30 +8,30 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true
       },
-       petId: {
+      petId: {
         type: DataTypes.INTEGER,
-        allowNull: false        
-      }, 
+        allowNull: false
+      },
       doctorId: {
-          type: DataTypes.INTEGER,
-          allowNull: false        
-        }, 
-        durationFrom: {
-          type: DataTypes.DATEONLY,
-          allowNull: false        
-        },
-        durationTo: {
-          type: DataTypes.DATEONLY,
-          allowNull: false        
-        },
-        photo: {
-          type: DataTypes.STRING, 
-          allowNull: false,
-        },    
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      durationFrom: {
+        type: DataTypes.DATEONLY,
+        allowNull: false
+      },
+      durationTo: {
+        type: DataTypes.DATEONLY,
+        allowNull: false
+      },
+      photo: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       rxDate: {
         type: DataTypes.DATEONLY,
         allowNull: false
-      },   
+      },
       active: {
         type: DataTypes.ENUM,
         values: ["0", "1"],

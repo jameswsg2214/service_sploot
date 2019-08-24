@@ -15,7 +15,6 @@ const petWeightTbl = db.TblActivityWeight;
 const medicationTbl = db.TblMedication;
 
 
-
 const petDetailsController = () => {
 	/**
 	 * Returns jwt token if valid username and password is provided
@@ -443,7 +442,7 @@ const petDetailsController = () => {
   const postRxDtl = async (req, res, next) => {
     const postData = req.body;
     if (postData) {
-      RxDlt.create(
+      await RxDlt.create(
         {
           rxMasterId: postData.rxMasterId,
           medicationId: postData.medicationId,
@@ -465,7 +464,7 @@ const petDetailsController = () => {
     }
   }
 
-  const postFreqDtl = async (req, res, next) => {
+  const postRxFreq = async (req, res, next) => {
     const postData = req.body;
     if (postData) {
       await RxFreq.create(
@@ -529,7 +528,7 @@ const petDetailsController = () => {
   const getActivity = async (req, res, next) => {
     /* Activity Data */
     const postData = req.body;
-    const finalData = []
+    finalData = []
     petWeightTbl.findOne({
       where: {
         weighDate: postData.Date
@@ -554,26 +553,70 @@ const petDetailsController = () => {
         }
       }).then(async (rxDtl) => {
         // res.send({ data: rxDtl })
-        await rxDtl.forEach((item, i) => {
-          console.log("+=================>>>>>>>>>>>..item", item, "=assssssssssssss==============", item.dataValues.medicationId)
+        let j = 0, k = rxDtl.length
+
+        console.log(k)
+        await rxDtl.forEach(async (item, i) => {
           const medicationId = item.dataValues.medicationId
-          medicationTbl.findAll({
+          console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', medicationId)
+          await medicationTbl.findOne({
             where: {
               medicationId: medicationId
             }
-          }).then((medDtl) => {
-            console.log('=============medDtl[i].dataValues===========', medDtl[i].dataValues)
-            finalData.push(medDtl[i].dataValues)
-            res.send({ data: finalData })
           })
+            .then(async (medDtl) => {
+              console.log(j, k);
+              if (medDtl) {
+                finalData.push(medDtl.dataValues)
+                if (j == k - 1) {
+                  console.log('===========78888888888', j, k - 1, finalData)
+                  res.send({ finalData });
+                } else {
+                  j++
+                }
+              } else {
+                j++
+              }
+            })
         })
-        // finalData.push(med)
       })
-
     })
-
   };
 
+  const rxMasterBulk = async (req, res, next) => {
+    const rxMasterList = req.body;
+    if (rxMasterList.length > 0) {
+      try {
+        var _rxMasterList = [];
+        rxMasterList.forEach(function (arrayItem) {
+          const obj = {
+            petId: arrayItem.petId,
+            doctorId: arrayItem.doctorId,
+            durationFrom: arrayItem.durationFrom,
+            durationTo: arrayItem.durationTo,
+            rxDate: arrayItem.rxDate,
+            photo: arrayItem.photo,
+            active: "1"
+          }
+          _rxMasterList.push(obj);
+        })
+        console.log("-----------------------------__>>>>>>>>>>>>>>>>>_rxMasterList", _rxMasterList)
+        const rxMasterImport = await RXMst.bulkCreate(
+          _rxMasterList,
+          {
+            fields: ["petId", "doctorId", "durationFrom", "durationTo", "rxDate", "photo", "active"],
+            updateOnDuplicate: ["rxDate"],
+          },
+          {
+            returning: true
+          })
+        return res.status(httpStatus.OK).json({ rxMasterImport });
+      }
+      catch (err) {
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
+      }
+    }
+  };
   const getPetMasterById = async (req, res, next) => {
     const postData = req.body
     console.log("----------------------->>>postData", postData)
@@ -674,10 +717,11 @@ const petDetailsController = () => {
     getRxMaster,
     postRxMaster,
     postRxDtl,
-    postFreqDtl,
+    postRxFreq,
     deleteRxMaster,
     updateRxMaster,
     getActivity,
+    rxMasterBulk,
     petMstBulkInsert,
     getPetMasterById
   };
