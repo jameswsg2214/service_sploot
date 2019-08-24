@@ -192,7 +192,18 @@ const petDetailsController = () => {
 	};
 
 
+	const postMedication = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/postMedication", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
 
+	
 	const getBrandmst = async (req, res, next) => {
 		// console.log("U in api gateway.................")
 		api.makeServiceCall("POST", "mobile", "/petdetails/getbrandmst", req.body)
@@ -280,6 +291,7 @@ const petDetailsController = () => {
 		updateRxMaster,
 		deletePetWeight,
 		getMedication,
+		postMedication,
 		getActivity,
 		getweightByDate,
 		getBrandmst,
