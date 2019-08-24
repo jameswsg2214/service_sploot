@@ -91,10 +91,12 @@ const weightController = () => {
 				console.log("findPet==========>")
 				petWeightdb.update(
 					{
+
+						userId : postData.active,
 						petId: postData.petId,
 						weightValue: postData.weightValue,
 						weighDate: postData.weighDate,
-						active: postData.active
+						active: postData.active,
 					},
 					{
 						where: {
@@ -116,10 +118,13 @@ const weightController = () => {
 			else {
 				console.log("undefined")
 				const Petdata = petWeightdb.create({
+
+					userId : postData.active,
 					petId: postData.petId,
 					weightValue: postData.weightValue,
 					weighDate: postData.weighDate,
-					active: postData.active
+					active: postData.active,
+				
 
 				}, {
 						returning: true
@@ -173,6 +178,7 @@ const weightController = () => {
 		var _petWeightlist = [];
 		petWeightlist.forEach(function (arrayItem) {
 		const obj = {
+			userId:arrayItem.userId,
 		petId: arrayItem.petId,
 		status: arrayItem.status,
 		weightValue: arrayItem.weightValue,
@@ -184,7 +190,7 @@ const weightController = () => {
 		const petWeightdbImport = await petWeightdb.bulkCreate(
 		_petWeightlist,
 		{
-		fields: ["petId","status","weightValue","weighDate",""],
+		fields: ["userId","petId","status","weightValue","weighDate",""],
 		updateOnDuplicate: ["weightValue"],
 		},
 		{

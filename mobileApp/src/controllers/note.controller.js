@@ -20,7 +20,10 @@ const noteController = () => {
         if (postData) {
         await notedb.create(
         {
+            userId:postData.userId,
             notes:postData.notes,
+            noteDate:postData.noteDate,
+            
         },
         {
         returning: true
@@ -44,7 +47,9 @@ const noteController = () => {
             var _notelist = [];
             notelist.forEach(function (arrayItem) {
             const obj = {
+                userId:arrayItem.userId,
             notes: arrayItem.notes,
+            noteDate : arrayItem.noteDate
           
             }
             _notelist.push(obj);
@@ -53,7 +58,7 @@ const noteController = () => {
             const notedbImport = await notedb.bulkCreate(
                 _notelist,
             {
-            fields: ["notes",""],
+            fields: ["notes","userId","noteDate",""],
             updateOnDuplicate: ["notes"],
             },
             {
