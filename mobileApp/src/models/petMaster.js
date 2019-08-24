@@ -8,10 +8,14 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true
       },
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       petCategoryId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        foreignKey: true
+        // foreignKey: true
 
       },
       photo: {
@@ -25,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       breedId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        foreignKey: true
+        // foreignKey: true
       },
       sex: {
         type: DataTypes.STRING(128),
@@ -64,6 +68,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(128),
         allowNull: true,
       },
+      birthPlace:{
+        type: DataTypes.STRING(128),
+        allowNull: true,
+      },
       parentFatherName: {
         type: DataTypes.STRING(128),
         allowNull: true,
@@ -72,19 +80,27 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(128),
         allowNull: true,
       },
+      parentMotherName: {
+        type: DataTypes.STRING(128),
+        allowNull: true,
+      },
+      parentMotherBreedName: {
+        type: DataTypes.STRING(128),
+        allowNull: true,
+      },
       parentAddress: {
         type: DataTypes.STRING(150),
         allowNull: true,
       },
-      parenOwnerName: {
+      petOwnerName: {
         type: DataTypes.STRING(128),
         allowNull: true,
       },
-      parenMobileNumber: {
+      petOwnerMobileNumber: {
         type: DataTypes.STRING(50),
         allowNull: true,
       },
-      parentOwnerAddress: {
+      petOwnerAddress: {
         type: DataTypes.STRING(150),
         allowNull: true,
       },
@@ -112,6 +128,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(128),
         allowNull: true,
       },
+      drPincode: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
       drState: {
         type: DataTypes.STRING(128),
         allowNull: true,
@@ -136,17 +156,18 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  TblPetMaster.associate = models => {
-    TblPetMaster.hasOne(models.TblBreedMaster, {
-      foreignKey: "breedId",
-      onDelete: "CASCADE"
-    });
-    TblPetMaster.hasOne(models.TblPetCategory, {
-      foreignKey: "petCategoryId",
-      onDelete: "CASCADE"
-    });
+  // TblPetMaster.associate = models => {
+  //   TblPetMaster.hasOne(models.TblBreedMaster, {
+  //     foreignKey: "breedId",
+  //     onDelete: "CASCADE"
+  //   });
+  //   TblPetMaster.hasOne(models.TblPetCategory, {
+  //     foreignKey: "petCategoryId",
+  //     onDelete: "CASCADE"
+  //   });
 
-  };
+
+  // };
 
   return TblPetMaster;
-};
+};  

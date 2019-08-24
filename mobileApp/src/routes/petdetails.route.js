@@ -5,7 +5,9 @@ const router = express.Router(); // eslint-disable-line new-cap
 const petdetailsCtrl = require("../controllers/petdetails.controller");
 const petWeightCtrl = require("../controllers/petweight");
 const petMedicationCtrl = require('../controllers/petmedication.controller')
+const imageUploadCtrl = require('../controllers/imageUpload.controller')
 
+const noteCtrl = require ('../controllers/note.controller')
 /*====================== Pet details Routes =====================*/
 
 router.route("/getPetCategory").post(petdetailsCtrl.getPetCategory);
@@ -40,9 +42,11 @@ router.route("/getBrandmst").post(petMedicationCtrl.getBrandmst);
 router.route("/medBulkInsert").post(petMedicationCtrl.medBulkInsert);  
 router.route("/postbrandmst").post(petMedicationCtrl.postbrandmst);  
 
+router.route("/petWeightBulk").post(petWeightCtrl.petWeightBulk);
+router.route("/addNoteBulk").post(noteCtrl.addNoteBulk);
 
-router.route("/petWeightBulk").post(petWeightCtrl.petWeightBulk)
+router.route("/deleteImage").post(imageUploadCtrl.deleteImage)
+
+router.route("/postNote").post(noteCtrl.postNote);
 
 module.exports = router;
-
-

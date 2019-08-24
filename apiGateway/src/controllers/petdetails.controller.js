@@ -286,6 +286,38 @@ const petDetailsController = () => {
 			});
 	};
 
+	const deleteImage = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/deleteImage", req.body)
+		.then(response => {
+			res.send(response.data); // <= send data to the client
+		})
+		.catch(err => {
+			console.log(err.response.status);
+			res.status(err.response.status).json(err.response.data);
+		});
+};
+	const postNote = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/postNote", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
+
+
+	const addNoteBulk = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/addNoteBulk", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
 
 	const medBulkInsert = async (req, res, next) => {
 		api.makeServiceCall("POST", "mobile", "/petdetails/medBulkInsert", req.body)
@@ -336,10 +368,10 @@ const petDetailsController = () => {
 		rxMasterBulk,
 		getPetMasterById,
 		petMstBulkInsert,
-		medBulkInsert,
 		postbrandmst,
-
-	};
+		deleteImage,
+		addNoteBulk,
+		medBulkInsert
+	}
 };
-
 module.exports = petDetailsController();
