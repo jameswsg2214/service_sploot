@@ -19,7 +19,10 @@ router.route("/postRxDtl").post(petDetailCtrl.postRxDtl);
 router.route("/postRxFreq").post(petDetailCtrl.postRxFreq);
 router.route("/deleteRxMaster").post(petDetailCtrl.deleteRxMaster);
 router.route("/updateRxMaster").post(petDetailCtrl.updateRxMaster);
+
+/*======================Medication Routes==================== */
 router.route("/getMedication").post(petDetailCtrl.getMedication);
+router.route("/postMedication").post(petDetailCtrl.postMedication);
 router.route("/getBrandmst").post(petDetailCtrl.getBrandmst);
 router.route("/getActivity").post(petDetailCtrl.getActivity);
 

@@ -68,6 +68,7 @@ const weightController = () => {
 	}
 
 	const postPetWeight = async (req, res, next) => {
+		console.log('fffffffffffff=====================>>>>>>>>>>>>>>>>')
 
 		try {
 

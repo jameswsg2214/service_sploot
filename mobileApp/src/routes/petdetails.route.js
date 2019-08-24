@@ -29,7 +29,12 @@ router.route("/getActivity").post(petdetailsCtrl.getActivity);
 
 router.route("/deletepetweight").post(petWeightCtrl.deletepetweight);
 router.route("/getweightByDate").post(petWeightCtrl.getweightByDate);
+
+/*===================Medication Routes==========================*/
 router.route("/getMedication").post(petMedicationCtrl.getMedication);
+router.route("/postMedication").post(petMedicationCtrl.postMedication);
 router.route("/getBrandmst").post(petMedicationCtrl.getBrandmst)
 
 module.exports = router;
+
+
