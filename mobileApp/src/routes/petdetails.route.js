@@ -36,7 +36,9 @@ router.route("/getweightByDate").post(petWeightCtrl.getweightByDate);
 /*===================Medication Routes==========================*/
 router.route("/getMedication").post(petMedicationCtrl.getMedication);
 router.route("/postMedication").post(petMedicationCtrl.postMedication);
-router.route("/getBrandmst").post(petMedicationCtrl.getBrandmst)
+router.route("/getBrandmst").post(petMedicationCtrl.getBrandmst);
+router.route("/medBulkInsert").post(petMedicationCtrl.medBulkInsert)
+
 
 module.exports = router;
 

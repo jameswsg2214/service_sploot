@@ -274,6 +274,18 @@ const petDetailsController = () => {
 	};
 
 
+	const medBulkInsert = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/medBulkInsert", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
+
+
 	return {
 		getPetCategory,
 		getBreedTypeId,
@@ -297,7 +309,8 @@ const petDetailsController = () => {
 		getBrandmst,
 		rxMasterBulk,
 		getPetMasterById,
-		petMstBulkInsert
+		petMstBulkInsert,
+		medBulkInsert
 	};
 };
 

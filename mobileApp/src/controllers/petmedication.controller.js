@@ -45,7 +45,7 @@ const metMedicationController = () => {
 	
   };
 
-  
+
   ////post medication///////////////////
 
   const postMedication = async(req, res, next)=>{
@@ -128,7 +128,47 @@ const metMedicationController = () => {
 
 
 
+////////////////////bulkpost////////////
 
+const medBulkInsert = async( req, res, next) =>{
+
+
+  console.log("bulk insert working...............")
+
+  const medlist = req.body;
+    if (medlist.length > 0) {
+    try {
+    var _medlist = [];
+    medlist.forEach(function (arrayItem) {
+    const obj = {
+    	medicationId: arrayItem.medicationId,
+					petCategoryId: arrayItem.petCategoryId,
+					brandId: arrayItem.brandId,
+          drugName: arrayItem.drugName,
+          drugType: arrayItem.drugType,
+          route: arrayItem.route,
+          Age: arrayItem.Age,
+          dose: arrayItem.dose,
+    }
+    _medlist.push(obj);
+    })
+    console.log("-----------------------------__>>>>>>>>>>>>>>>>>_medlist",_medlist)
+    const medImport = await Medicationdb.bulkCreate(
+    _medlist,
+    {
+    fields: ["medicationId","petCategoryId","brandId","drugName","drugType","route","Age","dose",""],
+    updateOnDuplicate: ["drugName"],
+    },
+    {
+    returning: true
+    })
+    return res.status(httpStatus.OK).json({ medImport });
+    }
+    catch (err) {
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
+    }
+    }
+}
   
 
   const getBrandmst = async(req, res, next) => {
@@ -163,48 +203,13 @@ const metMedicationController = () => {
     };
 
 
-    const petMasterBulk = async (req, res, next) => {
-      const petMasterlist = req.body;
-      if (petMasterlist.length > 0) {
-      try {
-      var _petMasterlist = [];
-      petMasterlist.forEach(function (arrayItem) {
-      const obj = {
-      petName: arrayItem.petName,
-      status: arrayItem.status,
-      breedId: arrayItem.breedId,
-      petCategoryId: arrayItem.petCategoryId,
-      photo: arrayItem.photo
-      }
-      _petMasterlist.push(obj);
-      })
-      console.log("-----------------------------__>>>>>>>>>>>>>>>>>_petMasterlist",_petMasterlist)
-      const petMasterImport = await PetMaster.bulkCreate(
-      _petMasterlist,
-      {
-      fields: ["petName","breedId","petCategoryId","photo","status","sex","monthlyCycle","dob","period","height","length","weight","color","marks","parentFatherName","parentFatherBreedName","parentAddress","parenOwnerName","parenMobileNumber","parentOwnerAddress","drName","drhospitalName",""],
-      updateOnDuplicate: ["petName"],
-      },
-      {
-      returning: true
-      })
-      return res.status(httpStatus.OK).json({ petMasterImport });
-      }
-      catch (err) {
-      return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
-      }
-      }
-      };
-      //bulk completed
-
-
-
 
 
 	return {
         getMedication,
         postMedication,
-        getBrandmst
+        getBrandmst,
+        medBulkInsert
 	};
 };
 
