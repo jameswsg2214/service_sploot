@@ -357,7 +357,7 @@ const petDetailsController = () => {
 		getPetMasterById,
 		petMstBulkInsert,
 		deleteImage,
-
+		postNote,
 		addNoteBulk,
 		medBulkInsert
 	}
