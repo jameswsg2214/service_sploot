@@ -562,7 +562,7 @@ const petDetailsController = () => {
               medicationId: medicationId
             }
           }).then((medDtl) => {
-            console.log('=============medDtl[i].dataValues===========',medDtl[i].dataValues)
+            console.log('=============medDtl[i].dataValues===========', medDtl[i].dataValues)
             finalData.push(medDtl[i].dataValues)
             res.send({ data: finalData })
           })
@@ -573,6 +573,94 @@ const petDetailsController = () => {
     })
 
   };
+
+  const getPetMasterById = async (req, res, next) => {
+    const postData = req.body
+    console.log("----------------------->>>postData", postData)
+    try {
+      const pet = await PetMaster.findAll({
+        where: { petId: postData.petId }
+      });
+      if (pet == '' || pet == undefined) {
+        return res
+          .status(httpStatus.OK)
+          .json({ status: "error", msg: "Master Data's not found" });
+      }
+      else {
+        return res
+          .status(httpStatus.OK)
+          .json({ status: "success", petMasterDetailsById: pet });
+      }
+
+    } catch (err) {
+      const errorMsg = err.errors ? err.errors[0].message : err.message;
+      return res
+        .status(httpStatus.INTERNAL_SERVER_ERROR)
+        .json({ status: "error", msg: errorMsg });
+    }
+  };
+
+
+
+  // BULK PETMASTER
+  const petMstBulkInsert = async (req, res, next) => {
+    const petMasterlist = req.body;
+    if (petMasterlist.length > 0) {
+      try {
+        var _petMasterlist = [];
+        petMasterlist.forEach(function (arrayItem) {
+          const obj = {
+            petName: arrayItem.petName,
+            status: arrayItem.status,
+            breedId: arrayItem.breedId,
+            petCategoryId: arrayItem.petCategoryId,
+            photo: arrayItem.photo,
+            monthlyCycle: arrayItem.monthlyCycle,
+            status: arrayItem.status,
+            monthlyCycle: arrayItem.monthlyCycle,
+            dob: arrayItem.dob,
+            period: arrayItem.period,
+            height: arrayItem.height,
+            weight: arrayItem.weight,
+            color: arrayItem.color,
+            marks: arrayItem.marks,
+            parentFatherName: arrayItem.parentFatherName,
+            parentFatherBreedName: arrayItem.parentFatherBreedName,
+            parentAddress: arrayItem.parentAddress,
+            parenOwnerName: arrayItem.parenOwnerName,
+            parenMobileNumber: arrayItem.parenMobileNumber,
+            parentOwnerAddress: arrayItem.parentOwnerAddress,
+            drName: arrayItem.drName,
+            drhospitalName: arrayItem.drhospitalName,
+            drMobile: arrayItem.drMobile,
+            drEmail: arrayItem.drEmail,
+            drAddress: arrayItem.drAddress,
+            drCity: arrayItem.drCity,
+            drState: arrayItem.drState,
+            drCountry: arrayItem.drCountry
+          }
+          _petMasterlist.push(obj);
+        })
+        const petMasterImport = await PetMaster.bulkCreate(
+          _petMasterlist,
+          {
+            fields: ["petName", "breedId", "petCategoryId", "photo", "status", "sex", "monthlyCycle", "dob",
+              "period", "height", "length", "weight", "color", "marks", "parentFatherName", "parentFatherBreedName",
+              "parentAddress", "parenOwnerName", "parenMobileNumber", "parentOwnerAddress", "drName", "drhospitalName",
+              "drMobile", "drEmail", "drAddress", "drCity", "drState", "drCountry"],
+            updateOnDuplicate: ["petName"],
+          },
+          {
+            returning: true
+          })
+        return res.status(httpStatus.OK).json({ petMasterImport });
+      }
+      catch (err) {
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
+      }
+    }
+  };
+  //bulk completed
 
   // --------------------------------------------return----------------------------------
   return {
@@ -589,7 +677,9 @@ const petDetailsController = () => {
     postFreqDtl,
     deleteRxMaster,
     updateRxMaster,
-    getActivity
+    getActivity,
+    petMstBulkInsert,
+    getPetMasterById
   };
 };
 

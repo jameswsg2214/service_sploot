@@ -11,6 +11,8 @@ router.route("/postPetMaster").post(petDetailCtrl.postPetMaster);
 router.route("/deletePetdetails").post(petDetailCtrl.deletePetdetails);
 router.route("/updatePetdetails").post(petDetailCtrl.updatePetdetails);
 router.route("/postPetWeight").post(petDetailCtrl.postPetWeight);
+router.route("/getPetMasterById").post(petDetailCtrl.getPetMasterById);
+router.route("/petMasterBulk").post(petDetailCtrl.petMstBulkInsert);
 
 /*===================== Rx Routes ==========================*/
 router.route("/getRxMaster").post(petDetailCtrl.getRxMaster);
