@@ -311,7 +311,6 @@ const petDetailsController = () => {
 		getweightByDate,
 		getBrandmst,
 		petWeightBulk,
-		petWeightBul,
 		rxMasterBulk,
 		getPetMasterById,
 		petMstBulkInsert
