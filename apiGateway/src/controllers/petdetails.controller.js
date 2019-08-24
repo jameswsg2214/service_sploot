@@ -286,6 +286,28 @@ const petDetailsController = () => {
 			});
 	};
 
+	const postNote = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/postNote", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
+
+
+	const addNoteBulk = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/addNoteBulk", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
 
 
 
@@ -313,7 +335,9 @@ const petDetailsController = () => {
 		petWeightBulk,
 		rxMasterBulk,
 		getPetMasterById,
-		petMstBulkInsert
+		petMstBulkInsert,
+		postNote,
+		addNoteBulk
 	};
 };
 

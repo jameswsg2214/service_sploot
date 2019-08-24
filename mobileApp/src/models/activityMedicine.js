@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       petId: {
         type: DataTypes.INTEGER,
         allowNull: false        
-      },
+      },  
         medicineTypeId:
         {
             type:DataTypes.INTEGER,
