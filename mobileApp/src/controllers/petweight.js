@@ -167,7 +167,38 @@ const weightController = () => {
 		}
 	};
 
-
+	const petWeightBulk = async (req, res, next) => {
+		const petWeightlist = req.body;
+		if (petWeightlist.length > 0) {
+		try {
+		var _petWeightlist = [];
+		petWeightlist.forEach(function (arrayItem) {
+		const obj = {
+		petId: arrayItem.petId,
+		status: arrayItem.status,
+		weightValue: arrayItem.weightValue,
+		weighDate: arrayItem.weighDate,
+		}
+		_petWeightlist.push(obj);
+		})
+		console.log("-----------------------------__>>>>>>>>>>>>>>>>>petWeightlist",_petWeightlist)
+		const petWeightdbImport = await petWeightdb.bulkCreate(
+		_petWeightlist,
+		{
+		fields: ["petId","status","weightValue","weighDate",""],
+		updateOnDuplicate: ["weightValue"],
+		},
+		{
+		returning: true
+		})
+		return res.status(httpStatus.OK).json({ petWeightdbImport });
+		}
+		catch (err) {
+		return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
+		}
+		}
+		};
+		//bulk completed
 
 
 
@@ -177,7 +208,9 @@ const weightController = () => {
 	return {
 		postPetWeight,
 		deletepetweight,
-		getweightByDate
+		getweightByDate,
+		petWeightBulk
+		
 	};
 };
 

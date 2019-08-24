@@ -16,7 +16,7 @@ router.route("/postPetMaster").post(petdetailsCtrl.postPetMaster);
 router.route("/deletePetdetails").post(petdetailsCtrl.deletePetdetails);
 router.route("/updatePetdetails").post(petdetailsCtrl.updatePetdetails);
 router.route("/petMasterBulk").post(petdetailsCtrl.petMstBulkInsert);
-router.route("/petMasterBulk").post(petdetailsCtrl.getPetMasterById);
+router.route("/getPetMasterById").post(petdetailsCtrl.getPetMasterById);
 
 router.route("/postPetWeight").post(petWeightCtrl.postPetWeight);
 
@@ -39,6 +39,7 @@ router.route("/postMedication").post(petMedicationCtrl.postMedication);
 router.route("/getBrandmst").post(petMedicationCtrl.getBrandmst);
 router.route("/medBulkInsert").post(petMedicationCtrl.medBulkInsert)
 
+router.route("/petWeightBulk").post(petWeightCtrl.petWeightBulk)
 
 module.exports = router;
 
