@@ -241,6 +241,14 @@ const petDetailsController = () => {
 
 	const petWeightBulk = async (req, res, next) => {
 		api.makeServiceCall("POST", "mobile", "/petdetails/petWeightBulk", req.body)
+		.then(response => {
+			res.send(response.data); // <= send data to the client
+		})
+		.catch(err => {
+			console.log(err.response.status);
+			res.status(err.response.status).json(err.response.data);
+		});
+
 	}
 	const rxMasterBulk = async (req, res, next) => {
 		api.makeServiceCall("POST", "mobile", "/petdetails/rxMasterBulk", req.body)
@@ -302,7 +310,7 @@ const petDetailsController = () => {
 		getActivity,
 		getweightByDate,
 		getBrandmst,
-
+		petWeightBulk,
 		petWeightBul,
 		rxMasterBulk,
 		getPetMasterById,
