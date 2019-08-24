@@ -32,6 +32,9 @@ router.route("/rxMasterBulk").post(petDetailCtrl.rxMasterBulk);
 
 router.route("/deletePetWeight").post(petDetailCtrl.deletePetWeight);
 router.route("/getweightByDate").post(petDetailCtrl.getweightByDate);
+router.route("/getweightByDate").post(petDetailCtrl.getweightByDate);
+router.route("/deleteImage").post(petDetailCtrl.deleteImage);
+
 module.exports = router;
 
 
