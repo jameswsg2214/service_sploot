@@ -370,6 +370,7 @@ const petDetailsController = () => {
 		petMstBulkInsert,
 		postbrandmst,
 		deleteImage,
+		postNote,
 		addNoteBulk,
 		medBulkInsert
 	}
