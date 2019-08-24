@@ -302,8 +302,7 @@ const petDetailsController = () => {
 		getActivity,
 		getweightByDate,
 		getBrandmst,
-
-		petWeightBul,
+		petWeightBulk,
 		rxMasterBulk,
 		getPetMasterById,
 		petMstBulkInsert
