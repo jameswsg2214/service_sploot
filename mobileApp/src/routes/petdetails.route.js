@@ -7,6 +7,7 @@ const petWeightCtrl = require("../controllers/petweight");
 const petMedicationCtrl = require('../controllers/petmedication.controller')
 const imageUploadCtrl = require('../controllers/imageUpload.controller')
 
+const noteCtrl = require ('../controllers/note.controller')
 /*====================== Pet details Routes =====================*/
 
 router.route("/getPetCategory").post(petdetailsCtrl.getPetCategory);
@@ -17,7 +18,7 @@ router.route("/postPetMaster").post(petdetailsCtrl.postPetMaster);
 router.route("/deletePetdetails").post(petdetailsCtrl.deletePetdetails);
 router.route("/updatePetdetails").post(petdetailsCtrl.updatePetdetails);
 router.route("/petMasterBulk").post(petdetailsCtrl.petMstBulkInsert);
-router.route("/petMasterBulk").post(petdetailsCtrl.getPetMasterById);
+router.route("/getPetMasterById").post(petdetailsCtrl.getPetMasterById);
 
 router.route("/postPetWeight").post(petWeightCtrl.postPetWeight);
 
@@ -37,10 +38,13 @@ router.route("/getweightByDate").post(petWeightCtrl.getweightByDate);
 /*===================Medication Routes==========================*/
 router.route("/getMedication").post(petMedicationCtrl.getMedication);
 router.route("/postMedication").post(petMedicationCtrl.postMedication);
-router.route("/getBrandmst").post(petMedicationCtrl.getBrandmst)
+router.route("/getBrandmst").post(petMedicationCtrl.getBrandmst);
+router.route("/petWeightBulk").post(petWeightCtrl.petWeightBulk);
+router.route("/addNoteBulk").post(noteCtrl.addNoteBulk);
+router.route("/medBulkInsert").post(petMedicationCtrl.medBulkInsert)
 
 router.route("/deleteImage").post(imageUploadCtrl.deleteImage)
 
+router.route("/postNote").post(noteCtrl.postNote);
+
 module.exports = router;
-
-

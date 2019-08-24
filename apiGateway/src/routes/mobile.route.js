@@ -28,12 +28,18 @@ router.route("/postMedication").post(petDetailCtrl.postMedication);
 router.route("/getBrandmst").post(petDetailCtrl.getBrandmst);
 router.route("/getActivity").post(petDetailCtrl.getActivity);
 router.route("/rxMasterBulk").post(petDetailCtrl.rxMasterBulk);
+router.route("/medBulkInsert").post(petDetailCtrl.medBulkInsert);
 
 
 router.route("/deletePetWeight").post(petDetailCtrl.deletePetWeight);
 router.route("/getweightByDate").post(petDetailCtrl.getweightByDate);
 router.route("/getweightByDate").post(petDetailCtrl.getweightByDate);
 router.route("/deleteImage").post(petDetailCtrl.deleteImage);
+router.route("/petWeightBulk").post(petDetailCtrl.petWeightBulk);
+
+router.route("/postNote").post(petDetailCtrl.postNote);
+
+router.route("/addNoteBulk").post(petDetailCtrl.addNoteBulk);
 
 module.exports = router;
 

@@ -236,6 +236,19 @@ const petDetailsController = () => {
 		                console.log(err.response.status);
 		                res.status(err.response.status).json(err.response.data);
 		            });
+	};
+
+
+	const petWeightBulk = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/petWeightBulk", req.body)
+		.then(response => {
+			res.send(response.data); // <= send data to the client
+		})
+		.catch(err => {
+			console.log(err.response.status);
+			res.status(err.response.status).json(err.response.data);
+		});
+
 	}
 	const rxMasterBulk = async (req, res, next) => {
 		api.makeServiceCall("POST", "mobile", "/petdetails/rxMasterBulk", req.body)
@@ -275,6 +288,39 @@ const petDetailsController = () => {
 
 	const deleteImage = async (req, res, next) => {
 		api.makeServiceCall("POST", "mobile", "/petdetails/deleteImage", req.body)
+		.then(response => {
+			res.send(response.data); // <= send data to the client
+		})
+		.catch(err => {
+			console.log(err.response.status);
+			res.status(err.response.status).json(err.response.data);
+		});
+};
+	const postNote = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/postNote", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
+
+
+	const addNoteBulk = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/addNoteBulk", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
+
+	const medBulkInsert = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/medBulkInsert", req.body)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -306,11 +352,14 @@ const petDetailsController = () => {
 		getActivity,
 		getweightByDate,
 		getBrandmst,
+		petWeightBulk,
 		rxMasterBulk,
 		getPetMasterById,
 		petMstBulkInsert,
-		deleteImage
-	};
-};
+		deleteImage,
 
+		addNoteBulk,
+		medBulkInsert
+	}
+};
 module.exports = petDetailsController();

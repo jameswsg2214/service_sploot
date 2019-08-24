@@ -112,6 +112,7 @@ const petDetailsController = () => {
     try {
 
       const postData = req.body;
+
       var data = postData.Photo
       var pt = '';
       var date = new Date();
@@ -121,12 +122,13 @@ const petDetailsController = () => {
         if (err)
           console.log(err)
         else {
-          console.log('Image Svaed Success...');
+          console.log('Image Saved Success...');
         }
       });
       // image conversion completed........
       var flag = 'insert';
-      if (postData.petId != '') {
+      if (postData.petId != undefined) {
+
         const findPet = await PetMaster.findAll(
           {
             where: { petId: postData.petId }
@@ -140,9 +142,10 @@ const petDetailsController = () => {
         //update
         PetMaster.update(
           {
+            userId: postData.userId,
             petCategoryId: postData.petCategoryId,
             photo: ptr,
-            petName: postData.petName,
+            petName: postData.petName,  
             breedId: postData.breedId,
             sex: postData.sex,
             dob: postData.dob,
@@ -153,18 +156,22 @@ const petDetailsController = () => {
             weight: postData.weight,
             color: postData.color,
             marks: postData.marks,
+            birthPlace: postData.birthPlace,
             parentFatherName: postData.parentFatherName,
             parentFatherBreedName: postData.parentFatherBreedName,
+            parentMotherName: postData.parentMotherName,
+            parentMotherBreedName: postData.parentMotherBreedName,
             parentAddress: postData.parentAddress,
-            parenOwnerName: postData.parenOwnerName,
-            parenMobileNumber: postData.parenMobileNumber,
-            parentOwnerAddress: postData.parentOwnerAddress,
+            petOwnerName: postData.petOwnerName,
+            petOwnerMobileNumber: postData.petOwnerMobileNumber,
+            petOwnerAddress: postData.petOwnerAddress,
             drName: postData.drName,
             drhospitalName: postData.drhospitalName,
             drMobile: postData.drMobile,
             drEmail: postData.drEmail,
             drAddress: postData.drAddress,
             drCity: postData.drCity,
+            drPincode: postData.drPincode,
             drState: postData.drState,
             drCountry: postData.drCountry,
             status: postData.status
@@ -187,8 +194,9 @@ const petDetailsController = () => {
           })
       }
       else {
+        
         const Petdata = PetMaster.create({
-
+          userId: postData.userId,
           petCategoryId: postData.petCategoryId,
           photo: ptr,
           petName: postData.petName,
@@ -202,18 +210,22 @@ const petDetailsController = () => {
           weight: postData.weight,
           color: postData.color,
           marks: postData.marks,
+          birthPlace: postData.birthPlace,
           parentFatherName: postData.parentFatherName,
           parentFatherBreedName: postData.parentFatherBreedName,
+          parentMotherName: postData.parentMotherName,
+          parentMotherBreedName: postData.parentMotherBreedName,
           parentAddress: postData.parentAddress,
-          parenOwnerName: postData.parenOwnerName,
-          parenMobileNumber: postData.parenMobileNumber,
-          parentOwnerAddress: postData.parentOwnerAddress,
+          petOwnerName: postData.petOwnerName,
+          petOwnerMobileNumber: postData.petOwnerMobileNumber,
+          petOwnerAddress: postData.petOwnerAddress,
           drName: postData.drName,
           drhospitalName: postData.drhospitalName,
           drMobile: postData.drMobile,
           drEmail: postData.drEmail,
           drAddress: postData.drAddress,
           drCity: postData.drCity,
+          drPincode: postData.drPincode,
           drState: postData.drState,
           drCountry: postData.drCountry,
           status: postData.status
@@ -221,11 +233,14 @@ const petDetailsController = () => {
             returning: true
           }).then(data => {
             res.json({ status: "success", msg: "Inserted Successfully" })
+          }).catch(err =>{
+            console.log(err)
+            res.json({status:"error", msg: "Not Inserted"})
           })
       }
     }
     catch (err) {
-      res.json({ status: "error", msg: "Inserted Unsuccessfully" })
+      res.json({ status: "error", msg: "Internal server error" })
     };
   };
 
@@ -260,17 +275,39 @@ const petDetailsController = () => {
     try {
       const data = await PetMaster.update(
         {
-          petName: updateData.petName,
-          petCategoryId: updateData.petCategoryId,
-          sex: updateData.sex,
-          BreedId: updateData.breedId,
-          dob: updateData.dob,
-          color: updateData.color,
-          photo: updateData.photo,
-          ownerId: updateData.ownerId,
-          monthlyCycle: updateData.monthlyCycle,
-          weight: updateData.weight,
-          status: updateData.status
+          userId: postData.userId,
+            petCategoryId: postData.petCategoryId,
+            photo: ptr,
+            petName: postData.petName,
+            breedId: postData.breedId,
+            sex: postData.sex,
+            dob: postData.dob,
+            monthlyCycle: postData.monthlyCycle,
+            period: postData.period,
+            height: postData.height,
+            length: postData.length,
+            weight: postData.weight,
+            color: postData.color,
+            marks: postData.marks,
+            birthPlace: postData.birthPlace,
+            parentFatherName: postData.parentFatherName,
+            parentFatherBreedName: postData.parentFatherBreedName,
+            parentMotherName: postData.parentMotherName,
+            parentMotherBreedName: postData.parentMotherBreedName,
+            parentAddress: postData.parentAddress,
+            petOwnerName: postData.petOwnerName,
+            petOwnerMobileNumber: postData.petOwnerMobileNumber,
+            petOwnerAddress: postData.petOwnerAddress,
+            drName: postData.drName,
+            drhospitalName: postData.drhospitalName,
+            drMobile: postData.drMobile,
+            drEmail: postData.drEmail,
+            drAddress: postData.drAddress,
+            drCity: postData.drCity,
+            drPincode: postData.drPincode,
+            drState: postData.drState,
+            drCountry: postData.drCountry,
+            status: postData.status
         },
         {
           where: {
@@ -295,85 +332,7 @@ const petDetailsController = () => {
   };
 
   /*=============== Prescription API's =================*/
-
-  // const postRxMaster = async (req, res, next) => {
-
-  //   try {
-
-  //     const postData = req.body;
-  //     console.log("postData========>", postData)
-  //     var data = postData.Photo
-  //     var pt = '';
-  //     var date = new Date();
-  //     var ptr = date.getFullYear() + "" + date.getMonth() + "" + date.getMilliseconds() + '.jpeg';
-  //     pts = './public/' + ptr;
-  //     fs.writeFile(pts, data, 'base64', (err) => {
-  //       if (err)
-  //         console.log(err)
-  //       else {
-  //         console.log('Image Svaed Success...');
-  //       }
-  //     });
-  //     var flag = 'insert';
-  //     if (postData.rxMasterId != undefined) {
-  //       // console.log("inter", postData)
-  //       const findPet = await RXMst.findAll(
-  //         {
-  //           where: { rxMasterId: postData.rxMasterId }
-  //         });
-  //       if (findPet.length > 0) {
-  //         flag = 'update';
-  //         if (flag == 'update') {
-  //           //create
-  //           console.log("Adding details into RxDtle table", postData)
-  //           RxDlt.create(
-  //             {
-  //               petId: postData.petId,
-  //               doctorId: postData.doctorId,
-  //               durationFrom: postData.durationFrom,
-  //               durationTo: postData.durationTo,
-  //               rxDate: postData.rxDate,
-  //               photo: ptr,
-  //               active: postData.active,
-  //             },
-  //             {
-  //               returning: true
-  //             }).then(data => {
-  //               console.log(data)
-  //               res.json({ status: "success", msg: "Inserted Successfully" })
-  //             })
-  //         }
-  //       }
-  //     }
-  //     else {
-  //       console.log("========> adding data into RxMaster table", postData)
-  //       const Masterd = RXMst.create({
-  //         petId: postData.petId,
-  //         rxDate: postData.rxDate,
-  //         active: postData.active,
-  //       }, {
-  //           returning: true
-  //         }).then(data => {
-  //           console.log("========> adding data into RxDtl table", data)
-  //           const masterDtl = RxDlt.create({
-  //             rxMasterId: data.dataValues.rxMasterId,
-  //             petId: postData.petId,
-  //             doctorId: postData.doctorId,
-  //             durationFrom: postData.durationFrom,
-  //             durationTo: postData.durationTo,
-  //             rxDate: postData.rxDate,
-  //             photo: ptr,
-  //             active: postData.active,
-  //           })
-  //           res.json({ status: "success", msg: "Inserted Successfully" })
-  //         })
-  //     }
-  //   }
-  //   catch (err) {
-  //     res.json({ status: "error", msg: "Inserted Unsuccessfully" })
-  //   };
-  // }
-
+   
   const getRxMaster = async (req, res, next) => {
     try {
       /* Country Data */
@@ -620,7 +579,6 @@ const petDetailsController = () => {
   
   const getPetMasterById = async (req, res, next) => {
     const postData = req.body
-    console.log("----------------------->>>postData", postData)
     try {
       const pet = await PetMaster.findAll({
         where: { petId: postData.petId }
@@ -654,44 +612,46 @@ const petDetailsController = () => {
         var _petMasterlist = [];
         petMasterlist.forEach(function (arrayItem) {
           const obj = {
-            petName: arrayItem.petName,
-            status: arrayItem.status,
-            breedId: arrayItem.breedId,
+            userId: arrayItem.userId,
             petCategoryId: arrayItem.petCategoryId,
             photo: arrayItem.photo,
-            monthlyCycle: arrayItem.monthlyCycle,
-            status: arrayItem.status,
-            monthlyCycle: arrayItem.monthlyCycle,
+            petName: arrayItem.petName,
+            breedId: arrayItem.breedId,
+            sex: arrayItem.sex,
             dob: arrayItem.dob,
+            monthlyCycle: arrayItem.monthlyCycle,
             period: arrayItem.period,
             height: arrayItem.height,
+            length: arrayItem.length,
             weight: arrayItem.weight,
             color: arrayItem.color,
             marks: arrayItem.marks,
+            birthPlace: arrayItem.birthPlace,
             parentFatherName: arrayItem.parentFatherName,
             parentFatherBreedName: arrayItem.parentFatherBreedName,
+            parentMotherName: arrayItem.parentMotherName,
+            parentMotherBreedName: arrayItem.parentMotherBreedName,
             parentAddress: arrayItem.parentAddress,
-            parenOwnerName: arrayItem.parenOwnerName,
-            parenMobileNumber: arrayItem.parenMobileNumber,
-            parentOwnerAddress: arrayItem.parentOwnerAddress,
+            petOwnerName: arrayItem.petOwnerName,
+            petOwnerMobileNumber: arrayItem.petOwnerMobileNumber,
+            petOwnerAddress: arrayItem.petOwnerAddress,
             drName: arrayItem.drName,
             drhospitalName: arrayItem.drhospitalName,
             drMobile: arrayItem.drMobile,
             drEmail: arrayItem.drEmail,
             drAddress: arrayItem.drAddress,
             drCity: arrayItem.drCity,
+            drPincode: arrayItem.drPincode,
             drState: arrayItem.drState,
-            drCountry: arrayItem.drCountry
+            drCountry: arrayItem.drCountry,
+            status: arrayItem.status
           }
           _petMasterlist.push(obj);
         })
         const petMasterImport = await PetMaster.bulkCreate(
           _petMasterlist,
           {
-            fields: ["petName", "breedId", "petCategoryId", "photo", "status", "sex", "monthlyCycle", "dob",
-              "period", "height", "length", "weight", "color", "marks", "parentFatherName", "parentFatherBreedName",
-              "parentAddress", "parenOwnerName", "parenMobileNumber", "parentOwnerAddress", "drName", "drhospitalName",
-              "drMobile", "drEmail", "drAddress", "drCity", "drState", "drCountry"],
+            fields: ["petName", "userId","petCategoryId", "breedId", "photo", "status", "sex", "monthlyCycle", "dob","period", "height", "length", "weight", "color", "marks","birthPlace", "parentFatherName", "parentFatherBreedName","parentMotherName", "parentMotherBreedName","parentAddress", "petOwnerName", "petMobileNumber","petOwnerAddress", "drName", "drhospitalName", "drMobile", "drEmail", "drAddress", "drCity","drPincode", "drState", "drCountry"],
             updateOnDuplicate: ["petName"],
           },
           {
