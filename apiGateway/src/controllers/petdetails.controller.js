@@ -341,6 +341,17 @@ const petDetailsController = () => {
 			});
 	};
 
+	const postbulkbrand = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/postbulkbrand", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
+
 
 
 	return {
@@ -372,7 +383,8 @@ const petDetailsController = () => {
 		deleteImage,
 		postNote,
 		addNoteBulk,
-		medBulkInsert
+		medBulkInsert,
+		postbulkbrand
 	}
 };
 module.exports = petDetailsController();

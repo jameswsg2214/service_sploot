@@ -16,6 +16,9 @@ const metMedicationController = () => {
 	 * @param next
 	 * @returns {*}
 	 */
+
+
+  ////////////get medication ////////////////////////
   const getMedication = async (req, res, next) => {
     const postData = req.body;
     console.log("=============>Get medication", postData)
@@ -129,7 +132,7 @@ const metMedicationController = () => {
 
 
 
-  ////////////////////bulkpost////////////
+  ////////////////////  medication bulkpost////////////
 
   const medBulkInsert = async (req, res, next) => {
 
@@ -173,6 +176,7 @@ const metMedicationController = () => {
     }
   }
 
+  ////////////// get brand master////////////////
 
   const getBrandmst = async (req, res, next) => {
 
@@ -206,7 +210,7 @@ const metMedicationController = () => {
 
   //////////////////////////////post bulk brand master////////////////////////
 
-  const postbrandmst = async (req, res, next) => {
+  const postbulkbrand = async (req, res, next) => {
 
     console.log("post brand working...............")
 
@@ -219,7 +223,7 @@ const metMedicationController = () => {
           const obj = {
             brandId: arrayyItem.brandId,
             brandName: arrayyItem.brandName,
-
+            brndDate: arrayyItem.brndDate,
           }
           _brndlist.push(obj);
         })
@@ -227,7 +231,7 @@ const metMedicationController = () => {
         const medImport = await brandmed.bulkCreate(
           _brndlist,
           {
-            fields: ["brandId", "brandName", ''],
+            fields: ["brandId", "brandName", "brndDate", ''],
             updateOnDuplicate: ["brandName"],
           },
           {
@@ -242,15 +246,87 @@ const metMedicationController = () => {
 
   }
 
+  ///////////////////////post brand mst///////////////
+
+  const postbrandmst = async (req, res, next) => {
+
+    console.log("post brand working.....................")
+
+    try {
+      const brndData = req.body;
+      console.log("===============>>>>>Post brand data", brndData)
+      var flag = 'insert';
+      if (brndData.brandId != undefined) {
+        console.log("brandId")
+        const findbrnd = await brandmed.findAll(
+          {
+            where: { brandId: brndData.brandId }
+          });
+        if (findbrnd.length > 0) {
+          flag = 'update';
+        }
+      }
+
+      if (flag == 'update') {
+        //update
+        console.log("find brand==========>>>>>>>>>>>>")
+        brandmed.update(
+          {
+            brandId: brndData.brandId,
+            brandName: brndData.brandName,
+            brndDate: brndData.brndDate
+          },
+          {
+            where: {
+              brandId: brndData.brandId
+            }
+          }
+        )
+          .then(() => {
+            return res.status(httpStatus.OK).json({
+              status: "success", msg: "Updated Successfully"
+            });
+          })
+          .catch(() => {
+            return res.status(httpStatus.OK).json({
+              status: "error", msg: "Updation failed"
+            });
+          })
+      }
+      else {
+        console.log("undefined")
+        const brndddata = brandmed.create({
+
+          brandId: brndData.brandId,
+          brandName: brndData.brandName,
+          brndDate: brndData.brndDate
+        }, {
+            returning: true
+          })
+          .then(data => {
+            console.log(data)
+            res.json({ status: "success", msg: "Inserted Successfully" })
+          })
+      }
+
+    }
+    catch (err) {
+      console.log(err);
+      res.json({ status: "error", msg: "Inserted Unsuccessfully" })
+    };
 
 
+
+
+  }
 
   return {
     getMedication,
     postMedication,
     getBrandmst,
     medBulkInsert,
-    postbrandmst
+    postbrandmst,
+    postbulkbrand
   };
 };
 
