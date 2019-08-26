@@ -43,7 +43,9 @@ router.route("/postMedicine").post(petDetailCtrl.postMedicine);
 router.route("/deleteMedicine").post(petDetailCtrl.deleteMedicine);
 router.route("/petMedicineBulk").post(petDetailCtrl.petMedicineBulk);
 
-
+/*======================Image Routes==================== */
+router.route("/deleteImage").post(petDetailCtrl.deleteImage);
+router.route("/getImage").post(petDetailCtrl.getImage);
 
 module.exports = router;
 

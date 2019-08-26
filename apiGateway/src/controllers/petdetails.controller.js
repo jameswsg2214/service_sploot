@@ -376,7 +376,18 @@ const petDetailsController = () => {
 				res.status(err.response.status).json(err.response.data);
 			});
 	};
-
+	const getImage = async (req, res, next) => {
+		const postData = req.body;
+		ImageUploadShema.find().where('imageCategoryId').equals(postData.imageCategoryId).where('uploadDate').equals(postData.uploadDate)
+			.then((data) => {
+				console.log(data)
+				res.send({ status: 'success', msg: 'Successfully fetching image', data: data })
+			})
+			.catch((error) => {
+				console.log(error)
+				res.send({ status: 'failed', msg: 'failed to fetch image', error: error })
+			})
+	}
 
 	return {
 		getPetCategory,
@@ -405,6 +416,7 @@ const petDetailsController = () => {
 		petMstBulkInsert,
 		postbrandmst,
 		deleteImage,
+		getImage,
 		postNote,
 		addNoteBulk,
 		medBulkInsert,
