@@ -39,9 +39,13 @@ router.route("/getweightByDate").post(petWeightCtrl.getweightByDate);
 router.route("/getMedication").post(petMedicationCtrl.getMedication);
 router.route("/postMedication").post(petMedicationCtrl.postMedication);
 router.route("/getBrandmst").post(petMedicationCtrl.getBrandmst);
+router.route("/medBulkInsert").post(petMedicationCtrl.medBulkInsert);  
+router.route("/postbrandmst").post(petMedicationCtrl.postbrandmst);  
+router.route("/postbulkbrand").post(petMedicationCtrl.postbulkbrand);  
+
+
 router.route("/petWeightBulk").post(petWeightCtrl.petWeightBulk);
 router.route("/addNoteBulk").post(noteCtrl.addNoteBulk);
-router.route("/medBulkInsert").post(petMedicationCtrl.medBulkInsert)
 
 /*===================Image Routes==========================*/
 router.route("/deleteImage").post(imageUploadCtrl.deleteImage)

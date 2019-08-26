@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING(50),
                 allowNull: false
             },
+            brndDate: {
+                type: DataTypes.DATEONLY,
+                allowNull: false
+            },
 
         },
         {

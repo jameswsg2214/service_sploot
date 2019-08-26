@@ -322,7 +322,7 @@ const petDetailsController = () => {
 				res.status(err.response.status).json(err.response.data);
 			});
 	};
-	
+
 	const deleteImage = async (req, res, next) => {
 		const { imageId } = req.body.imageId
 		ImageUploadShema.find({ imageId: imageId }).deleteOne()
@@ -347,6 +347,29 @@ const petDetailsController = () => {
 				res.send({ status: 'failed', msg: 'failed to fetch image', error: error })
 			})
 	}
+	const postbrandmst = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/postbrandmst", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
+
+	const postbulkbrand = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/postbulkbrand", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
+
+
 
 	return {
 		getPetCategory,
@@ -373,11 +396,13 @@ const petDetailsController = () => {
 		rxMasterBulk,
 		getPetMasterById,
 		petMstBulkInsert,
+		postbrandmst,
 		deleteImage,
 		postNote,
 		addNoteBulk,
 		medBulkInsert,
-		getImage
+		getImage,
+		postbulkbrand
 	}
 };
 module.exports = petDetailsController();
