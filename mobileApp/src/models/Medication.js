@@ -8,15 +8,21 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true,
                 autoIncrement: true
             },
+            userId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+            },
             petCategoryId: {
                 type: DataTypes.INTEGER,
                 allowNull: false
             },
             brandId:
-                {
-                    type: DataTypes.INTEGER,
-                    allowNull: false
-                },
+            {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                foreignKey: true,
+
+            },
             drugName: {
                 type: DataTypes.STRING(50),
                 allowNull: false
@@ -29,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING(50),
                 allowNull: false
             },
-            Age: {
+            age: {
                 type: DataTypes.STRING(50),
                 allowNull: false
             },
@@ -37,6 +43,11 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING(50),
                 allowNull: false
             },
+            medDate: {
+                type: DataTypes.DATEONLY,
+                allowNull: false
+            },
+
         },
         {
             tableName: "TblMedication",
@@ -47,6 +58,23 @@ module.exports = (sequelize, DataTypes) => {
             ]
         }
     );
+
+
+
+    // TblMedication.associate = models => {
+    //     // TblMedication.hasOne(models.TblUser, {
+    //     //     foreignKey: "userId",
+    //     //     onDelete: "CASCADE"
+    //     // });
+
+    //     TblMedication.hasOne(models.TblbrandMaster, {
+    //         foreignKey: "brandId",
+    //         onDelete: "CASCADE"
+    //     });
+
+    // };
+
+
 
     return TblMedication;
 };

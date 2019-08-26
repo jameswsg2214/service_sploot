@@ -4,6 +4,9 @@ const authService = require("../services/auth.service");
 const bcryptService = require("../services/bcrypt.service");
 const Utils = require("../utils/generic");
 const api = require("../services/api.service");
+var ImageUploadShema = require('../models/imageModel');
+var moment = require('moment');
+
 
 const petDetailsController = () => {
 	/**
@@ -203,7 +206,7 @@ const petDetailsController = () => {
 			});
 	};
 
-	
+
 	const getBrandmst = async (req, res, next) => {
 		// console.log("U in api gateway.................")
 		api.makeServiceCall("POST", "mobile", "/petdetails/getbrandmst", req.body)
@@ -227,27 +230,27 @@ const petDetailsController = () => {
 			});
 	};
 
-	    const getweightByDate = async (req, res, next) => {
-		        api.makeServiceCall("POST", "mobile", "/petdetails/getweightByDate", req.body)
-		            .then(response => {
-		                res.send(response.data); // <= send data to the client
-		            })
-		            .catch(err => {
-		                console.log(err.response.status);
-		                res.status(err.response.status).json(err.response.data);
-		            });
+	const getweightByDate = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/getweightByDate", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
 	};
 
 
 	const petWeightBulk = async (req, res, next) => {
 		api.makeServiceCall("POST", "mobile", "/petdetails/petWeightBulk", req.body)
-		.then(response => {
-			res.send(response.data); // <= send data to the client
-		})
-		.catch(err => {
-			console.log(err.response.status);
-			res.status(err.response.status).json(err.response.data);
-		});
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
 
 	}
 	const rxMasterBulk = async (req, res, next) => {
@@ -261,7 +264,7 @@ const petDetailsController = () => {
 			});
 	};
 
-	
+
 	// getMasterByID
 	const getPetMasterById = async (req, res, next) => {
 		api.makeServiceCall("POST", "mobile", "/petdetails/getPetMasterById", req.body)
@@ -379,6 +382,9 @@ const petDetailsController = () => {
 		rxMasterBulk,
 		getPetMasterById,
 		petMstBulkInsert,
+		postbrandmst,
+		deleteImage,
+		postNote,
 		addNoteBulk,
 		medBulkInsert,
 		postNote,
