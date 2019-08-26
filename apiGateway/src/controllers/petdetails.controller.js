@@ -324,8 +324,9 @@ const petDetailsController = () => {
 	};
 
 	const deleteImage = async (req, res, next) => {
-		const { imageId } = req.body.imageId
-		ImageUploadShema.find({ imageId: imageId }).deleteOne()
+		const imageId = req.body.imageId
+		console.log(imageId)
+		ImageUploadShema.deleteOne({ imageId: imageId }).exec()
 			.then((data) => {
 				res.send({ status: 'success', msg: 'Image deleted successfully', data: data })
 			})
