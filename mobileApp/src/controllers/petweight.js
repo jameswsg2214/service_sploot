@@ -92,7 +92,7 @@ const weightController = () => {
 				petWeightdb.update(
 					{
 
-						userId : postData.active,
+						userId: postData.active,
 						petId: postData.petId,
 						weightValue: postData.weightValue,
 						weighDate: postData.weighDate,
@@ -119,12 +119,12 @@ const weightController = () => {
 				console.log("undefined")
 				const Petdata = petWeightdb.create({
 
-					userId : postData.active,
+					userId: postData.active,
 					petId: postData.petId,
 					weightValue: postData.weightValue,
 					weighDate: postData.weighDate,
 					active: postData.active,
-				
+
 
 				}, {
 						returning: true
@@ -174,39 +174,36 @@ const weightController = () => {
 	const petWeightBulk = async (req, res, next) => {
 		const petWeightlist = req.body;
 		if (petWeightlist.length > 0) {
-		try {
-		var _petWeightlist = [];
-		petWeightlist.forEach(function (arrayItem) {
-		const obj = {
-			userId:arrayItem.userId,
-		petId: arrayItem.petId,
-		status: arrayItem.status,
-		weightValue: arrayItem.weightValue,
-		weighDate: arrayItem.weighDate,
+			try {
+				var _petWeightlist = [];
+				petWeightlist.forEach(function (arrayItem) {
+					const obj = {
+						userId: arrayItem.userId,
+						petId: arrayItem.petId,
+						status: arrayItem.status,
+						weightValue: arrayItem.weightValue,
+						weighDate: arrayItem.weighDate,
+					}
+					_petWeightlist.push(obj);
+				})
+				console.log("-----------------------------__>>>>>>>>>>>>>>>>>petWeightlist", _petWeightlist)
+				const petWeightdbImport = await petWeightdb.bulkCreate(
+					_petWeightlist,
+					{
+						fields: ["userId", "petId", "status", "weightValue", "weighDate", ""],
+						updateOnDuplicate: ["weightValue"],
+					},
+					{
+						returning: true
+					})
+				return res.status(httpStatus.OK).json({ petWeightdbImport });
+			}
+			catch (err) {
+				return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
+			}
 		}
-		_petWeightlist.push(obj);
-		})
-		console.log("-----------------------------__>>>>>>>>>>>>>>>>>petWeightlist",_petWeightlist)
-		const petWeightdbImport = await petWeightdb.bulkCreate(
-		_petWeightlist,
-		{
-		fields: ["userId","petId","status","weightValue","weighDate",""],
-		updateOnDuplicate: ["weightValue"],
-		},
-		{
-		returning: true
-		})
-		return res.status(httpStatus.OK).json({ petWeightdbImport });
-		}
-		catch (err) {
-		return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
-		}
-		}
-		};
-		//bulk completed
-
-
-
+	};
+	//bulk completed
 
 
 
@@ -215,7 +212,7 @@ const weightController = () => {
 		deletepetweight,
 		getweightByDate,
 		petWeightBulk
-		
+
 	};
 };
 

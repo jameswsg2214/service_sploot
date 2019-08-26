@@ -10,7 +10,6 @@ router.route("/getPetMaster").post(petDetailCtrl.getPetMaster);
 router.route("/postPetMaster").post(petDetailCtrl.postPetMaster);
 router.route("/deletePetdetails").post(petDetailCtrl.deletePetdetails);
 router.route("/updatePetdetails").post(petDetailCtrl.updatePetdetails);
-router.route("/postPetWeight").post(petDetailCtrl.postPetWeight);
 router.route("/getPetMasterById").post(petDetailCtrl.getPetMasterById);
 router.route("/petMasterBulk").post(petDetailCtrl.petMstBulkInsert);
 
@@ -29,15 +28,21 @@ router.route("/getBrandmst").post(petDetailCtrl.getBrandmst);
 router.route("/getActivity").post(petDetailCtrl.getActivity);
 router.route("/rxMasterBulk").post(petDetailCtrl.rxMasterBulk);
 router.route("/medBulkInsert").post(petDetailCtrl.medBulkInsert);
-
-
+//=======================petWeight Routes========================
+router.route("/postPetWeight").post(petDetailCtrl.postPetWeight);
 router.route("/deletePetWeight").post(petDetailCtrl.deletePetWeight);
 router.route("/getweightByDate").post(petDetailCtrl.getweightByDate);
 router.route("/petWeightBulk").post(petDetailCtrl.petWeightBulk);
-
+//===========================Add Note Routes===================
 router.route("/postNote").post(petDetailCtrl.postNote);
-
 router.route("/addNoteBulk").post(petDetailCtrl.addNoteBulk);
+
+//========================Medicine Routes===========================
+router.route("/postMedicine").post(petDetailCtrl.postMedicine);
+router.route("/deleteMedicine").post(petDetailCtrl.deleteMedicine);
+router.route("/petMedicineBulk").post(petDetailCtrl.petMedicineBulk);
+
+
 
 module.exports = router;
 

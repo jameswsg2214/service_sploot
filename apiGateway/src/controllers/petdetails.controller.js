@@ -320,6 +320,39 @@ const petDetailsController = () => {
 			});
 	};
 
+	const postMedicine = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/postMedicine", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
+
+	const deleteMedicine = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/deleteMedicine", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
+
+	const petMedicineBulk = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/petMedicineBulk", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
+
 
 	return {
 		getPetCategory,
@@ -348,8 +381,10 @@ const petDetailsController = () => {
 		petMstBulkInsert,
 		addNoteBulk,
 		medBulkInsert,
-		postNote
-		
+		postNote,
+		postMedicine,
+		deleteMedicine,
+		petMedicineBulk
 	}
 };
 module.exports = petDetailsController();
