@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
             userId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
-                // foreignKey: true,
             },
             petCategoryId: {
                 type: DataTypes.INTEGER,
@@ -62,18 +61,18 @@ module.exports = (sequelize, DataTypes) => {
 
 
 
-    TblMedication.associate = models => {
-        // TblMedication.hasOne(models.TblUser, {
-        //     foreignKey: "userId",
-        //     onDelete: "CASCADE"
-        // });
+    // TblMedication.associate = models => {
+    //     // TblMedication.hasOne(models.TblUser, {
+    //     //     foreignKey: "userId",
+    //     //     onDelete: "CASCADE"
+    //     // });
 
-        TblMedication.hasOne(models.TblbrandMaster, {
-            foreignKey: "brandId",
-            onDelete: "CASCADE"
-        });
+    //     TblMedication.hasOne(models.TblbrandMaster, {
+    //         foreignKey: "brandId",
+    //         onDelete: "CASCADE"
+    //     });
 
-    };
+    // };
 
 
 
