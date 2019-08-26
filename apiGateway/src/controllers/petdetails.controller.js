@@ -4,6 +4,9 @@ const authService = require("../services/auth.service");
 const bcryptService = require("../services/bcrypt.service");
 const Utils = require("../utils/generic");
 const api = require("../services/api.service");
+var ImageUploadShema = require('../models/imageModel');
+var moment = require('moment');
+
 
 const petDetailsController = () => {
 	/**
@@ -203,7 +206,7 @@ const petDetailsController = () => {
 			});
 	};
 
-	
+
 	const getBrandmst = async (req, res, next) => {
 		// console.log("U in api gateway.................")
 		api.makeServiceCall("POST", "mobile", "/petdetails/getbrandmst", req.body)
@@ -227,27 +230,27 @@ const petDetailsController = () => {
 			});
 	};
 
-	    const getweightByDate = async (req, res, next) => {
-		        api.makeServiceCall("POST", "mobile", "/petdetails/getweightByDate", req.body)
-		            .then(response => {
-		                res.send(response.data); // <= send data to the client
-		            })
-		            .catch(err => {
-		                console.log(err.response.status);
-		                res.status(err.response.status).json(err.response.data);
-		            });
+	const getweightByDate = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/getweightByDate", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
 	};
 
 
 	const petWeightBulk = async (req, res, next) => {
 		api.makeServiceCall("POST", "mobile", "/petdetails/petWeightBulk", req.body)
-		.then(response => {
-			res.send(response.data); // <= send data to the client
-		})
-		.catch(err => {
-			console.log(err.response.status);
-			res.status(err.response.status).json(err.response.data);
-		});
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
 
 	}
 	const rxMasterBulk = async (req, res, next) => {
@@ -261,7 +264,7 @@ const petDetailsController = () => {
 			});
 	};
 
-	
+
 	// getMasterByID
 	const getPetMasterById = async (req, res, next) => {
 		api.makeServiceCall("POST", "mobile", "/petdetails/getPetMasterById", req.body)
@@ -286,16 +289,6 @@ const petDetailsController = () => {
 			});
 	};
 
-	const deleteImage = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/deleteImage", req.body)
-		.then(response => {
-			res.send(response.data); // <= send data to the client
-		})
-		.catch(err => {
-			console.log(err.response.status);
-			res.status(err.response.status).json(err.response.data);
-		});
-};
 	const postNote = async (req, res, next) => {
 		api.makeServiceCall("POST", "mobile", "/petdetails/postNote", req.body)
 			.then(response => {
@@ -329,7 +322,31 @@ const petDetailsController = () => {
 				res.status(err.response.status).json(err.response.data);
 			});
 	};
+	
+	const deleteImage = async (req, res, next) => {
+		const { imageId } = req.body.imageId
+		ImageUploadShema.find({ imageId: imageId }).deleteOne()
+			.then((data) => {
+				res.send({ status: 'success', msg: 'Image deleted successfully', data: data })
+			})
+			.catch(err => {
+				res.send({ status: 'failed', msg: 'failed to delete image', error: err })
+			})
+	}
 
+	const getImage = async (req, res, next) => {
+		const postData = req.body;
+		// var uploadDate = moment(postData.uploadDate).format('YYYYMMDD');
+		ImageUploadShema.find().where('imageCategoryId').equals(postData.imageCategoryId).where('uploadDate').equals(postData.uploadDate)
+			.then((data) => {
+				console.log(data)
+				res.send({ status: 'success', msg: 'Successfully fetching image', data: data })
+			})
+			.catch((error) => {
+				console.log(error)
+				res.send({ status: 'failed', msg: 'failed to fetch image', error: error })
+			})
+	}
 
 	return {
 		getPetCategory,
@@ -357,9 +374,10 @@ const petDetailsController = () => {
 		getPetMasterById,
 		petMstBulkInsert,
 		deleteImage,
-
+		postNote,
 		addNoteBulk,
-		medBulkInsert
+		medBulkInsert,
+		getImage
 	}
 };
 module.exports = petDetailsController();

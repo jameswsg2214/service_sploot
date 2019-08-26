@@ -43,7 +43,9 @@ router.route("/petWeightBulk").post(petWeightCtrl.petWeightBulk);
 router.route("/addNoteBulk").post(noteCtrl.addNoteBulk);
 router.route("/medBulkInsert").post(petMedicationCtrl.medBulkInsert)
 
+/*===================Image Routes==========================*/
 router.route("/deleteImage").post(imageUploadCtrl.deleteImage)
+router.route("/getImage").post(imageUploadCtrl.getImage)
 
 router.route("/postNote").post(noteCtrl.postNote);
 
