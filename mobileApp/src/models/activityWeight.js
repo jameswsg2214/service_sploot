@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true
       },
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false, 
+      },
       petId: {
         type: DataTypes.INTEGER,
         allowNull: false        
@@ -34,7 +38,11 @@ module.exports = (sequelize, DataTypes) => {
         }
       ]
     }
-  );
 
+    
+  );
+  
+
+  
   return TblActivityWeight;
 };
