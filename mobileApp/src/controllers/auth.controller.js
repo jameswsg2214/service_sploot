@@ -17,8 +17,8 @@ auth.options = { crypto };
 var smtpTransport = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "sploot.oasys@gmail.com",
-    pass: "sploot@123"
+    user: "contactus@sploot.tech",
+    pass: "sploottechadmin19"
   }
 });
 
