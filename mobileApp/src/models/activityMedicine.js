@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true
       },
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false, 
+      },
       petId: {
         type: DataTypes.INTEGER,
         allowNull: false        
@@ -26,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true    
       },   
       foodDate: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.DATEONLY,
         allowNull: false
       },   
       active: {

@@ -288,7 +288,16 @@ const petDetailsController = () => {
 				res.status(err.response.status).json(err.response.data);
 			});
 	};
-
+	const postbrandmst = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/postbrandmst", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
 	const postNote = async (req, res, next) => {
 		api.makeServiceCall("POST", "mobile", "/petdetails/postNote", req.body)
 			.then(response => {
@@ -324,19 +333,51 @@ const petDetailsController = () => {
 	};
 
 	const deleteImage = async (req, res, next) => {
-		const { imageId } = req.body.imageId
-		ImageUploadShema.find({ imageId: imageId }).deleteOne()
+		const imageId = req.body.imageId
+		console.log(imageId)
+		ImageUploadShema.deleteOne({ imageId: imageId }).exec()
 			.then((data) => {
 				res.send({ status: 'success', msg: 'Image deleted successfully', data: data })
 			})
 			.catch(err => {
-				res.send({ status: 'failed', msg: 'failed to delete image', error: err })
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
+	const postMedicine = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/postMedicine", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
 			})
-	}
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
 
+	const deleteMedicine = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/deleteMedicine", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
+
+	const petMedicineBulk = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/petMedicineBulk", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
 	const getImage = async (req, res, next) => {
 		const postData = req.body;
-		// var uploadDate = moment(postData.uploadDate).format('YYYYMMDD');
 		ImageUploadShema.find().where('imageCategoryId').equals(postData.imageCategoryId).where('uploadDate').equals(postData.uploadDate)
 			.then((data) => {
 				console.log(data)
@@ -347,29 +388,6 @@ const petDetailsController = () => {
 				res.send({ status: 'failed', msg: 'failed to fetch image', error: error })
 			})
 	}
-	const postbrandmst = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/postbrandmst", req.body)
-			.then(response => {
-				res.send(response.data); // <= send data to the client
-			})
-			.catch(err => {
-				console.log(err.response.status);
-				res.status(err.response.status).json(err.response.data);
-			});
-	};
-
-	const postbulkbrand = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/postbulkbrand", req.body)
-			.then(response => {
-				res.send(response.data); // <= send data to the client
-			})
-			.catch(err => {
-				console.log(err.response.status);
-				res.status(err.response.status).json(err.response.data);
-			});
-	};
-
-
 
 	return {
 		getPetCategory,
@@ -398,11 +416,14 @@ const petDetailsController = () => {
 		petMstBulkInsert,
 		postbrandmst,
 		deleteImage,
+		getImage,
 		postNote,
 		addNoteBulk,
 		medBulkInsert,
-		getImage,
-		postbulkbrand
+		postNote,
+		postMedicine,
+		deleteMedicine,
+		petMedicineBulk
 	}
 };
 module.exports = petDetailsController();
