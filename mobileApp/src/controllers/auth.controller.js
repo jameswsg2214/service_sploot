@@ -15,10 +15,10 @@ const crypto = require('crypto')
 auth.options = { crypto };
 
 var smtpTransport = nodemailer.createTransport({
-  service: "outlook",
+  service: "gmail",
   auth: {
-    user: "chandubhimapalli4@outlook.com",
-    pass: "Ch@14421"
+    user: "sploot.oasys@gmail.com",
+    pass: "sploot@123"
   }
 });
 
@@ -163,7 +163,7 @@ const AuthController = () => {
               });
               if (user) {
                 var mailOptions = {
-                  from: "chandubhimapalli4@outlook.com", // sender address
+                  from: "sploot.oasys@gmail.com", // sender address
                   to: email, // list of receivers
                   subject: "Sploot account verification", // Subject line
                   text: otp, // plaintext body
@@ -206,7 +206,7 @@ const AuthController = () => {
                   const postData = req.body;
                   console.log('postdata', postData)
                   var mailOptions = {
-                    from: "chandubhimapalli4@outlook.com", // sender address
+                    from: "sploot.oasys@gmail.com", // sender address
                     to: email, // list of receivers
                     subject: "Sploot ", // Subject line
                     text: otp, // plaintext body
