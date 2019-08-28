@@ -174,8 +174,8 @@ const AuthController = () => {
                   </div>
                   `,
                   attachments: [{
-                    filename: 'test.jpeg',
-                    path: __dirname + '/../../public/uploads/test.jpeg',
+                    filename: 'dog.jpeg',
+                    path: __dirname + '/../../public/uploads/dog.jpeg',
                     cid: 'sploot_unique_id' //same cid value as in the html img src
                   }]
                 }
@@ -217,8 +217,8 @@ const AuthController = () => {
                     <h1>Your one-time-password is ${otp}</h1> <div><img src="cid:sploot_unique_id"/></div>
                     </div>`,
                     attachments: [{
-                      filename: 'test.jpeg',
-                      path: __dirname + '/../../public/uploads/test.jpeg',
+                      filename: 'dog.jpeg',
+                      path: __dirname + '/../../public/uploads/dog.jpeg',
                       cid: 'sploot_unique_id' //same cid value as in the html img src
                     }]
                   }
@@ -336,7 +336,6 @@ const AuthController = () => {
       .json({ status: "failed", msg: "Email or password is wrong" });
   };
 
-
   const createAndLoginUser = async (req, res, next) => {
     const postData = req.body
     const user = await User.findOne({
@@ -349,29 +348,18 @@ const AuthController = () => {
         return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
       });
     if (user) {
-      if (postData.loginType == 2) {
-        if (user.dataValues.googlePassword === postData.password) {
-          console.log('google',user.dataValues.googlePassword,postData.password)
+      const loginType = user.dataValues.loginType
+      if (postData.loginType == loginType ) {
           const token = authService().issue({ id: user.dataValues.userId });
           res.send({ status: "success", Token: token, User: user.dataValues });
-        } else {
-          res.send({ status: 'failed', msg: 'google password is incorrect' })
-        }
-      } else if (postData.loginType == 3) { 
-        if (user.dataValues.facebookPassword === postData.password) {
-          console.log(user.dataValues.facebookPassword,postData.password)
-
-          const token = authService().issue({ id: user.dataValues.userId });
-          res.send({ status: "success", Token:token, User: user.dataValues });
-        } else {
-          res.send({ status: 'failed', msg: 'facebook password is incorrect' })
-        }
       } else {
-        res.send({ status: "failed", msg: "Invalid login type" })
-      }
+        loginType == 1 ? res.send({ status: "failed", msg: "User Name already Exist" }) :
+        (loginType == 2 ? res.send({ status: "failed", msg: "User already have account with google" }) :
+          (loginType == 3 ? res.send({ status: "failed", msg: "User already have account with facebook" }) :
+            res.send({ status: "failed", msg: "Invalid login type" })));
+      } 
     } else {
       if (postData.loginType == 2) {
-        //gamil registration here
         User.create({
           email: postData.email,
           googlePassword: postData.password,
@@ -384,10 +372,7 @@ const AuthController = () => {
             const token = authService().issue({ id: data.dataValues.userId });
             res.send({ status: 'success', token: token, msg: "Successfully registered with google", data: data });
           })
-        console.log('im in google')
       } else if (postData.loginType == 3) {
-        //fb registration here
-        console.log('im in fb')
         User.create({
           email: postData.email,
           facebookPassword: postData.password,
