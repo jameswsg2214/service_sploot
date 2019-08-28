@@ -3,7 +3,7 @@ const router = express.Router(); // eslint-disable-line new-cap
 
 /*================ Core components =========================*/
 const petdetailsCtrl = require("../controllers/petdetails.controller");
-const petWeightCtrl = require("../controllers/petweight");
+const petWeightCtrl = require("../controllers/petweight.controller");
 const petMedicationCtrl = require('../controllers/petmedication.controller');
 const noteCtrl = require ('../controllers/note.controller');
 const MedicineCntrl = require('../controllers/petMedicine.controller')

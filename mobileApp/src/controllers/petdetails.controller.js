@@ -665,7 +665,7 @@ const petDetailsController = () => {
     }
   };
   //bulk completed
-
+ 
   // --------------------------------------------return----------------------------------
   return {
     getPetCategory,
