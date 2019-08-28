@@ -174,7 +174,7 @@ const AuthController = () => {
                   `,
                   attachments: [{
                     filename: '20197322.jpeg',
-                    path: __dirname + '/../../public/uploads/20197322.jpeg',
+                    path: __dirname + '/../../public/20197322.jpeg',
                     cid: 'sploot_unique_id' //same cid value as in the html img src
                   }]
                 }
@@ -217,7 +217,7 @@ const AuthController = () => {
                     </div>`,
                     attachments: [{
                       filename: '20197322.jpeg',
-                      path: __dirname + '/../../public/uploads/20197322.jpeg',
+                      path: __dirname + '/../../public/20197322.jpeg',
                       cid: 'sploot_unique_id' //same cid value as in the html img src
                     }]
                   }
