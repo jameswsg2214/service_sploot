@@ -9,8 +9,7 @@ const expressWinston = require("express-winston");
 const expressValidation = require("express-validation");
 const fileUpload = require("express-fileupload");
 const multer = require("multer");
-var ImageUploadShema = require('../src/models/imageModel');
-
+const api = require("../src/services/api.service");
 
 // Image Uploads
 const imageStorage = multer.diskStorage({
@@ -171,26 +170,29 @@ var upload = multer({
 });
 
 app.post('/apim/imageUpload', upload.any(), function (req, res) {
-	const postData = req.body
-	const postFiles = req.files
-	let arr = []
-	postFiles.forEach((item) => {
-		arr.push(item.filename)
-	})
-	if (!req.body && !req.files) {
-		res.send({ status: "failed", msg: 'please provide input data' });
-	} else {
-		ImageUploadShema.create({
-			imageCategoryId: postData.imageCategoryId,
-			uploadDate: postData.uploadDate,
-			imagePath: arr
-		}).then((data) => {
-			res.send({ status: 'success', msg: 'Image uploaded successfully' })
-		}).catch(err => {
-			res.send({ status: 'failed', msg: 'failed to upload images' })
-		})
-	}
-});
+  var files = req.files
+  var postData = req.body
+  var finalData = []
+  if (!req.body && !req.files) {
+    		res.send({ status: "failed", msg: 'please upload file' });
+    	} else {
+        files.forEach(item=>{finalData.push(item.filename)})
+      var final = {
+        imageCategoryId:postData.imageCategoryId,
+        uploadDate: postData.uploadDate,
+        imagePath: finalData
+      }
+      api.makeServiceCall("POST", "mobile", "/petdetails/imageUpload",final)
+			.then(response => {
+				console.log('=====================>>>>>>>>>>>>>>>>response',response.data)
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+      });
+    	}  
+})
 
 // Loading Routes
 app.use("/", routes);

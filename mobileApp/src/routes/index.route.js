@@ -4,7 +4,6 @@ const petdetailsRoutes = require("./petdetails.route");
 const secret = require('../config/config');
 const authService = require("../services/auth.service");
 
-
 const router = express.Router();
 
 router.use("/auth", authRoutes);

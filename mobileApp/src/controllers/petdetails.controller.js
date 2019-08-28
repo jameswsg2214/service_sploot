@@ -11,8 +11,13 @@ const breedMaster = db.TblBreedMaster;
 const RxDlt = db.TblActivityRxDtl;
 const RXMst = db.TblActivityRxMaster;
 const RxFreq = db.TblActivityRxFreq;
-const petWeightTbl = db.TblActivityWeight;
+const petWeightTbl = db.TblActi
 const medicationTbl = db.TblMedication;
+const brandMaster = db.TblbrandMaster;
+const medicinedb = db.TblActivityMedicine;
+const taskCategory = db.TblTaskCategory;
+
+
 
 
 const petDetailsController = () => {
@@ -666,6 +671,31 @@ const petDetailsController = () => {
   };
   //bulk completed
 
+  const getMasterData = async(req,res,next)=>{
+    let masterData = []
+      await brandMaster.findAll().then((data)=>{
+        masterData.push({BrandMasterdata:data})
+      })
+      await breedMaster.findAll({where:{active:'1'}}).then((data)=>{
+        masterData.push({BreedMasterData:data})
+      })
+      await medicinedb.findAll({where:{active:'1'}}).then((data)=>{
+        masterData.push({MedicineMasterData:data})
+      })
+      await breedType.findAll({where:{active:'1'}}).then((data)=>{
+        masterData.push({BreedTypeMasterData:data})
+      })
+      await RxFreq.findAll({where:{active:'1'}}).then((data)=>{
+        masterData.push({RxFreqMasterData:data})
+      })
+      await petCategory.findAll({where:{active:'1'}}).then((data)=>{
+        masterData.push({PetCategoryMasterData:data})
+      })
+      await taskCategory.findAll({where:{active:'1'}}).then((data)=>{
+        masterData.push({TaskCategoryMasterData:data})
+      })
+      res.send({masterData: masterData})
+  }
   // --------------------------------------------return----------------------------------
   return {
     getPetCategory,
@@ -684,7 +714,8 @@ const petDetailsController = () => {
     getActivity,
     rxMasterBulk,
     petMstBulkInsert,
-    getPetMasterById
+    getPetMasterById,
+    getMasterData
   };
 };
 

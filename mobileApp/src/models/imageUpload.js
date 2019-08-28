@@ -19,11 +19,6 @@ module.exports = (sequelize, DataTypes) => {
         uploadDate: {
           type: DataTypes.DATEONLY,
           allowNull: true
-        },
-        active: {
-          type: DataTypes.ENUM,
-          values: ["0", "1"],
-          defaultValue: "1"
         }
       },
       {

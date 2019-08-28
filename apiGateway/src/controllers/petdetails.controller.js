@@ -332,18 +332,6 @@ const petDetailsController = () => {
 			});
 	};
 
-	const deleteImage = async (req, res, next) => {
-		const imageId = req.body.imageId
-		console.log(imageId)
-		ImageUploadShema.deleteOne({ imageId: imageId }).exec()
-			.then((data) => {
-				res.send({ status: 'success', msg: 'Image deleted successfully', data: data })
-			})
-			.catch(err => {
-				console.log(err.response.status);
-				res.status(err.response.status).json(err.response.data);
-			});
-	};
 	const postMedicine = async (req, res, next) => {
 		api.makeServiceCall("POST", "mobile", "/petdetails/postMedicine", req.body)
 			.then(response => {
@@ -376,19 +364,38 @@ const petDetailsController = () => {
 				res.status(err.response.status).json(err.response.data);
 			});
 	};
+	
+	const getMasterData = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/getMasterData", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
 	const getImage = async (req, res, next) => {
-		const postData = req.body;
-		ImageUploadShema.find().where('imageCategoryId').equals(postData.imageCategoryId).where('uploadDate').equals(postData.uploadDate)
-			.then((data) => {
-				console.log(data)
-				res.send({ status: 'success', msg: 'Successfully fetching image', data: data })
+		api.makeServiceCall("POST", "mobile", "/petdetails/getImage", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
 			})
-			.catch((error) => {
-				console.log(error)
-				res.send({ status: 'failed', msg: 'failed to fetch image', error: error })
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
+	const deleteImage = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/petdetails/deleteImage", req.body)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
 			})
-	}
-
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
+	
 	return {
 		getPetCategory,
 		getBreedTypeId,
@@ -423,7 +430,8 @@ const petDetailsController = () => {
 		postNote,
 		postMedicine,
 		deleteMedicine,
-		petMedicineBulk
+		petMedicineBulk,
+		getMasterData
 	}
 };
 module.exports = petDetailsController();

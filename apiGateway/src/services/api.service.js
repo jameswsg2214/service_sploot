@@ -8,7 +8,7 @@ axios.interceptors.request.use(
 	function (req_data) {
 		req_data.headers.Authorization = config.jwtSecret;
 
-		return req_data;
+        return req_data;
 	},
 	function (error) {
 		// Do something with request error
