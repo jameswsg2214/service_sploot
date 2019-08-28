@@ -37,24 +37,6 @@ app.use(helmet());
 // enable CORS - Cross Origin Resource Sharing
 app.use(cors());
 
-//image storage
-
-var upload = multer({
-	storage: multer.diskStorage({
-
-		destination: function (req, file, callback) { callback(null, path.join(__dirname + './../../public/uploads')); },
-		filename: function (req, file, callback) { callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname)); }
-
-	}),
-
-	fileFilter: function (req, file, callback) {
-		var ext = path.extname(file.originalname)
-		if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
-			return callback(/*res.end('Only images are allowed')*/ null, false)
-		}
-		callback(null, true)
-	}
-});
 // enable detailed API logging in dev env
 if (config.env === "development") {
 	expressWinston.requestWhitelist.push("body");
@@ -107,29 +89,6 @@ app.use((
 	})
 );
 
-
-//Image upload
-app.post('/apim/imageUpload', upload.any(), function (req, res) {
-	const postData = req.body
-	const postFiles = req.files
-	let arr = []
-	postFiles.forEach((item) => {
-		arr.push(item.filename)
-	})
-	if (!req.body && !req.files) {
-		res.send({ status: "failed", msg: 'please provide input data' });
-	} else {
-		ImageUpload.create({
-			imageCategoryId: postData.imageCategoryId,
-			uploadDate: postData.uploadDate,
-			imagePath: arr
-		}).then((data) => {
-			res.send({ status: 'success', msg: 'Image uploaded successfully' })
-		}).catch(err => {
-			res.send({ status: 'failed', msg: 'failed to upload images' })
-		})
-	}
-});
 
 // mount all routes on /api path
 app.use("/", routes);

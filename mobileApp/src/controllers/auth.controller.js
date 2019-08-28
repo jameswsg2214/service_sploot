@@ -138,40 +138,6 @@ const AuthController = () => {
 
   };
 
-  // const signupUser = async (req, res, next) => {
-  //   const profileData = req.body;
-  //   if (profileData) {
-  //     const user = await User.findOne({
-  //       where: {
-  //         email: profileData.email
-  //       }
-  //     }).catch(err => {
-  //       const errorMsg = err.errors ? err.errors[0].message : err.message;
-  //       return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
-  //     });
-  //     console.log("============>>>>>>>>>>.", user)
-  //     if (user) {
-  //       res.send({ status: 'failed', msg: "Email already registered" });
-  //     } else {
-  //       User.create({
-  //         userName: profileData.userName,
-  //         email: profileData.email,
-  //         password: profileData.userId,
-  //         userTypeId: 1
-  //       }, {
-  //           returning: true
-  //         })
-  //         .then((data) => {
-  //           const token = authService().issue({ id: data.dataValues.userId });
-  //           res.send({ status: 'success', token: token, msg: "Successfully registered", data: data });
-  //         })
-  //         .catch((err) => {
-  //           res.send({ status: 'failed', msg: "Failed to register", err: err });
-  //         })
-  //     }
-  //   }
-  // }
-
   const sendOtp = async (req, res, next) => {
     const { email } = req.body;
     var date = new Date()
@@ -352,32 +318,6 @@ const AuthController = () => {
       .json({ status: "failed", msg: "Email or password is wrong" });
   };
 
-  // const userLogin = async (req, res, next) => {
-  //   const profileData = req.body;
-  //   if (profileData) {
-  //     const user = await User.findOne({
-  //       where: {
-  //         email: profileData.email,
-  //       }
-  //     })
-  //       .catch((error) => {
-  //         res.send({ error: error })
-  //       })
-  //     console.log("==============>>>>>>>>>>>", user)
-  //     if (user != null) {
-  //       if (user.dataValues.password == profileData.userId) {
-  //         const token = authService().issue({ id: user.dataValues.password });
-  //         return res.send({ status: "success", msg: 'Login successfull', token: token, User: user });
-  //       } else {
-  //         res.send({ status: 'Failed', msg: 'userId is wrong' })
-  //       }
-  //     } else {
-  //       res.send({ status: 'Failed', msg: 'User not found' })
-  //     }
-
-  //   }
-  // }
-
   const generateOTP = async () => {
     var digits = "0123456789";
     let OTP = "";
@@ -497,9 +437,7 @@ const AuthController = () => {
 
   return {
     login,
-    // userLogin,
     createUser,
-    // signupUser,
     forgetPassword,
     passwordChange,
     sendOtp,

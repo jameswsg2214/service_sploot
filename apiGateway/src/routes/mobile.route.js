@@ -22,7 +22,7 @@ router.route("/deleteRxMaster").post(petDetailCtrl.deleteRxMaster);
 router.route("/updateRxMaster").post(petDetailCtrl.updateRxMaster);
 
 /*======================Medication Routes==================== */
-router.route("/getMedication").post(petDetailCtrl.getMedication);
+router.route("/getMedication").post(petDetailCtrl.getMedication);   
 router.route("/postMedication").post(petDetailCtrl.postMedication);
 router.route("/getBrandmst").post(petDetailCtrl.getBrandmst);
 router.route("/getActivity").post(petDetailCtrl.getActivity);
@@ -46,6 +46,8 @@ router.route("/petMedicineBulk").post(petDetailCtrl.petMedicineBulk);
 /*======================Image Routes==================== */
 router.route("/deleteImage").post(petDetailCtrl.deleteImage);
 router.route("/getImage").post(petDetailCtrl.getImage);
+
+router.route("/getMasterData").post(petDetailCtrl.getMasterData);
 
 module.exports = router;
 
