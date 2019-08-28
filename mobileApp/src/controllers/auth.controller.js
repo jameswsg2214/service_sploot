@@ -43,7 +43,6 @@ const AuthController = () => {
           const errorMsg = err.errors ? err.errors[0].message : err.message;
           return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
         });
-        console.log('====================.......>>>>>>>', user)
         if (user) {
           const loginType = user.dataValues.loginType
           loginType == 1 ? res.send({ status: "failed", msg: "User Name already Exist" }) :
@@ -349,18 +348,19 @@ const AuthController = () => {
       });
     if (user) {
       const loginType = user.dataValues.loginType
-      if (postData.loginType == loginType ) {
-          const token = authService().issue({ id: user.dataValues.userId });
-          res.send({ status: "success", Token: token, User: user.dataValues });
+      if (postData.loginType == loginType) {
+        const token = authService().issue({ id: user.dataValues.userId });
+        res.send({ status: "success", Token: token, User: user.dataValues });
       } else {
         loginType == 1 ? res.send({ status: "failed", msg: "User Name already Exist" }) :
-        (loginType == 2 ? res.send({ status: "failed", msg: "User already have account with google" }) :
-          (loginType == 3 ? res.send({ status: "failed", msg: "User already have account with facebook" }) :
-            res.send({ status: "failed", msg: "Invalid login type" })));
-      } 
+          (loginType == 2 ? res.send({ status: "failed", msg: "User already have account with google" }) :
+            (loginType == 3 ? res.send({ status: "failed", msg: "User already have account with facebook" }) :
+              res.send({ status: "failed", msg: "Invalid login type" })));
+      }
     } else {
       if (postData.loginType == 2) {
         User.create({
+          userName: postData.userName,
           email: postData.email,
           googlePassword: postData.password,
           loginType: postData.loginType,
@@ -374,6 +374,7 @@ const AuthController = () => {
           })
       } else if (postData.loginType == 3) {
         User.create({
+          userName: postData.userName,
           email: postData.email,
           facebookPassword: postData.password,
           loginType: postData.loginType,
