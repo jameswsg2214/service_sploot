@@ -8,7 +8,6 @@ const imagectrl = require("../controllers/imageUpload.controller");
 const petMedicationCtrl = require('../controllers/petmedication.controller');
 const noteCtrl = require ('../controllers/note.controller');
 const MedicineCntrl = require('../controllers/petMedicine.controller')
-const petdetailsCtrl = require("../controllers/petdetails.controller");
 
 /*====================== Pet details Routes =====================*/
 
