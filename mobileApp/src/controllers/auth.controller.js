@@ -173,8 +173,8 @@ const AuthController = () => {
                   </div>
                   `,
                   attachments: [{
-                    filename: 'dog.jpeg',
-                    path: __dirname + '/../../public/uploads/dog.jpeg',
+                    filename: '20197322.jpeg',
+                    path: __dirname + '/../../public/uploads/20197322.jpeg',
                     cid: 'sploot_unique_id' //same cid value as in the html img src
                   }]
                 }
@@ -216,8 +216,8 @@ const AuthController = () => {
                     <h1>Your one-time-password is ${otp}</h1> <div><img src="cid:sploot_unique_id"/></div>
                     </div>`,
                     attachments: [{
-                      filename: 'dog.jpeg',
-                      path: __dirname + '/../../public/uploads/dog.jpeg',
+                      filename: '20197322.jpeg',
+                      path: __dirname + '/../../public/uploads/20197322.jpeg',
                       cid: 'sploot_unique_id' //same cid value as in the html img src
                     }]
                   }
