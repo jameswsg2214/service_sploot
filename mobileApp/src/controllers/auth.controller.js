@@ -77,7 +77,7 @@ const AuthController = () => {
                         console.log('data=============>>>>>>', data)
                         const token = authService().issue({ id: data.dataValues.userId });
                         console.log('token==========>>>', token)
-                        res.send({ status: "success", msg: "User registered successfully", token: token, data: data })
+                        res.send({ status: "success", msg: "User registered successfully", token: token, User: data })
                       })
                       .catch(err => {
                         const errorMsg = err.errors ? err.errors[0].message : err.message;
@@ -101,7 +101,7 @@ const AuthController = () => {
               })
               .then((data) => {
                 const token = authService().issue({ id: data.dataValues.userId });
-                res.send({ status: 'success', token: token, msg: "Successfully registered", data: data });
+                res.send({ status: 'success', token: token, msg: "Successfully registered", User: data });
               })
               .catch((err) => {
                 res.send({ status: 'failed', msg: "Failed to register", err: err });
@@ -118,7 +118,7 @@ const AuthController = () => {
               })
               .then((data) => {
                 const token = authService().issue({ id: data.dataValues.userId });
-                res.send({ status: 'success', token: token, msg: "Successfully registered", data: data });
+                res.send({ status: 'success', token: token, msg: "Successfully registered", User: data });
               })
               .catch((err) => {
                 res.send({ status: 'failed', msg: "Failed to register", err: err });
@@ -370,7 +370,7 @@ const AuthController = () => {
           })
           .then((data) => {
             const token = authService().issue({ id: data.dataValues.userId });
-            res.send({ status: 'success', token: token, msg: "Successfully registered with google", data: data });
+            res.send({ status: 'success', token: token, msg: "Successfully registered with google", User: data });
           })
       } else if (postData.loginType == 3) {
         User.create({
@@ -384,7 +384,7 @@ const AuthController = () => {
           })
           .then((data) => {
             const token = authService().issue({ id: data.dataValues.userId });
-            res.send({ status: 'success', token: token, msg: "Successfully registered with facebook", data: data });
+            res.send({ status: 'success', token: token, msg: "Successfully registered with facebook", User: data });
           })
           .catch((err) => {
             res.send({ status: 'failed', msg: "Failed to register", err: err });
