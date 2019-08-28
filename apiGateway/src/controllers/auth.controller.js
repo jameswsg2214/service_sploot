@@ -48,7 +48,17 @@ const AuthController = () => {
 				res.status(err.response.status).json(err.response.data);
 			});
 	};
-	
+  
+  const createAndLoginUser = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/auth/createAndLoginUser", req.body, req.headers)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
 	// const signupUser = async (req, res, next) => {
 	// 	api.makeServiceCall("POST", "mobile", "/auth/signupUser", req.body, req.headers)
 	// 		.then(response => {
@@ -185,7 +195,8 @@ const AuthController = () => {
     passwordChange,
     adminlogin,
     validateOtp,
-    updateOtp
+    updateOtp,
+    createAndLoginUser
   };
 };
 module.exports = AuthController();

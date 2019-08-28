@@ -16,6 +16,7 @@ router.route("/createUser").post(authCtrl.createUser);
 router.route("/sendOtp").post(authCtrl.sendOtp);
 router.route("/verifyOtp").post(authCtrl.verifyOtp);
 router.route("/forgetPassword").post(authCtrl.forgetPassword);
+router.route("/createAndLoginUser").post(authCtrl.createAndLoginUser)
 
 /** GET /api/auth/random-number - Protected route,
  * needs token returned by the above as header.

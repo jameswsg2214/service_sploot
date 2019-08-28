@@ -6,19 +6,19 @@ const db = require("../config/sequelize");
 var nodemailer = require("nodemailer");
 const config = require("../config/config");
 var otplib = require('otplib')
+const path = require("path");
 const User = db.TblUser;
 const UserOtp = db.TblUserOtp
 const otpAuth = db.TblOtpAuth;
-
 var auth = require('otplib/authenticator')
 const crypto = require('crypto')
 auth.options = { crypto };
 
 var smtpTransport = nodemailer.createTransport({
-  service: "gmail",
+  service: "outlook",
   auth: {
-    user: "sploot.oasys@gmail.com",
-    pass: "sploot@123"
+    user: "chandubhimapalli4@outlook.com",
+    pass: "Ch@14421"
   }
 });
 
@@ -164,11 +164,20 @@ const AuthController = () => {
               });
               if (user) {
                 var mailOptions = {
-                  from: "sploot.oasys@gmail.com", // sender address
+                  from: "chandubhimapalli4@outlook.com", // sender address
                   to: email, // list of receivers
                   subject: "Sploot account verification", // Subject line
                   text: otp, // plaintext body
-                  html: `<b>Your OTP is ${otp}</b>` // html body
+                  // html: `<b>Your OTP is ${otp}</b>` // html body
+                  html: `<div style="font-family: verdana; max-width:500px; margin-left">
+                  <h1>Your one-time-password is ${otp}</h1> <div><img src="cid:sploot_unique_id"/></div>
+                  </div>
+                  `,
+                  attachments: [{
+                    filename: 'test.jpeg',
+                    path: __dirname + '/../../public/uploads/test.jpeg',
+                    cid: 'sploot_unique_id' //same cid value as in the html img src
+                  }]
                 }
                 await smtpTransport.sendMail(mailOptions, function (error, response) {
                   if (error) {
@@ -198,11 +207,20 @@ const AuthController = () => {
                   const postData = req.body;
                   console.log('postdata', postData)
                   var mailOptions = {
-                    from: "sploot.oasys@gmail.com", // sender address
+                    from: "chandubhimapalli4@outlook.com", // sender address
                     to: email, // list of receivers
                     subject: "Sploot ", // Subject line
                     text: otp, // plaintext body
-                    html: `<b>Your OTP is ${otp}</b>` // html body
+                    // html: `<b>Your OTP is ${otp}</b>` // html body
+                    html: `
+                    <div style="font-family: verdana; max-width:500px; margin-left">
+                    <h1>Your one-time-password is ${otp}</h1> <div><img src="cid:sploot_unique_id"/></div>
+                    </div>`,
+                    attachments: [{
+                      filename: 'test.jpeg',
+                      path: __dirname + '/../../public/uploads/test.jpeg',
+                      cid: 'sploot_unique_id' //same cid value as in the html img src
+                    }]
                   }
                   // send mail with defined transport object
                   await smtpTransport.sendMail(mailOptions, function (error, response) {
@@ -281,28 +299,28 @@ const AuthController = () => {
     const userData = req.body;
     if (userData) {
       //if (userData.loginType == 1) {
-        try {
-          const user = await User.findOne({
-            where: { email: userData.email }
-          })
-          if (user != null) {
-            if (userData.password == (user.dataValues.password || user.dataValues.googlePassword || user.dataValues.facebookPassword)) {
-              const token = authService().issue({ id: user.dataValues.userId });
-              return res
-                .status(httpStatus.OK)
-                .json({ status: "success", token, User: user });
-            } else {
-              res.send({ status: 'failed', msg: 'password is incorrect' })
-            }
+      try {
+        const user = await User.findOne({
+          where: { email: userData.email }
+        })
+        if (user != null) {
+          if (userData.password == (user.dataValues.password || user.dataValues.googlePassword || user.dataValues.facebookPassword)) {
+            const token = authService().issue({ id: user.dataValues.userId });
+            return res
+              .status(httpStatus.OK)
+              .json({ status: "success", token, User: user });
           } else {
-            res.send({ status: 'failed', msg: 'user not found' })
+            res.send({ status: 'failed', msg: 'password is incorrect' })
           }
-        } catch (err) {
-          const errorMsg = err.errors ? err.errors[0].message : err.message;
-          return res
-            .status(httpStatus.INTERNAL_SERVER_ERROR)
-            .json({ status: "error", msg: errorMsg });
+        } else {
+          res.send({ status: 'failed', msg: 'user not found' })
         }
+      } catch (err) {
+        const errorMsg = err.errors ? err.errors[0].message : err.message;
+        return res
+          .status(httpStatus.INTERNAL_SERVER_ERROR)
+          .json({ status: "error", msg: errorMsg });
+      }
       //} 
       // else if (userData.loginType == 2) {
       //   //google
@@ -317,6 +335,79 @@ const AuthController = () => {
       .status(httpStatus.BAD_REQUEST)
       .json({ status: "failed", msg: "Email or password is wrong" });
   };
+
+
+  const createAndLoginUser = async (req, res, next) => {
+    const postData = req.body
+    const user = await User.findOne({
+      where: {
+        email: postData.email
+      }
+    })
+      .catch(err => {
+        const errorMsg = err.errors ? err.errors[0].message : err.message;
+        return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+      });
+    if (user) {
+      if (postData.loginType == 2) {
+        if (user.dataValues.googlePassword === postData.password) {
+          console.log('google',user.dataValues.googlePassword,postData.password)
+          const token = authService().issue({ id: user.dataValues.userId });
+          res.send({ status: "success", Token: token, User: user.dataValues });
+        } else {
+          res.send({ status: 'failed', msg: 'google password is incorrect' })
+        }
+      } else if (postData.loginType == 3) { 
+        if (user.dataValues.facebookPassword === postData.password) {
+          console.log(user.dataValues.facebookPassword,postData.password)
+
+          const token = authService().issue({ id: user.dataValues.userId });
+          res.send({ status: "success", Token:token, User: user.dataValues });
+        } else {
+          res.send({ status: 'failed', msg: 'facebook password is incorrect' })
+        }
+      } else {
+        res.send({ status: "failed", msg: "Invalid login type" })
+      }
+    } else {
+      if (postData.loginType == 2) {
+        //gamil registration here
+        User.create({
+          email: postData.email,
+          googlePassword: postData.password,
+          loginType: postData.loginType,
+          userTypeId: 1
+        }, {
+            returning: true
+          })
+          .then((data) => {
+            const token = authService().issue({ id: data.dataValues.userId });
+            res.send({ status: 'success', token: token, msg: "Successfully registered with google", data: data });
+          })
+        console.log('im in google')
+      } else if (postData.loginType == 3) {
+        //fb registration here
+        console.log('im in fb')
+        User.create({
+          email: postData.email,
+          facebookPassword: postData.password,
+          loginType: postData.loginType,
+          userTypeId: 1
+        }, {
+            returning: true
+          })
+          .then((data) => {
+            const token = authService().issue({ id: data.dataValues.userId });
+            res.send({ status: 'success', token: token, msg: "Successfully registered with facebook", data: data });
+          })
+          .catch((err) => {
+            res.send({ status: 'failed', msg: "Failed to register", err: err });
+          })
+      } else {
+        res.send({ status: "failed", msg: "Invalid login type" })
+      }
+    }
+  }
 
   const generateOTP = async () => {
     var digits = "0123456789";
@@ -442,6 +533,7 @@ const AuthController = () => {
     passwordChange,
     sendOtp,
     verifyOtp,
+    createAndLoginUser
   };
 };
 
