@@ -1,5 +1,6 @@
 const httpStatus = require("http-status");
 const db = require("../config/sequelize");
+const User = db.TblUser;
 const _ = require("lodash");
 const bcryptService = require("../services/bcrypt.service");
 var fs = require("file-system")
@@ -21,16 +22,19 @@ const imageUploadController = () => {
     console.log(req.body)
     const postData = req.body
     ImageTbl.create({
+      userId: postData.userId,
       imageCategoryId: postData.imageCategoryId,
       uploadDate: postData.uploadDate,
       imagePath: postData.imagePath
-    }).then((data) => {
-      res.send({ status: 'success', msg: 'Image uploaded successfully', data: data })
+    }).then(async (data) => {
+      return res
+            .status(httpStatus.OK)
+            .json({ status: "success", msg: 'Image uploaded successfully', req: postData, res: data });
     }).catch(err => {
       res.send({ status: 'failed', msg: 'failed to upload images', error: err })
     })
   }
- 
+
   const getImage = async (req, res, next) => {
     const postData = req.body;
     ImageTbl.findAll({
@@ -40,14 +44,14 @@ const imageUploadController = () => {
       }
     }).then((data) => {
       console.log(data)
-      res.send({ status: 'success', msg: 'Successfully fetching image', data: data })
+      res.send({ status: 'success', msg: 'Successfully fetching image',req: postData,res: data })
     })
   }
 
   const deleteImage = async (req, res, next) => {
     const { imageId } = req.body
     ImageTbl.destroy({ where: { imageId: imageId } }).then((data) => {
-      res.send({ status: 'success', msg: 'Image deleted successfully', data: data })
+      res.send({ status: 'success', msg: 'Image deleted successfully', req: postData,res: data })
     })
   }
 

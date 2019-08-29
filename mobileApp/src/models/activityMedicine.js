@@ -10,29 +10,29 @@ module.exports = (sequelize, DataTypes) => {
       },
       userId: {
         type: DataTypes.INTEGER,
-        allowNull: false, 
+        allowNull: false,
       },
       petId: {
         type: DataTypes.INTEGER,
-        allowNull: false        
-      },  
-        medicineTypeId:
-        {
-            type:DataTypes.INTEGER,
-             allowNull: false
-        },      
-       medicineName: {
+        allowNull: false
+      },
+      medicineTypeId:
+      {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      medicineName: {
         type: DataTypes.STRING(50),
-        allowNull: false        
+        allowNull: false
       },
       foodWeight: {
-        type: DataTypes.DECIMAL(6,3),
-        allowNull: true    
-      },   
+        type: DataTypes.DECIMAL(6, 3),
+        allowNull: true
+      },
       foodDate: {
         type: DataTypes.DATEONLY,
         allowNull: false
-      },   
+      },
       active: {
         type: DataTypes.ENUM,
         values: ["0", "1"],

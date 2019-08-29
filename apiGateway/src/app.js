@@ -13,14 +13,14 @@ const api = require("../src/services/api.service");
 
 // Image Uploads
 const imageStorage = multer.diskStorage({
-  destination: function(req, file, cb) {
+  destination: function (req, file, cb) {
     const filePath = path.resolve(__dirname, "uploads/images");
     if (!fs.existsSync(filePath)) {
       fs.mkdirSync(filePath, { recursive: true });
     }
     cb(null, filePath);
   },
-  filename: function(req, file, cb) {
+  filename: function (req, file, cb) {
     console.log(file);
     cb(null, Date.now() + path.extname(file.originalname));
   }
@@ -38,7 +38,7 @@ const APIError = require("./helpers/APIError");
 const config = require("./config/config");
 const mongodb = require("./mongodb");
 
-mongodb.connect(function(err) {
+mongodb.connect(function (err) {
   if (err) console.log("Unable to connect to mongoDB", err);
 });
 
@@ -126,14 +126,14 @@ app.post("/apim/uploadfile", imageUpload.any(), (req, res, next) => {
 
 // Document Uploads
 var documentStorage = multer.diskStorage({
-  destination: function(req, file, cb) {
+  destination: function (req, file, cb) {
     var filePath = path.resolve(__dirname, "uploads/documents");
     if (!fs.existsSync(filePath)) {
       fs.mkdirSync(filePath, { recursive: true });
     }
     cb(null, filePath);
   },
-  filename: function(req, file, cb) {
+  filename: function (req, file, cb) {
     console.log(file);
     cb(null, Date.now() + path.extname(file.originalname));
   }
@@ -153,20 +153,20 @@ app.post("/docUpload", documentUpload.any(), (req, res, next) => {
 });
 
 var upload = multer({
-	storage: multer.diskStorage({
+  storage: multer.diskStorage({
 
-		destination: function (req, file, callback) { callback(null, path.join(__dirname + './../public/uploads')); },
-		filename: function (req, file, callback) { callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname)); }
+    destination: function (req, file, callback) { callback(null, path.join(__dirname + './../public/uploads')); },
+    filename: function (req, file, callback) { callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname)); }
 
-	}),
+  }),
 
-	fileFilter: function (req, file, callback) {
-		var ext = path.extname(file.originalname)
-		if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
-			return callback(/*res.end('Only images are allowed')*/ null, false)
-		}
-		callback(null, true)
-	}
+  fileFilter: function (req, file, callback) {
+    var ext = path.extname(file.originalname)
+    if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+      return callback(/*res.end('Only images are allowed')*/ null, false)
+    }
+    callback(null, true)
+  }
 });
 
 app.post('/apim/imageUpload', upload.any(), function (req, res) {
@@ -174,24 +174,25 @@ app.post('/apim/imageUpload', upload.any(), function (req, res) {
   var postData = req.body
   var finalData = []
   if (!req.body && !req.files) {
-    		res.send({ status: "failed", msg: 'please upload file' });
-    	} else {
-        files.forEach(item=>{finalData.push(item.filename)})
-      var final = {
-        imageCategoryId:postData.imageCategoryId,
-        uploadDate: postData.uploadDate,
-        imagePath: finalData
-      }
-      api.makeServiceCall("POST", "mobile", "/petdetails/imageUpload",final)
-			.then(response => {
-				console.log('=====================>>>>>>>>>>>>>>>>response',response.data)
-				res.send(response.data); // <= send data to the client
-			})
-			.catch(err => {
-				console.log(err.response.status);
-				res.status(err.response.status).json(err.response.data);
+    res.send({ status: "failed", msg: 'please upload file' });
+  } else {
+    files.forEach(item => { finalData.push(item.filename) })
+    var final = {
+      userId: postData.userId,
+      imageCategoryId: postData.imageCategoryId,
+      uploadDate: postData.uploadDate,
+      imagePath: finalData
+    }
+    api.makeServiceCall("POST", "mobile", "/petdetails/imageUpload", final, req.headers)
+      .then(response => {
+        console.log('=====================>>>>>>>>>>>>>>>>response', response.data)
+        res.send(response.data); // <= send data to the client
+      })
+      .catch(err => {
+        console.log(err.response.status);
+        res.status(err.response.status).json(err.response.data);
       });
-    	}  
+  }
 })
 
 // Loading Routes

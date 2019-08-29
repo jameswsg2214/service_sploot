@@ -7,7 +7,11 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: false,
           primaryKey: true,
           autoIncrement: true
-        },      
+        },  
+        userId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
         categoryName: {
           type: DataTypes.STRING(50),
           allowNull: false,

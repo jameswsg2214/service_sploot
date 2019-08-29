@@ -37,7 +37,7 @@ const metMedicationController = () => {
       }
       return res
         .status(httpStatus.OK)
-        .json({ status: "success", petcategorydetails: met });
+        .json({ status: "success", req: postData, res: met });
     }
     catch (err) {
       const errorMsg = err.errors ? err.errors[0].message : err.message;
@@ -90,7 +90,7 @@ const metMedicationController = () => {
         )
           .then(() => {
             return res.status(httpStatus.OK).json({
-              status: "success", msg: "Updated Successfully"
+              status: "success", msg: "Updated Successfully", req: medData
             });
           })
           .catch(() => {
@@ -117,7 +117,7 @@ const metMedicationController = () => {
           })
           .then(data => {
             console.log(data)
-            res.json({ status: "success", msg: "Inserted Successfully" })
+            res.json({ status: "success", msg: "Inserted Successfully", req: medData })
           })
       }
 
@@ -168,7 +168,7 @@ const metMedicationController = () => {
           {
             returning: true
           })
-        return res.status(httpStatus.OK).json({ medImport });
+        return res.status(httpStatus.OK).json({ req: medlist, res: medImport });
       }
       catch (err) {
         return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
@@ -197,7 +197,7 @@ const metMedicationController = () => {
       }
       return res
         .status(httpStatus.OK)
-        .json({ status: "success", brandmastdetails: met });
+        .json({ status: "success", req:postData,res: met });
     }
     catch (err) {
       const errorMsg = err.errors ? err.errors[0].message : err.message;
@@ -237,7 +237,7 @@ const metMedicationController = () => {
           {
             returning: true
           })
-        return res.status(httpStatus.OK).json({ medImport });
+        return res.status(httpStatus.OK).json({req:brndlist, res: medImport });
       }
       catch (err) {
         return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
@@ -284,7 +284,7 @@ const metMedicationController = () => {
         )
           .then(() => {
             return res.status(httpStatus.OK).json({
-              status: "success", msg: "Updated Successfully"
+              status: "success", msg: "Updated Successfully", req:brndData
             });
           })
           .catch(() => {
@@ -305,19 +305,15 @@ const metMedicationController = () => {
           })
           .then(data => {
             console.log(data)
-            res.json({ status: "success", msg: "Inserted Successfully" })
+            res.json({ status: "success", msg: "Inserted Successfully",req:brndData })
           })
       }
 
     }
     catch (err) {
       console.log(err);
-      res.json({ status: "error", msg: "Inserted Unsuccessfully" })
+      res.json({ status: "error", msg: "Failed to insert" })
     };
-
-
-
-
   }
 
   return {

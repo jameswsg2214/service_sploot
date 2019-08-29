@@ -7,12 +7,15 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         primaryKey: true,
         autoIncrement: true
-      },    
+      },  
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false, 
+      },  
       petCategoryId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
-        foreignKey: true
       },
       breedName: {
         type: DataTypes.STRING(128),
@@ -22,7 +25,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         unique: true,
         allowNull: false,
-        foreignKey: true
       },  
       active: {
         type: DataTypes.ENUM,
@@ -40,17 +42,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  TblBreedMaster.associate = models => {
-    TblBreedMaster.hasOne(models.TblBreedType, {
-      foreignKey: "breedTypeId",
-      onDelete: "CASCADE"
-    });
-    TblBreedMaster.hasOne(models.TblPetCategory, {
-      foreignKey: "petCategoryId",
-      onDelete: "CASCADE"
-    });
-
-  };
 
   return TblBreedMaster;
 };

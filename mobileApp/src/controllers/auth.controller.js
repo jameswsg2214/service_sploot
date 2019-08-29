@@ -77,7 +77,7 @@ const AuthController = () => {
                         console.log('data=============>>>>>>', data)
                         const token = authService().issue({ id: data.dataValues.userId });
                         console.log('token==========>>>', token)
-                        res.send({ status: "success", msg: "User registered successfully", token: token, User: data })
+                        res.send({ status: "success", msg: "User registered successfully", token: token, req: userData, res: data })
                       })
                       .catch(err => {
                         const errorMsg = err.errors ? err.errors[0].message : err.message;
@@ -101,7 +101,7 @@ const AuthController = () => {
               })
               .then((data) => {
                 const token = authService().issue({ id: data.dataValues.userId });
-                res.send({ status: 'success', token: token, msg: "Successfully registered", User: data });
+                res.send({ status: 'success', token: token, msg: "Successfully registered", req: userData, res: data });
               })
               .catch((err) => {
                 res.send({ status: 'failed', msg: "Failed to register", err: err });
@@ -118,7 +118,7 @@ const AuthController = () => {
               })
               .then((data) => {
                 const token = authService().issue({ id: data.dataValues.userId });
-                res.send({ status: 'success', token: token, msg: "Successfully registered", User: data });
+                res.send({ status: 'success', token: token, msg: "Successfully registered", req: userData, res: data });
               })
               .catch((err) => {
                 res.send({ status: 'failed', msg: "Failed to register", err: err });
@@ -138,6 +138,7 @@ const AuthController = () => {
   };
 
   const sendOtp = async (req, res, next) => {
+    const postData = req.body
     const { email } = req.body;
     var date = new Date()
     const secret = JSON.stringify(await date.getMilliseconds())
@@ -193,7 +194,7 @@ const AuthController = () => {
                       })
                       .then((data) => {
                         console.log(data)
-                        res.send({ status: 'success', msg: "OTP resend successfully" })
+                        res.send({ status: 'success', msg: "OTP resend successfully", req: postData, res: data })
                       })
                       .catch(err => {
                         const errorMsg = err.errors ? err.errors[0].message : err.message;
@@ -203,7 +204,6 @@ const AuthController = () => {
                 });
               } else {
                 try {
-                  const postData = req.body;
                   console.log('postdata', postData)
                   var mailOptions = {
                     from: "sploot.oasys@gmail.com", // sender address
@@ -234,7 +234,7 @@ const AuthController = () => {
                         })
                         .then((data) => {
                           console.log(data)
-                          return res.send({ status: 'success', msg: "OTP sent successfully" })
+                          return res.send({ status: 'success', msg: "OTP sent successfully", req: postData, res: data })
                         })
                         .catch(err => {
                           const errorMsg = err.errors ? err.errors[0].message : err.message;
@@ -277,7 +277,7 @@ const AuthController = () => {
             email: verifyData.email
           }
         })
-        res.send({ status: 'success', msg: "Verified successfully" })
+        res.send({ status: 'success', msg: "Verified successfully", req: verifyData })
       } else {
         res.send({
           status: "failed",
@@ -307,7 +307,7 @@ const AuthController = () => {
             const token = authService().issue({ id: user.dataValues.userId });
             return res
               .status(httpStatus.OK)
-              .json({ status: "success", token, User: user });
+              .json({ status: "success", token, req: userData, res: user });
           } else {
             res.send({ status: 'failed', msg: 'password is incorrect' })
           }
@@ -350,7 +350,7 @@ const AuthController = () => {
       const loginType = user.dataValues.loginType
       if (postData.loginType == loginType) {
         const token = authService().issue({ id: user.dataValues.userId });
-        res.send({ status: "success", Token: token, User: user.dataValues });
+        res.send({ status: "success", Token: token, req: postData, res: user.dataValues });
       } else {
         loginType == 1 ? res.send({ status: "failed", msg: "User Name already Exist" }) :
           (loginType == 2 ? res.send({ status: "failed", msg: "User already have account with google" }) :
@@ -370,7 +370,7 @@ const AuthController = () => {
           })
           .then((data) => {
             const token = authService().issue({ id: data.dataValues.userId });
-            res.send({ status: 'success', token: token, msg: "Successfully registered with google", User: data });
+            res.send({ status: 'success', token: token, msg: "Successfully registered with google", req: postData, res: data });
           })
       } else if (postData.loginType == 3) {
         User.create({
@@ -384,7 +384,7 @@ const AuthController = () => {
           })
           .then((data) => {
             const token = authService().issue({ id: data.dataValues.userId });
-            res.send({ status: 'success', token: token, msg: "Successfully registered with facebook", User: data });
+            res.send({ status: 'success', token: token, msg: "Successfully registered with facebook", req: postData, res: data });
           })
           .catch((err) => {
             res.send({ status: 'failed', msg: "Failed to register", err: err });

@@ -1,35 +1,38 @@
 module.exports = (sequelize, DataTypes) => {
-    const TblImageUpload = sequelize.define(
-      "TblImageUpload",
-      {
-        imageId: {
-          type: DataTypes.INTEGER,
-          allowNull: false,
-          primaryKey: true,
-          autoIncrement: true
-        },
-        imageCategoryId: {
-          type: DataTypes.INTEGER,
-          allowNull: true
-        },
-        imagePath: {
-          type: DataTypes.ARRAY(DataTypes.STRING(256)),
-          allowNull: true
-        },
-        uploadDate: {
-          type: DataTypes.DATEONLY,
-          allowNull: true
-        }
+  const TblImageUpload = sequelize.define(
+    "TblImageUpload",
+    {
+      imageId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
       },
-      {
-        tableName: "TblImageUpload",
-        indexes: [
-          {
-            fields: ["imageId"]
-          }
-        ]
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      imageCategoryId: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      },
+      imagePath: {
+        type: DataTypes.ARRAY(DataTypes.STRING(256)),
+        allowNull: true
+      },
+      uploadDate: {
+        type: DataTypes.DATEONLY,
+        allowNull: true
       }
-    );
-    return TblImageUpload;
-  };
-  
+    },
+    {
+      tableName: "TblImageUpload",
+      indexes: [
+        {
+          fields: ["imageId"]
+        }
+      ]
+    }
+  );
+  return TblImageUpload;
+};

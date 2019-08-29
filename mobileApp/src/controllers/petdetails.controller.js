@@ -41,7 +41,7 @@ const petDetailsController = () => {
       }
       return res
         .status(httpStatus.OK)
-        .json({ status: "success", petcategorydetails: pet });
+        .json({ status: "success", msg: "Fetched successfully", req: '', res: pet });
     } catch (err) {
       const errorMsg = err.errors ? err.errors[0].message : err.message;
       return res
@@ -58,11 +58,11 @@ const petDetailsController = () => {
       if (!data) {
         return res
           .status(httpStatus.OK)
-          .json({ status: "error", msg: "Master Data's not found" });
+          .json({ status: "error", msg: "Master Data's not found", req: '', res: '' });
       }
       return res
         .status(httpStatus.OK)
-        .json({ status: "success", breedData: data });
+        .json({ status: "success", req: '', res: data });
     } catch (err) {
       const errorMsg = err.errors ? err.errors[0].message : err.message;
       return res
@@ -78,7 +78,7 @@ const petDetailsController = () => {
       if (!pet) {
         return res
           .status(httpStatus.OK)
-          .json({ status: "error", msg: "Master Data's not found" });
+          .json({ status: "error", msg: "Master Data's not found", req: '' });
       }
       return res
         .status(httpStatus.OK)
@@ -99,11 +99,11 @@ const petDetailsController = () => {
       if (!data) {
         return res
           .status(httpStatus.OK)
-          .json({ status: "error", msg: "Master Data's not found" });
+          .json({ status: "error", msg: "Master Data's not found", req: '' });
       }
       return res
         .status(httpStatus.OK)
-        .json({ status: "success", breedMasterDetails: data });
+        .json({ status: "success", req: '', res: data });
     } catch (err) {
       const errorMsg = err.errors ? err.errors[0].message : err.message;
       return res
@@ -150,7 +150,7 @@ const petDetailsController = () => {
             userId: postData.userId,
             petCategoryId: postData.petCategoryId,
             photo: ptr,
-            petName: postData.petName,  
+            petName: postData.petName,
             breedId: postData.breedId,
             sex: postData.sex,
             dob: postData.dob,
@@ -189,7 +189,7 @@ const petDetailsController = () => {
         )
           .then(() => {
             return res.status(httpStatus.OK).json({
-              status: "success", msg: "Updated Successfully"
+              status: "success", msg: "Updated Successfully", req: postData
             });
           })
           .catch(() => {
@@ -199,7 +199,7 @@ const petDetailsController = () => {
           })
       }
       else {
-        
+
         const Petdata = PetMaster.create({
           userId: postData.userId,
           petCategoryId: postData.petCategoryId,
@@ -237,10 +237,10 @@ const petDetailsController = () => {
         }, {
             returning: true
           }).then(data => {
-            res.json({ status: "success", msg: "Inserted Successfully" })
-          }).catch(err =>{
+            res.json({ status: "success", msg: "Inserted Successfully", req: postData })
+          }).catch(err => {
             console.log(err)
-            res.json({status:"error", msg: "Not Inserted"})
+            res.json({ status: "error", msg: "Not Inserted" })
           })
       }
     }
@@ -250,6 +250,7 @@ const petDetailsController = () => {
   };
 
   const deletePetdetails = async (req, res, next) => {
+    const postData = req.body
     try {
       const data = await PetMaster.update(
         { Status: '0' },
@@ -262,11 +263,11 @@ const petDetailsController = () => {
       if (!data) {
         return res
           .status(httpStatus.OK)
-          .json({ status: "error", msg: "Master Data's not found" });
+          .json({ status: "error", msg: "Master Data's not found", req: '' });
       }
       return res
         .status(httpStatus.OK)
-        .json({ status: "success", breedData: data });
+        .json({ status: "success", req: postData, breedData: data });
     } catch (err) {
       const errorMsg = err.errors ? err.errors[0].message : err.message;
       return res
@@ -276,43 +277,43 @@ const petDetailsController = () => {
   };
 
   const updatePetdetails = async (req, res, next) => {
-    updateData = req.body
+    const updateData = req.body
     try {
       const data = await PetMaster.update(
         {
           userId: postData.userId,
-            petCategoryId: postData.petCategoryId,
-            photo: ptr,
-            petName: postData.petName,
-            breedId: postData.breedId,
-            sex: postData.sex,
-            dob: postData.dob,
-            monthlyCycle: postData.monthlyCycle,
-            period: postData.period,
-            height: postData.height,
-            length: postData.length,
-            weight: postData.weight,
-            color: postData.color,
-            marks: postData.marks,
-            birthPlace: postData.birthPlace,
-            parentFatherName: postData.parentFatherName,
-            parentFatherBreedName: postData.parentFatherBreedName,
-            parentMotherName: postData.parentMotherName,
-            parentMotherBreedName: postData.parentMotherBreedName,
-            parentAddress: postData.parentAddress,
-            petOwnerName: postData.petOwnerName,
-            petOwnerMobileNumber: postData.petOwnerMobileNumber,
-            petOwnerAddress: postData.petOwnerAddress,
-            drName: postData.drName,
-            drhospitalName: postData.drhospitalName,
-            drMobile: postData.drMobile,
-            drEmail: postData.drEmail,
-            drAddress: postData.drAddress,
-            drCity: postData.drCity,
-            drPincode: postData.drPincode,
-            drState: postData.drState,
-            drCountry: postData.drCountry,
-            status: postData.status
+          petCategoryId: postData.petCategoryId,
+          photo: ptr,
+          petName: postData.petName,
+          breedId: postData.breedId,
+          sex: postData.sex,
+          dob: postData.dob,
+          monthlyCycle: postData.monthlyCycle,
+          period: postData.period,
+          height: postData.height,
+          length: postData.length,
+          weight: postData.weight,
+          color: postData.color,
+          marks: postData.marks,
+          birthPlace: postData.birthPlace,
+          parentFatherName: postData.parentFatherName,
+          parentFatherBreedName: postData.parentFatherBreedName,
+          parentMotherName: postData.parentMotherName,
+          parentMotherBreedName: postData.parentMotherBreedName,
+          parentAddress: postData.parentAddress,
+          petOwnerName: postData.petOwnerName,
+          petOwnerMobileNumber: postData.petOwnerMobileNumber,
+          petOwnerAddress: postData.petOwnerAddress,
+          drName: postData.drName,
+          drhospitalName: postData.drhospitalName,
+          drMobile: postData.drMobile,
+          drEmail: postData.drEmail,
+          drAddress: postData.drAddress,
+          drCity: postData.drCity,
+          drPincode: postData.drPincode,
+          drState: postData.drState,
+          drCountry: postData.drCountry,
+          status: postData.status
         },
         {
           where: {
@@ -323,11 +324,11 @@ const petDetailsController = () => {
       if (!data) {
         return res
           .status(httpStatus.OK)
-          .json({ status: "error", msg: "Master Data's not found" });
+          .json({ status: "error", msg: "Master Data's not found", res: '' });
       }
       return res
         .status(httpStatus.OK)
-        .json({ status: "success", breedData: data });
+        .json({ status: "success", req: updateData, res: data });
     } catch (err) {
       const errorMsg = err.errors ? err.errors[0].message : err.message;
       return res
@@ -337,7 +338,7 @@ const petDetailsController = () => {
   };
 
   /*=============== Prescription API's =================*/
-   
+
   const getRxMaster = async (req, res, next) => {
     try {
       /* Country Data */
@@ -346,11 +347,11 @@ const petDetailsController = () => {
       if (!rxMst) {
         return res
           .status(httpStatus.OK)
-          .json({ status: "error", msg: "Master Data's not found" });
+          .json({ status: "error", msg: "Master Data's not found", req: '' });
       }
       return res
         .status(httpStatus.OK)
-        .json({ status: "success", rxMasterDetails: rxMst });
+        .json({ status: "success", req: '', res: rxMst });
     } catch (err) {
       const errorMsg = err.errors ? err.errors[0].message : err.message;
       return res
@@ -391,7 +392,7 @@ const petDetailsController = () => {
             returning: true
           }).then(data => {
             console.log(data)
-            res.send({ status: "success", msg: "Inserted Successfully", data: data })
+            res.send({ status: "success", msg: "Inserted Successfully", req: postData, res: data })
           })
       }
       else {
@@ -418,7 +419,7 @@ const petDetailsController = () => {
           returning: true
         }).then(data => {
           console.log(data)
-          res.send({ status: "success", msg: "Inserted Successfully", data: data })
+          res.send({ status: "success", msg: "Inserted Successfully", req: postData, res: data })
         }).catch(err => {
           res.send({ status: "failed", msg: "failed to insert data", error: err })
         })
@@ -440,7 +441,7 @@ const petDetailsController = () => {
         {
           returning: true
         }).then(data => {
-          res.send({ status: "success", msg: "Inserted Successfully", data: data })
+          res.send({ status: "success", msg: "Inserted Successfully", req: postData, res: data })
         }).catch(err => {
           res.send({ status: "failed", msg: "failed to insert data", error: err })
         })
@@ -460,7 +461,7 @@ const petDetailsController = () => {
         }
       }
     ).then((data) => {
-      res.send({ status: "success", msg: "Deleted Successfully", data: data })
+      res.send({ status: "success", msg: "Deleted Successfully", req: postData, res: data })
     }).catch(err => {
       res.send({ status: "failed", msg: "failed to delete data", error: err })
     })
@@ -483,7 +484,7 @@ const petDetailsController = () => {
         }
       }
     ).then((data) => {
-      res.send({ status: "success", msg: "Updated Successfully", data: data })
+      res.send({ status: "success", msg: "Updated Successfully", req: postData, res: data })
     }).catch(err => {
       res.send({ status: "failed", msg: "failed to update data", error: err })
     })
@@ -534,7 +535,7 @@ const petDetailsController = () => {
                 finalData.push(medDtl.dataValues)
                 if (j == k - 1) {
                   console.log('===========78888888888', j, k - 1, finalData)
-                  res.send({ finalData });
+                  res.send({ status: "success", msg: "fetched Successfully", req: postData, res: finalData });
                 } else {
                   j++
                 }
@@ -574,14 +575,14 @@ const petDetailsController = () => {
           {
             returning: true
           })
-        return res.status(httpStatus.OK).json({ rxMasterImport });
+        return res.status(httpStatus.OK).json({ status: "success", msg: "Inserted Successfully", req: rxMasterList, res: rxMasterImport });
       }
       catch (err) {
         return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
       }
     }
   };
-  
+
   const getPetMasterById = async (req, res, next) => {
     const postData = req.body
     try {
@@ -596,7 +597,7 @@ const petDetailsController = () => {
       else {
         return res
           .status(httpStatus.OK)
-          .json({ status: "success", petMasterDetailsById: pet });
+          .json({ status: "success", req: postData, res: pet });
       }
 
     } catch (err) {
@@ -656,13 +657,13 @@ const petDetailsController = () => {
         const petMasterImport = await PetMaster.bulkCreate(
           _petMasterlist,
           {
-            fields: ["petName", "userId","petCategoryId", "breedId", "photo", "status", "sex", "monthlyCycle", "dob","period", "height", "length", "weight", "color", "marks","birthPlace", "parentFatherName", "parentFatherBreedName","parentMotherName", "parentMotherBreedName","parentAddress", "petOwnerName", "petMobileNumber","petOwnerAddress", "drName", "drhospitalName", "drMobile", "drEmail", "drAddress", "drCity","drPincode", "drState", "drCountry"],
+            fields: ["petName", "userId", "petCategoryId", "breedId", "photo", "status", "sex", "monthlyCycle", "dob", "period", "height", "length", "weight", "color", "marks", "birthPlace", "parentFatherName", "parentFatherBreedName", "parentMotherName", "parentMotherBreedName", "parentAddress", "petOwnerName", "petMobileNumber", "petOwnerAddress", "drName", "drhospitalName", "drMobile", "drEmail", "drAddress", "drCity", "drPincode", "drState", "drCountry"],
             updateOnDuplicate: ["petName"],
           },
           {
             returning: true
           })
-        return res.status(httpStatus.OK).json({ petMasterImport });
+        return res.status(httpStatus.OK).json({ status: "success", msg: "Inserted Successfully", req: petMasterlist, res: petMasterImport });
       }
       catch (err) {
         return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
@@ -671,30 +672,30 @@ const petDetailsController = () => {
   };
   //bulk completed
 
-  const getMasterData = async(req,res,next)=>{
+  const getMasterData = async (req, res, next) => {
     let masterData = []
-      await brandMaster.findAll().then((data)=>{
-        masterData.push({BrandMasterdata:data})
-      })
-      await breedMaster.findAll({where:{active:'1'}}).then((data)=>{
-        masterData.push({BreedMasterData:data})
-      })
-      await medicinedb.findAll({where:{active:'1'}}).then((data)=>{
-        masterData.push({MedicineMasterData:data})
-      })
-      await breedType.findAll({where:{active:'1'}}).then((data)=>{
-        masterData.push({BreedTypeMasterData:data})
-      })
-      await RxFreq.findAll({where:{active:'1'}}).then((data)=>{
-        masterData.push({RxFreqMasterData:data})
-      })
-      await petCategory.findAll({where:{active:'1'}}).then((data)=>{
-        masterData.push({PetCategoryMasterData:data})
-      })
-      await taskCategory.findAll({where:{active:'1'}}).then((data)=>{
-        masterData.push({TaskCategoryMasterData:data})
-      })
-      res.send({masterData: masterData})
+    await brandMaster.findAll().then((data) => {
+      masterData.push({ BrandMasterdata: data })
+    })
+    await breedMaster.findAll({ where: { active: '1' } }).then((data) => {
+      masterData.push({ BreedMasterData: data })
+    })
+    await medicinedb.findAll({ where: { active: '1' } }).then((data) => {
+      masterData.push({ MedicineMasterData: data })
+    })
+    await breedType.findAll({ where: { active: '1' } }).then((data) => {
+      masterData.push({ BreedTypeMasterData: data })
+    })
+    await RxFreq.findAll({ where: { active: '1' } }).then((data) => {
+      masterData.push({ RxFreqMasterData: data })
+    })
+    await petCategory.findAll({ where: { active: '1' } }).then((data) => {
+      masterData.push({ PetCategoryMasterData: data })
+    })
+    await taskCategory.findAll({ where: { active: '1' } }).then((data) => {
+      masterData.push({ TaskCategoryMasterData: data })
+    })
+    res.send({ status: "success", msg: "Fetched successfully", req: '', res: masterData })
   }
   // --------------------------------------------return----------------------------------
   return {

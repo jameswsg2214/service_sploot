@@ -18,65 +18,64 @@ const noteController = () => {
     const postNote = async (req, res, next) => {
         const postData = req.body;
         if (postData) {
-        await notedb.create(
-        {
-            userId:postData.userId,
-            notes:postData.notes,
-            noteDate:postData.noteDate,
-            
-        },
-        {
-        returning: true
-        }).then(data => {
-        console.log(data)
-        res.send({ status: "success", msg: "Inserted Successfully", data: data })
-        }).catch(err => {
-        res.send({ status: "failed", msg: "failed to insert data", error: err })
-        })
+            await notedb.create(
+                {
+                    userId: postData.userId,
+                    notes: postData.notes,
+                    noteDate: postData.noteDate,
+
+                },
+                {
+                    returning: true
+                }).then(data => {
+                    console.log(data)
+                    res.send({ status: "success", msg: "Inserted Successfully", req: postData, res: data })
+                }).catch(err => {
+                    res.send({ status: "failed", msg: "failed to insert data", error: err })
+                })
         }
         else {
-        res.send({ status: 'failed', msg: 'Please enter medicine data' })
+            res.send({ status: 'failed', msg: 'Please enter medicine data' })
         }
-        }
+    }
 
 
-        const addNoteBulk = async (req, res, next) => {
-            const notelist = req.body;
-            if (notelist.length > 0) {
+    const addNoteBulk = async (req, res, next) => {
+        const notelist = req.body;
+        if (notelist.length > 0) {
             try {
-            var _notelist = [];
-            notelist.forEach(function (arrayItem) {
-            const obj = {
-                userId:arrayItem.userId,
-            notes: arrayItem.notes,
-            noteDate : arrayItem.noteDate
-          
-            }
-            _notelist.push(obj);
-            })
-            console.log("-----------------------------__>>>>>>>>>>>>>>>>>notelist",_notelist)
-            const notedbImport = await notedb.bulkCreate(
-                _notelist,
-            {
-            fields: ["notes","userId","noteDate",""],
-            updateOnDuplicate: ["notes"],
-            },
-            {
-            returning: true
-            })
-            return res.status(httpStatus.OK).json({ notedbImport });
+                var _notelist = [];
+                notelist.forEach(function (arrayItem) {
+                    const obj = {
+                        userId: arrayItem.userId,
+                        notes: arrayItem.notes,
+                        noteDate: arrayItem.noteDate
+                    }
+                    _notelist.push(obj);
+                })
+                console.log("-----------------------------__>>>>>>>>>>>>>>>>>notelist", _notelist)
+                const notedbImport = await notedb.bulkCreate(
+                    _notelist,
+                    {
+                        fields: ["notes", "userId", "noteDate", ""],
+                        updateOnDuplicate: ["notes"],
+                    },
+                    {
+                        returning: true
+                    })
+                return res.status(httpStatus.OK).json({ status: "success", msg: "Inserted Successfully", req: notelist, res: notedbImport });
             }
             catch (err) {
-            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
+                return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
             }
-            }
-            };
+        }
+    };
 
 
-return{
-postNote,
-addNoteBulk
-};
+    return {
+        postNote,
+        addNoteBulk
+    };
 }
 
 module.exports = noteController();

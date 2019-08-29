@@ -8,16 +8,15 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true,
                 autoIncrement: true
             },
-
             userId: {
-                type: DataTypes.STRING(50),
-                allowNull: false
+                type: DataTypes.INTEGER,
+                allowNull: false,
             },
             active: {
                 type: DataTypes.ENUM,
                 values: ["0", "1"],
                 defaultValue: "1"
-              }
+            }
         },
         {
             tableName: "TblTaskCategory",

@@ -15,7 +15,7 @@ const weightController = () => {
 	 * @returns {*}
 	 */
 
-	 //Compiring Previous Pet Weight And Current Pet By ueing Date
+	//Compiring Previous Pet Weight And Current Pet By ueing Date
 
 	const getweightByDate = async (req, res, next) => {
 
@@ -52,8 +52,7 @@ const weightController = () => {
 					});
 					responseData.push(responseArray[0]);
 					responseData.push(responseArray[1]);
-					res.send(responseData);
-
+					res.send({ status: 'success', req: postData, res: responseData });
 				} else {
 					return res.status(404).json({ Error: "No Records Found" });
 				}
@@ -108,7 +107,7 @@ const weightController = () => {
 				)
 					.then(() => {
 						return res.status(httpStatus.OK).json({
-							status: "success", msg: "Updated Successfully"
+							status: "success", msg: "Updated Successfully", req: postData
 						});
 					})
 					.catch(() => {
@@ -133,7 +132,7 @@ const weightController = () => {
 					})
 					.then(data => {
 						console.log(data)
-						res.json({ status: "success", msg: "Inserted Successfully" })
+						res.json({ status: "success", msg: "Inserted Successfully", req: postData })
 					})
 			}
 
@@ -147,6 +146,7 @@ const weightController = () => {
 
 
 	const deletepetweight = async (req, res, next) => {
+		const postData = req.body
 		try {
 			console.log(req.body)
 			const data = await petWeightdb.update(
@@ -164,7 +164,7 @@ const weightController = () => {
 			}
 			return res
 				.status(httpStatus.OK)
-				.json({ status: "success", WeightData: data });
+				.json({ status: "success", req: postData, WeightData: data });
 		} catch (err) {
 			const errorMsg = err.errors ? err.errors[0].message : err.message;
 			return res
@@ -198,7 +198,7 @@ const weightController = () => {
 					{
 						returning: true
 					})
-				return res.status(httpStatus.OK).json({ petWeightdbImport });
+				return res.status(httpStatus.OK).json({ req: petWeightlist, RES: petWeightdbImport });
 			}
 			catch (err) {
 				return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
@@ -206,7 +206,6 @@ const weightController = () => {
 		}
 	};
 	//bulk completed
-
 
 
 	return {

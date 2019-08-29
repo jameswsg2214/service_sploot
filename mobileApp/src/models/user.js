@@ -8,11 +8,11 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true
       },
-      userTypeId:{
+      userTypeId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      loginType:{
+      loginType: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
@@ -49,11 +49,11 @@ module.exports = (sequelize, DataTypes) => {
         values: ["0", "1"],
         defaultValue: "1"
       },
-      verified:{
+      verified: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0
-      }    
+      }
     },
     {
       tableName: "TblUser",

@@ -10,20 +10,20 @@ module.exports = (sequelize, DataTypes) => {
       },
       userId: {
         type: DataTypes.INTEGER,
-        allowNull: false, 
+        allowNull: false,
       },
       petId: {
         type: DataTypes.INTEGER,
-        allowNull: false        
+        allowNull: false
       },
       weightValue: {
-        type: DataTypes.DECIMAL(6,3),
-        allowNull: false    
-      },   
+        type: DataTypes.DECIMAL(6, 3),
+        allowNull: false
+      },
       weighDate: {
         type: DataTypes.DATEONLY,
         allowNull: false
-      },   
+      },
       active: {
         type: DataTypes.ENUM,
         values: ["0", "1"],
@@ -38,11 +38,9 @@ module.exports = (sequelize, DataTypes) => {
         }
       ]
     }
-
-    
   );
-  
 
-  
+
+
   return TblActivityWeight;
 };

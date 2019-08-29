@@ -19,7 +19,7 @@ const petDetailsController = () => {
 
 
 	const getPetCategory = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/getPetCategory", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/getPetCategory", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -31,7 +31,7 @@ const petDetailsController = () => {
 
 
 	const getBreedTypeId = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/getBreedTypeId", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/getBreedTypeId", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -42,7 +42,7 @@ const petDetailsController = () => {
 	};
 
 	const getBreedMaster = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/getBreedMaster", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/getBreedMaster", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -53,7 +53,7 @@ const petDetailsController = () => {
 	};
 
 	const getPetMaster = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/getPetMaster", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/getPetMaster", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -64,7 +64,7 @@ const petDetailsController = () => {
 	};
 
 	const postPetMaster = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/postPetMaster", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/postPetMaster", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -75,7 +75,7 @@ const petDetailsController = () => {
 	};
 
 	const deletePetdetails = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/deletePetdetails", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/deletePetdetails", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -86,7 +86,7 @@ const petDetailsController = () => {
 	};
 
 	const updatePetdetails = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/updatePetdetails", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/updatePetdetails", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -97,7 +97,7 @@ const petDetailsController = () => {
 	};
 
 	const postPetWeight = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/postPetWeight", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/postPetWeight", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -107,7 +107,7 @@ const petDetailsController = () => {
 			});
 	};
 	const deletePetWeight = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/deletePetWeight", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/deletePetWeight", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -118,7 +118,7 @@ const petDetailsController = () => {
 	};
 
 	const getRxMaster = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/getRxMaster", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/getRxMaster", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -129,7 +129,7 @@ const petDetailsController = () => {
 	};
 
 	const postRxMaster = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/postRxMaster", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/postRxMaster", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -140,7 +140,7 @@ const petDetailsController = () => {
 	};
 
 	const postRxDtl = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/postRxDtl", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/postRxDtl", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -151,7 +151,7 @@ const petDetailsController = () => {
 	};
 
 	const postRxFreq = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/postRxFreq", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/postRxFreq", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -162,7 +162,7 @@ const petDetailsController = () => {
 	};
 
 	const deleteRxMaster = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/deleteRxMaster", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/deleteRxMaster", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -173,7 +173,7 @@ const petDetailsController = () => {
 	};
 
 	const updateRxMaster = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/updateRxMaster", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/updateRxMaster", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -184,7 +184,7 @@ const petDetailsController = () => {
 	};
 
 	const getMedication = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/getMedication", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/getMedication", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -196,7 +196,7 @@ const petDetailsController = () => {
 
 
 	const postMedication = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/postMedication", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/postMedication", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -209,7 +209,7 @@ const petDetailsController = () => {
 
 	const getBrandmst = async (req, res, next) => {
 		// console.log("U in api gateway.................")
-		api.makeServiceCall("POST", "mobile", "/petdetails/getbrandmst", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/getbrandmst", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -220,7 +220,7 @@ const petDetailsController = () => {
 	};
 
 	const getActivity = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/getActivity", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/getActivity", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -231,7 +231,7 @@ const petDetailsController = () => {
 	};
 
 	const getweightByDate = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/getweightByDate", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/getweightByDate", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -243,7 +243,7 @@ const petDetailsController = () => {
 
 
 	const petWeightBulk = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/petWeightBulk", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/petWeightBulk", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -254,7 +254,7 @@ const petDetailsController = () => {
 
 	}
 	const rxMasterBulk = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/rxMasterBulk", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/rxMasterBulk", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -267,7 +267,7 @@ const petDetailsController = () => {
 
 	// getMasterByID
 	const getPetMasterById = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/getPetMasterById", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/getPetMasterById", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -279,7 +279,7 @@ const petDetailsController = () => {
 	// petMstBulkInsert
 
 	const petMstBulkInsert = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/petMasterBulk", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/petMasterBulk", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -289,7 +289,7 @@ const petDetailsController = () => {
 			});
 	};
 	const postbrandmst = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/postbrandmst", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/postbrandmst", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -299,7 +299,7 @@ const petDetailsController = () => {
 			});
 	};
 	const postNote = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/postNote", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/postNote", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -311,7 +311,7 @@ const petDetailsController = () => {
 
 
 	const addNoteBulk = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/addNoteBulk", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/addNoteBulk", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -322,7 +322,7 @@ const petDetailsController = () => {
 	};
 
 	const medBulkInsert = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/medBulkInsert", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/medBulkInsert", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -333,7 +333,7 @@ const petDetailsController = () => {
 	};
 
 	const postMedicine = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/postMedicine", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/postMedicine", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -344,7 +344,7 @@ const petDetailsController = () => {
 	};
 
 	const deleteMedicine = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/deleteMedicine", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/deleteMedicine", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -355,7 +355,7 @@ const petDetailsController = () => {
 	};
 
 	const petMedicineBulk = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/petMedicineBulk", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/petMedicineBulk", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -364,9 +364,9 @@ const petDetailsController = () => {
 				res.status(err.response.status).json(err.response.data);
 			});
 	};
-	
+
 	const getMasterData = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/getMasterData", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/getMasterData", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -376,7 +376,7 @@ const petDetailsController = () => {
 			});
 	};
 	const getImage = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/getImage", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/getImage", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -386,7 +386,7 @@ const petDetailsController = () => {
 			});
 	};
 	const deleteImage = async (req, res, next) => {
-		api.makeServiceCall("POST", "mobile", "/petdetails/deleteImage", req.body)
+		api.makeServiceCall("POST", "mobile", "/petdetails/deleteImage", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -395,7 +395,7 @@ const petDetailsController = () => {
 				res.status(err.response.status).json(err.response.data);
 			});
 	};
-	
+
 	return {
 		getPetCategory,
 		getBreedTypeId,

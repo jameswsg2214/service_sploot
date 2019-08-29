@@ -19,6 +19,7 @@ axios.interceptors.request.use(
 console.log(ENDPOINTS);
 const apiService = () => {
 	const makeServiceCall = (method, name, end_points, payload, headers) => {
+        console.log('===========================',method, name, end_points, payload, headers)
         var base_url = _constructURL(name, end_points);
         var reqTime = new Date().getTime();
 		return axios({
@@ -26,6 +27,8 @@ const apiService = () => {
 			url: base_url,
 			data: payload
 		}).then(response => {
+            console.log("==============>>>>>===========",response)
+            console.log("==============>>>>>===========",headers['user-id'])
             try {
                 if (headers) {
                     var userLogActivityObj = {
@@ -40,11 +43,12 @@ const apiService = () => {
                         deviceOS: headers['device-os'],
                         Token: headers['x-access-token'],
                         Status: response.status,
-                        request: response.data.User.email,
+                        request: response.data.req,
                         response: response.data.status,
                         LoginDate: headers['login-date']
                     };
                     var logObj = JSON.parse(JSON.stringify(userLogActivityObj));
+                    console.log("logObj==============>>>>>>>>",logObj)
                     logObj.errorResponse = null;
                     logObj.LogLevel = 'info';
                     logObj.APIRequestTime = reqTime;
@@ -58,9 +62,7 @@ const apiService = () => {
                 }
             } catch (error) {
                 console.log("**********ERROR", error);
-            }
-           
-            
+            }            
             return response;
         }).catch(err => {
             console.log("error:",err);

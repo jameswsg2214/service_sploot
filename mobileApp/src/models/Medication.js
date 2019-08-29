@@ -59,22 +59,5 @@ module.exports = (sequelize, DataTypes) => {
         }
     );
 
-
-
-    // TblMedication.associate = models => {
-    //     // TblMedication.hasOne(models.TblUser, {
-    //     //     foreignKey: "userId",
-    //     //     onDelete: "CASCADE"
-    //     // });
-
-    //     TblMedication.hasOne(models.TblbrandMaster, {
-    //         foreignKey: "brandId",
-    //         onDelete: "CASCADE"
-    //     });
-
-    // };
-
-
-
     return TblMedication;
 };
