@@ -73,7 +73,8 @@ const AuthController = () => {
                     }, {
                         returning: true
                       })
-                      .then((data) => {
+                      .then(async (data) => {
+                        await UserOtp.destroy({ where: { email: userData.email } })
                         console.log('data=============>>>>>>', data)
                         const token = authService().issue({ id: data.dataValues.userId });
                         console.log('token==========>>>', token)
@@ -134,7 +135,6 @@ const AuthController = () => {
     } else {
       res.send({ status: 'failed', msg: 'please provide data' })
     }
-
   };
 
   const sendOtp = async (req, res, next) => {
@@ -183,7 +183,7 @@ const AuthController = () => {
                   if (error) {
                     console.log(error);
                   } else {
-                    const userOtp = UserOtp.update(
+                    UserOtp.update(
                       { otp: otp },
                       {
                         where: {
@@ -395,6 +395,119 @@ const AuthController = () => {
     }
   }
 
+  const forgetPasswordSendOtp = async (req, res, next) => {
+    const postData = req.body
+    var date = new Date()
+    const secret = JSON.stringify(await date.getMilliseconds())
+    const otp = auth.generate(secret);
+    User.findOne({
+      where: {
+        email: postData.email
+      }
+    })
+      .then(async (data) => {
+        if (data == null) {
+          res.send({ status: 'failed', msg: "User doesn't exist" })
+        } else {
+
+          const user = await UserOtp.findOne({
+            where: {
+              email: postData.email
+            }
+          }).catch(err => {
+            const errorMsg = err.errors ? err.errors[0].message : err.message;
+            return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+          });
+          if (user) {
+            var mailOptions = {
+              from: "sploot.oasys@gmail.com", // sender address
+              to: postData.email, // list of receivers
+              subject: "Sploot account verification", // Subject line
+              text: otp, // plaintext body
+              // html: `<b>Your OTP is ${otp}</b>` // html body
+              html: `<div style="font-family: verdana; max-width:500px; margin-left">
+            <h1>Your one-time-password is ${otp}</h1> <div><img src="cid:sploot_unique_id"/></div>
+            </div>
+            `,
+              attachments: [{
+                filename: '20197322.jpeg',
+                path: __dirname + '/../../public/20197322.jpeg',
+                cid: 'sploot_unique_id' //same cid value as in the html img src
+              }]
+            }
+            await smtpTransport.sendMail(mailOptions, function (error, response) {
+              if (error) {
+                console.log(error);
+              } else {
+                UserOtp.update(
+                  { otp: otp },
+                  {
+                    where: {
+                      email: postData.email
+                    }
+                  }, {
+                    returning: true
+                  })
+                  .then((data) => {
+                    console.log(data)
+                    res.send({ status: 'success', msg: "OTP resend successfully", req: postData, res: data })
+                  })
+                  .catch(err => {
+                    const errorMsg = err.errors ? err.errors[0].message : err.message;
+                    return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+                  });
+              }
+            });
+          } else {
+            try {
+              console.log('postdata', postData)
+              var mailOptions = {
+                from: "sploot.oasys@gmail.com", // sender address
+                to: postData.email, // list of receivers
+                subject: "Sploot ", // Subject line
+                text: otp, // plaintext body
+                // html: `<b>Your OTP is ${otp}</b>` // html body
+                html: `
+              <div style="font-family: verdana; max-width:500px; margin-left">
+              <h1>Your one-time-password is ${otp}</h1> <div><img src="cid:sploot_unique_id"/></div>
+              </div>`,
+                attachments: [{
+                  filename: '20197322.jpeg',
+                  path: __dirname + '/../../public/20197322.jpeg',
+                  cid: 'sploot_unique_id' //same cid value as in the html img src
+                }]
+              }
+              // send mail with defined transport object
+              await smtpTransport.sendMail(mailOptions, function (error, response) {
+                if (error) {
+                  console.log(error);
+                } else {
+                  const userOtp = UserOtp.create({
+                    email: postData.email,
+                    otp: otp
+                  }, {
+                      returning: true
+                    })
+                    .then((data) => {
+                      console.log(data)
+                      return res.send({ status: 'success', msg: "OTP sent successfully", req: postData, res: data })
+                    })
+                    .catch(err => {
+                      const errorMsg = err.errors ? err.errors[0].message : err.message;
+                      return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+                    });
+                }
+              });
+            }
+            catch (err) {
+              return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal servers error" });
+            }
+          }
+
+        }
+      })
+  }
+
   const generateOTP = async () => {
     var digits = "0123456789";
     let OTP = "";
@@ -484,32 +597,34 @@ const AuthController = () => {
   };
 
   const passwordChange = async (req, res, next) => {
-    const { userId, password } = req.body;
-    if (userId && password) {
-      try {
-        var passwrd = bcryptService().updatePassword(password);
-        User.update(
-          { password: passwrd, updatedAt: new Date() },
+    const postData = req.body;
+    if (postData) {
+      // var passwrd = bcryptService().updatePassword(password);
+      const password = postData.password
+      await UserOtp.findOne({
+        where: {
+          email: postData.email,
+          verified: 1
+        }
+      }).then(async (data) => {
+        await User.update(
+          { password: password, updatedAt: new Date() },
           {
             where: {
-              userId: userId
+              email: postData.email
             }
           }
-        );
-        return res
-          .status(httpStatus.OK)
-          .json({ status: "success", msg: "Successfully updated." });
-      } catch (err) {
-        const errorMsg = err.errors ? err.errors[0].message : err.message;
-        return res
-          .status(httpStatus.INTERNAL_SERVER_ERROR)
-          .json({ status: "error", msg: errorMsg });
-      }
+        )
+          .then(() => {
+            return res.send({ status: "success", msg: "Successfully updated.", req: postData, res: data });
+          })
+      })
+        .catch(err => { res.send({ status: 'failed', msg: 'email is not verified', req: postData, res: err }) })
+    } else {
+      return res
+        .status(httpStatus.BAD_REQUEST)
+        .json({ status: "error", msg: "email and Password is missing." });
     }
-
-    return res
-      .status(httpStatus.BAD_REQUEST)
-      .json({ status: "error", msg: "UserId and Password is missing." });
   };
 
   return {
@@ -519,7 +634,8 @@ const AuthController = () => {
     passwordChange,
     sendOtp,
     verifyOtp,
-    createAndLoginUser
+    createAndLoginUser,
+    forgetPasswordSendOtp
   };
 };
 

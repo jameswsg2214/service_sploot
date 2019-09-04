@@ -12,11 +12,12 @@ const router = express.Router(); // eslint-disable-line new-cap
 router.route("/login").post(authCtrl.login);
 // router.route("/userLogin").post(authCtrl.userLogin);
 router.route("/createUser").post(authCtrl.createUser);
-// router.route("/signupUser").post(authCtrl.signupUser);
+router.route("/passwordChange").post(authCtrl.passwordChange);
 router.route("/sendOtp").post(authCtrl.sendOtp);
 router.route("/verifyOtp").post(authCtrl.verifyOtp);
 router.route("/forgetPassword").post(authCtrl.forgetPassword);
-router.route("/createAndLoginUser").post(authCtrl.createAndLoginUser)
+router.route("/createAndLoginUser").post(authCtrl.createAndLoginUser);
+router.route("/forgetPasswordSendOtp").post(authCtrl.forgetPasswordSendOtp);
 
 /** GET /api/auth/random-number - Protected route,
  * needs token returned by the above as header.

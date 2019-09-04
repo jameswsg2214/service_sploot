@@ -55,9 +55,11 @@ const apiService = () => {
                     logObj.APIResponseTime = new Date();
                     logsModel.create(logObj, (err, data) => {
                         if (err) console.log("Error in creating user log:", err);
+                        else console.log('data inserted successfully user_logs_tbl')
                     });
                     userLoginActivityModel.create(userLogActivityObj, (err, data) => {
                         if (err) console.log("Error in creating user log activity:", err);
+                        else console.log('data inserted successfully in user_activity_tbl')
                     });
                 }
             } catch (error) {
