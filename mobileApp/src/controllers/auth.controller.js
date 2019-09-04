@@ -601,12 +601,13 @@ const AuthController = () => {
     if (postData) {
       // var passwrd = bcryptService().updatePassword(password);
       const password = postData.password
-      await UserOtp.findOne({
+      const user = await UserOtp.findOne({
         where: {
           email: postData.email,
           verified: 1
         }
-      }).then(async (data) => {
+      })
+      if(user){
         await User.update(
           { password: password, updatedAt: new Date() },
           {
@@ -615,11 +616,13 @@ const AuthController = () => {
             }
           }
         )
-          .then(() => {
+          .then((data) => {
             return res.send({ status: "success", msg: "Successfully updated.", req: postData, res: data });
           })
-      })
-        .catch(err => { res.send({ status: 'failed', msg: 'email is not verified', req: postData, res: err }) })
+          .catch(err => { res.send({ status: 'failed', msg: 'failed to update', req: postData, res: err }) })
+      } else {
+        res.send({ status: 'failed', msg: 'email is not verified', req: postData })
+      }
     } else {
       return res
         .status(httpStatus.BAD_REQUEST)
