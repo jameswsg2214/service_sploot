@@ -22,8 +22,9 @@ const imageUploadController = () => {
     console.log(req.body)
     const postData = req.body
     ImageTbl.create({
+      petId: postData.petId,
       userId: postData.userId,
-      imageCategoryId: postData.imageCategoryId,
+      // imageCategoryId: postData.imageCategoryId,
       uploadDate: postData.uploadDate,
       imagePath: postData.imagePath
     }).then(async (data) => {
@@ -39,7 +40,8 @@ const imageUploadController = () => {
     const postData = req.body;
     ImageTbl.findAll({
       where: {
-        imageCategoryId: postData.imageCategoryId,
+        petId: postData.petId,
+        userId: postData.userId,
         uploadDate: postData.uploadDate
       }
     }).then((data) => {
@@ -51,14 +53,42 @@ const imageUploadController = () => {
   const deleteImage = async (req, res, next) => {
     const { imageId } = req.body
     ImageTbl.destroy({ where: { imageId: imageId } }).then((data) => {
-      res.send({ status: 'success', msg: 'Image deleted successfully', req: postData,res: data })
+      res.send({ status: 'success', msg: 'Image deleted successfully', req: imageId,res: data })
     })
   }
 
+  const  getallimagebydate = async (req, res, next) => {
+    const response = []
+    console.log(req.body)
+    const postData = req.body
+    ImageTbl.findAll({
+      petId: postData.petId,
+      userId: postData.userId,
+    }).then(async (data) => {
+      data.forEach((item, i)=>{
+        const value = {}
+        console.log("======>>>item",i)
+        value.imagePath = item.dataValues.imagePath
+        value.uploadDate = item.dataValues.uploadDate
+        response.push(value)
+        response.push(value)
+      })
+      setTimeout(() => {
+        return res
+        .status(httpStatus.OK)
+        .json({ status: "success", msg: 'Image fetched successfully with date', req: postData, res: response });
+    }, 3000);
+      
+    }).catch(err => {
+      res.send({ status: 'failed', msg: 'failed to fetch  with  date', error: err })
+    })
+  }
+ 
   return {
     deleteImage,
     imageUpload,
-    getImage
+    getImage,
+    getallimagebydate
   };
 };
 

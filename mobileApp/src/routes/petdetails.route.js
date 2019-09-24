@@ -57,6 +57,7 @@ router.route("/petMedicineBulk").post(MedicineCntrl.petMedicineBulk);
 router.route("/getImage").post(imagectrl.getImage);
 router.route("/deleteImage").post(imagectrl.deleteImage);
 router.route("/imageUpload").post(imagectrl.imageUpload);
+router.route("/getallimagebydate").post(imagectrl.getallimagebydate);
 
 router.route("/getMasterData").post(petdetailsCtrl.getMasterData);
 

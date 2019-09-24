@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      petId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       imageCategoryId: {
         type: DataTypes.INTEGER,
         allowNull: true

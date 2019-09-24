@@ -80,14 +80,14 @@ Object.keys(db).forEach(modelName => {
 });
 
 // Synchronizing any model changes with database.
-sequelize
-  .sync({
-    // force: true
-  })
-  .then(err => {
-    if (err) console.error("An error occured %j", err);
-    else console.info("Database synchronized");
-  });
+// sequelize
+//   .sync({
+//     // force: true
+//   })
+//   .then(err => {
+//     if (err) console.error("An error occured %j", err);
+//     else console.info("Database synchronized");
+//   });
   
 // assign the sequelize variables to the db object and returning the db.
 module.exports = _.extend(

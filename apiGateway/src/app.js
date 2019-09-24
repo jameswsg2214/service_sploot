@@ -178,8 +178,9 @@ app.post('/apim/imageUpload', upload.any(), function (req, res) {
   } else {
     files.forEach(item => { finalData.push(item.filename) })
     var final = {
+      petId: postData.petId,
       userId: postData.userId,
-      imageCategoryId: postData.imageCategoryId,
+      // imageCategoryId: postData.imageCategoryId,
       uploadDate: postData.uploadDate,
       imagePath: finalData
     }
