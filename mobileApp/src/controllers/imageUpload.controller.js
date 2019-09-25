@@ -24,7 +24,6 @@ const imageUploadController = () => {
     ImageTbl.create({
       petId: postData.petId,
       userId: postData.userId,
-      // imageCategoryId: postData.imageCategoryId,
       uploadDate: postData.uploadDate,
       imagePath: postData.imagePath
     }).then(async (data) => {
