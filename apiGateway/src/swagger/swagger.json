@@ -1,11 +1,10 @@
 ﻿{
   "basePath": "",
-
-  "host": "localhost:3000",
+  "host": "localhost:3500",
   "info": {
-    "description": "SFA API",
+    "description": "Sploot API",
     "version": "1.0.0",
-    "title": "SFA API",
+    "title": "Sploot API",
     "termsOfService": "",
     "contact": {
       "email": "support@troondx.com"

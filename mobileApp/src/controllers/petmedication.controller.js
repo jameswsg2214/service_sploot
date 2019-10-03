@@ -36,7 +36,7 @@ const metMedicationController = () => {
           .json({ status: "error", msg: "Master Data's not found" });
       }
       return res
-        .status(httpStatus.OK)
+        .status(httpStatus.OK)  
         .json({ status: "success", req: postData, res: met });
     }
     catch (err) {

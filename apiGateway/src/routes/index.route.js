@@ -66,6 +66,21 @@ router.use(function(req, res, next) {
   }
 });
 
+const swaggerDefinition = swaggerDocument;
+
+const options = {
+  swaggerDefinition,
+  apis: ["./routes/index.route*.js"]
+};
+
+const swaggerSpec = swaggerJSDoc(options);
+router.get("/swagger.json", function (req, res) {
+  res.setHeader("Content-Type", "application/json");
+  res.send(swaggerSpec);
+});
+router.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+
 router.use("/apim", mobileRoutes);
 router.use("/apia", adminRoutes);
 

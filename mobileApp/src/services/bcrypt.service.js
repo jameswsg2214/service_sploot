@@ -14,7 +14,6 @@ const bcryptService = () => {
 	const updatePassword = pass => {
 		const salt = bcrypt.genSaltSync(saltRounds);
 		const hash = bcrypt.hashSync(pass, salt);
-
 		return hash;
 	};
 
