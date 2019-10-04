@@ -3,7 +3,7 @@ const _ = require("lodash");
 const moment = require("moment");
 var Sequelize = require('sequelize');
 const db = require("../config/sequelize");
-const UploadHelper = require("../helpers/UploadHelper");
+//const UploadHelper = require("../helpers/UploadHelper");
 
 const Check = db.TblUser;
 
