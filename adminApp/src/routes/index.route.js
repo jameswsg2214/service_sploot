@@ -1,6 +1,8 @@
 const express = require("express");
 const userRoutes = require("./user.route")
 const authRoutes = require("./auth.route");
+const boardRoutes = require("./board.route")
+
 const config = require("../config/config");
 
 const router = express.Router();
@@ -27,6 +29,8 @@ const router = express.Router();
 // }
 
 router.use('/user',userRoutes);
+router.use('/board',boardRoutes);
+
 // router.use("/auth", authRoutes);
 
 module.exports = router

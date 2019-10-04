@@ -27,9 +27,27 @@ const addadmincategoryController = () => {
     };
 
 
+	const getDashBoardSummary = async (req, res, next) => {
+		try {
+			const sfabranch = await db.sequelize.query('select * from TblUser', { raw: true }
+			).catch(err => {
+				const errorMsg = err.errors ? err.errors[0].message : err.message;
+				return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+			});
+			console.log(sfabranch)
+			return res.status(httpStatus.OK).json({
+				sfabranch
+			});
+		} catch (err) {
+			console.log(err);
+			return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
+		}
+    };
+
 	return {
 	
 		getCategoryy,
+		getDashBoardSummary,
 	
  	};
 };
