@@ -29,14 +29,57 @@ const addadmincategoryController = () => {
 
 	const getDashBoardSummary = async (req, res, next) => {
 		try {
-			const sfabranch = await db.sequelize.query('select * from TblUser', { raw: true }
-			).catch(err => {
-				const errorMsg = err.errors ? err.errors[0].message : err.message;
-				return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
-			});
-			console.log(sfabranch)
+            const  summaryData={
+				"TotalRegisteredUsercount":[
+					{"no": 100, "month": "Jan"},
+					{"no": 100, "month": "Feb"},
+					{"no": 100, "month": "Mar"},
+					{"no": 100, "month": "Apr"},
+					{"no": 100, "month": "May"},
+					{"no": 100, "month": "Jun"},
+					{"no": 100, "month": "July"},
+					{"no": 100, "month": "Aug"},
+					{"no": 100, "month": "Sep"},
+					{"no": 100, "month": "Oct"},
+					{"no": 100, "month": "Nov"},
+					{"no": 100, "month": "Dec"}
+				],
+				"TotalNewRegisteredUsercount":
+				[
+					{"no": 100, "month": "Jan"},
+					{"no": 100, "month": "Feb"},
+					{"no": 100, "month": "Mar"},
+					{"no": 100, "month": "Apr"},
+					{"no": 100, "month": "May"},
+					{"no": 100, "month": "Jun"},
+					{"no": 100, "month": "July"},
+					{"no": 100, "month": "Aug"},
+					{"no": 100, "month": "Sep"},
+					{"no": 100, "month": "Oct"},
+					{"no": 100, "month": "Nov"},
+					{"no": 100, "month": "Dec"}
+				],
+				"TotalRegisteredDogscount":
+				[
+					{"no": 100, "month": "Jan"},
+					{"no": 100, "month": "Feb"},
+					{"no": 100, "month": "Mar"},
+					{"no": 100, "month": "Apr"},
+					{"no": 100, "month": "May"},
+					{"no": 100, "month": "Jun"},
+					{"no": 100, "month": "July"},
+					{"no": 100, "month": "Aug"},
+					{"no": 100, "month": "Sep"},
+					{"no": 100, "month": "Oct"},
+					{"no": 100, "month": "Nov"},
+					{"no": 100, "month": "Dec"}
+				],
+				"TotalAchivcount":300,
+				"TotalPatescount":450,
+				"TotalCMScount":400
+			};
 			return res.status(httpStatus.OK).json({
-				sfabranch
+			 status: "success", req: '', res: summaryData
 			});
 		} catch (err) {
 			console.log(err);

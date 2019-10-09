@@ -8,8 +8,6 @@ var moment = require("moment");
 const _  = require('lodash');
 
 const User = db.TblUser;
-const UserRoles = db.TblUserRoles;
-const UserTypes = db.TblUserTypes;
 
 
 
@@ -21,67 +19,48 @@ const AuthController = () => {
 	 * @param next
 	 * @returns {*}
 	 */
-const login = async (req, res, next) => {
-
-    const { username, password } = req.body;
-    let userCond = {};
-    let activityResponse;
-    let groupresp;
-
-    userCond.userTypeId = 1;
-    userCond.active = "1";
-    if (isNaN(username)) {
-        userCond.email = username;
-    } else {
-        userCond.phoneNo = username;
-    }
-
-    if (username && password) {
-        try {
+    const login = async (req, res, next) => {
+        const userData = req.body;
+        const UserTypeCondition={}
+        UserTypeCondition.userTypeId=2,
+        UserTypeCondition.email=userData.email
+        if (userData) {
+          try {
             const user = await User.findOne({
-                where: userCond
-            });
-            if(user){
-                    const userRoles = await UserRoles.findAll({where : {userId : user.dataValues.userId},
-                    raw:true});
-
-                    let roleIds = _.map(userRoles, 'roleId');
-                   // console.log("roleIds",roleIds);
-                
-                    const constrolactivity = await db.TblRoleActivityMap.findAll({where : {roleId : roleIds}});
-                    let activityIds = _.map(constrolactivity, 'activityId');
-                   // console.log("activityIds",activityIds);
-                    let activityConditions = {};
-                    activityConditions['activityId'] = activityIds;
-                    activityConditions['active'] = '1';
-                    activityResponse = await db.TblActivityMaster.findAll({where : activityConditions});
-
-                 groupresp =	_.groupBy(activityResponse, 'menuGroupName');
-            
+              where: UserTypeCondition
+            })
+            if (user != null) {
+                if (userData.password == (user.dataValues.password )) {
+                  const token = authService().issue({ id: user.dataValues.userId });
+                  return res
+                    .status(httpStatus.OK)
+                    .json({ status: "success", token, req: userData, res: user });
+                }
+              else {
+                return res
+                .status(httpStatus.FAILED_DEPENDENCY)
+                .json({ status: 'failed', msg: 'Password is incorrect' })
+              }
             }
-        
-        //	console.log("user",user);
-            if (!user) {
-                return res.status(httpStatus.BAD_REQUEST).json({ msg: "User not found" });
-            }
-            if (bcryptService().comparePassword(password, user.password)) {
-               // const token = authService().issue({ id: user.id });
-                
-
-                return res.status(httpStatus.OK).json({ token,user,groupresp});
-            }
-            // return res
-            //   .status(httpStatus.UNAUTHORIZED)
-            //   .json({ msg: "Email or password is wrong" });
-        } catch (err) {
-          //  console.log(err);
-            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
+            else {
+              return res
+              .status(httpStatus.BAD_REQUEST)
+              .json({ status: 'failed', msg: 'User not found.' })
+              }
+          } catch (err) {
+            const errorMsg = err.errors ? err.errors[0].message : err.message;
+            return res
+              .status(httpStatus.INTERNAL_SERVER_ERROR)
+              .json({ status: "error", msg: errorMsg });
+          }
+        } else {
+          return res
+              .status(httpStatus.BAD_REQUEST)
+              .json({ status: 'failed', msg: 'please provide data' })
         }
-    }
-
-    return res.status(httpStatus.BAD_REQUEST).json({ msg: "Email or password is wrong works" });
-};
+      };
 return {
     login,
 };
 };
+module.exports = AuthController();
