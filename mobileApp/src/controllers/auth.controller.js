@@ -24,8 +24,8 @@ var smtpTransport = nodemailer.createTransport({
   domain: 'gmail.com',
   authentication: 'plain',
   auth: {
-    user: 'srumijithu@gmail.com',
-    pass: '14011998ks' //give here correct gmail pwd
+    user: "sploot.oasys@gmail.com",
+    pass: "sploot@123" //give here correct gmail pwd
   }
 });
 
@@ -292,7 +292,8 @@ const AuthController = () => {
             email: verifyData.email
           }
         })
-        res.send({ status: 'success', msg: "Verified successfully", req: verifyData })
+        if(UserOtp)
+         res.send({ status: 'success', msg: "Verified successfully", req: verifyData })
       } else {
         res.send({
           status: "failed",
@@ -319,7 +320,7 @@ const AuthController = () => {
         const user = await User.findOne({
           where: { email: userData.email }
         })
-        if (user != null) {
+        if (user != null) {x
           if (user.dataValues.loginType == 1) {
             if (userData.password == (user.dataValues.password )) {
               const token = authService().issue({ id: user.dataValues.userId });
