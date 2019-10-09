@@ -150,7 +150,6 @@ const AuthController = () => {
     var date = new Date()
     const secret = JSON.stringify(await date.getMilliseconds())
     const otp = auth.generate(secret);
-    console.log("otp =====>", otp)
     if (email) {
       User.findOne({
         where: {
@@ -159,8 +158,12 @@ const AuthController = () => {
       })
         .then(async (data) => {
           if (data != null) {
-            res.send({ status: 'failed', msg: 'User already existed' })
-          } else {
+             if (data.dataValues.loginType == 2) {
+              res.send({ status: 'failed', msg: 'User already exists with Gmail' });
+            }
+            else if (data.dataValues.loginType == 3) {
+              res.send({ status: 'failed', msg: 'User already exists with Facebook' });
+            } else {
             try {
               const user = await UserOtp.findOne({
                 where: {
@@ -260,6 +263,10 @@ const AuthController = () => {
               return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
             }
           }
+        }
+        else{
+          res.send({ status: 'failed', msg: 'User not found.' })
+        }
         })
         .catch(err => {
           console.log(err);
@@ -302,46 +309,95 @@ const AuthController = () => {
 
   };
 
+
+
+
   const login = async (req, res, next) => {
     const userData = req.body;
     if (userData) {
-      //if (userData.loginType == 1) {
       try {
         const user = await User.findOne({
           where: { email: userData.email }
         })
         if (user != null) {
-          if (userData.password == (user.dataValues.password || user.dataValues.googlePassword || user.dataValues.facebookPassword)) {
-            const token = authService().issue({ id: user.dataValues.userId });
+          if (user.dataValues.loginType == 1) {
+            if (userData.password == (user.dataValues.password )) {
+              const token = authService().issue({ id: user.dataValues.userId });
+              return res
+                .status(httpStatus.OK)
+                .json({ status: "success", token, req: userData, res: user });
+            }
+          else {
             return res
-              .status(httpStatus.OK)
-              .json({ status: "success", token, req: userData, res: user });
-          } else {
-            res.send({ status: 'failed', msg: 'password is incorrect' })
+            .status(httpStatus.FAILED_DEPENDENCY)
+            .json({ status: 'failed', msg: 'Password is incorrect' })
           }
-        } else {
-          res.send({ status: 'failed', msg: 'user not found' })
+          } else if (user.dataValues.loginType == 2) {
+            return res
+            .status(httpStatus.FAILED_DEPENDENCY)
+            .json({ status: 'failed', msg: 'User already exists with Gmail' });
+          }
+          else if (user.dataValues.loginType == 3) {
+            return res
+            .status(httpStatus.FAILED_DEPENDENCY)
+            .json({ status: 'failed', msg: 'User already exists with Facebook' });
+          }
         }
+        else {
+          return res
+          .status(httpStatus.BAD_REQUEST)
+          .json({ status: 'failed', msg: 'User not found.' })
+          }
       } catch (err) {
         const errorMsg = err.errors ? err.errors[0].message : err.message;
         return res
           .status(httpStatus.INTERNAL_SERVER_ERROR)
           .json({ status: "error", msg: errorMsg });
       }
-      //} 
-      // else if (userData.loginType == 2) {
-      //   //google
-      // } 
-      // else if (userData.loginType == 3) {
-      //   //facebook
-      // }
+      
     } else {
-      res.send({ status: 'failed', msg: 'please provide data' })
+      return res
+          .status(httpStatus.BAD_REQUEST)
+          .json({ status: 'failed', msg: 'please provide data' })
     }
     return res
       .status(httpStatus.BAD_REQUEST)
       .json({ status: "failed", msg: "Email or password is wrong" });
   };
+
+  
+  // const UserExitsCheck = async (req, res, next) => {
+  //   const userData = req.body;
+  //   if (userData) {
+  //     try {
+  //       const user = await User.findOne({
+  //         where: { email: userData.email }
+  //       })
+  //       if (user != null) {
+  //         if (user.dataValues.loginType == 1) {
+  //           res.send({ status: 'sucess', msg: '' });
+  //         } else if (user.dataValues.loginType == 2) {
+  //           res.send({ status: 'sucess', msg: 'User already exists with Gmail' });
+  //         }
+  //         else if (user.dataValues.loginType == 3) {
+  //           res.send({ status: 'sucess', msg: 'User already exists with Facebook' });
+  //         }
+  //       } else {
+  //         res.send({ status: 'failed', msg: 'user not found' })
+  //       }
+  //     } catch (err) {
+  //       const errorMsg = err.errors ? err.errors[0].message : err.message;
+  //       return res
+  //         .status(httpStatus.INTERNAL_SERVER_ERROR)
+  //         .json({ status: "error", msg: errorMsg });
+  //     }
+  //   } else {
+  //     res.send({ status: 'failed', msg: 'please provide data' })
+  //   }
+  //   return res
+  //     .status(httpStatus.BAD_REQUEST)
+  //     .json({ status: "failed", msg: "Email is wrong" });
+  // };
 
   const createAndLoginUser = async (req, res, next) => {
     const postData = req.body
@@ -361,8 +417,8 @@ const AuthController = () => {
         res.send({ status: "success", Token: token, req: postData, res: user.dataValues });
       } else {
         loginType == 1 ? res.send({ status: "failed", msg: "User Name already Exist" }) :
-          (loginType == 2 ? res.send({ status: "failed", msg: "User already have account with google" }) :
-            (loginType == 3 ? res.send({ status: "failed", msg: "User already have account with facebook" }) :
+          (loginType == 2 ? res.send({ status: "failed", msg: "User already have account with Google" }) :
+            (loginType == 3 ? res.send({ status: "failed", msg: "User already have account with Facebook" }) :
               res.send({ status: "failed", msg: "Invalid login type" })));
       }
     } else {
