@@ -320,7 +320,7 @@ const AuthController = () => {
         const user = await User.findOne({
           where: { email: userData.email }
         })
-        if (user != null) {x
+        if (user != null) {
           if (user.dataValues.loginType == 1) {
             if (userData.password == (user.dataValues.password )) {
               const token = authService().issue({ id: user.dataValues.userId });
