@@ -1,1 +1,0 @@
-const config=require("./src/config/config"),app=require("./src/config/express"),db=require("./src/config/sequelize");var server=require("http").createServer(app);module.parent||server.listen(config.port,()=>{console.info(`server started on port ${config.port}(${config.env})`)});
