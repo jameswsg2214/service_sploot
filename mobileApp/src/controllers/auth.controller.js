@@ -330,17 +330,18 @@ const AuthController = () => {
             }
           else {
             return res
-            .status(httpStatus.FAILED_DEPENDENCY)
+            .status(httpStatus.OK)
             .json({ status: 'failed', msg: 'Password is incorrect' })
           }
-          } else if (user.dataValues.loginType == 2) {
+          } 
+          else if (user.dataValues.loginType == 2) {
             return res
-            .status(httpStatus.FAILED_DEPENDENCY)
+            .status(httpStatus.OK)
             .json({ status: 'failed', msg: 'User already exists with Gmail' });
           }
           else if (user.dataValues.loginType == 3) {
             return res
-            .status(httpStatus.FAILED_DEPENDENCY)
+            .status(httpStatus.OK)
             .json({ status: 'failed', msg: 'User already exists with Facebook' });
           }
         }
