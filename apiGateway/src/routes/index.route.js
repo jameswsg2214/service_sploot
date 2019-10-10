@@ -83,6 +83,7 @@ router.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 router.use("/apim", mobileRoutes);
 router.use("/apia", adminRoutes);
+// router.use("/apia", adminpanelRoutes);
 
 
 

@@ -2,6 +2,7 @@ const express = require("express");
 const userRoutes = require("./user.route")
 const authRoutes = require("./auth.route");
 const boardRoutes = require("./board.route")
+// const adminpanelRoutes = require("./adminpanel.route")
 
 const config = require("../config/config");
 
@@ -30,6 +31,7 @@ const router = express.Router();
 router.use("/auth", authRoutes);
 router.use('/user',userRoutes);
 router.use('/board',boardRoutes);
+// router.use('/adminpanel',adminpanelRoutes);
 
 
 module.exports = router
