@@ -187,7 +187,7 @@ const AuthController = () => {
               });
               if (user) {
                 var mailOptions = {
-                  from: "srumijithu@gmail.com", // sender address
+                  from: "sploot.oasys@gmail.com", // sender address
                   to: email, // list of receivers
                   subject: "Sploot account verification", // Subject line
                   text: otp, // plaintext body
@@ -228,7 +228,7 @@ const AuthController = () => {
               } else {
                 try {
                   var mailOptions = {
-                    from: "srumijthu@gmail.com", // sender address
+                    from: "sploot.oasys@gmail.com", // sender address
                     to: email, // list of receivers
                     subject: "Sploot ", // Subject line
                     text: otp, // plaintext body
@@ -287,7 +287,7 @@ const AuthController = () => {
             });
             if (user) {
               var mailOptions = {
-                from: "srumijithu@gmail.com", // sender address
+                from: "sploot.oasys@gmail.com", // sender address
                 to: email, // list of receivers
                 subject: "Sploot account verification", // Subject line
                 text: otp, // plaintext body
