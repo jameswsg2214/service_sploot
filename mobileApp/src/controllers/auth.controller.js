@@ -20,8 +20,8 @@ q55P+H4V+h4HDLC0I0uvX1PyfMsY8biZVns9vToa9dZwjZEWSNkkUMjAqynoQe1JpNWY4ycWmt0fOHi3
 
 var smtpTransport = nodemailer.createTransport({
   host: 'smtp.gmail.com',
-  port: 587,
-  secure: false,
+  port: 465,
+  secure: true,
   domain: 'gmail.com',
   auth: {
     user: "sploot.oasys@gmail.com",
