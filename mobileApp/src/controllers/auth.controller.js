@@ -215,7 +215,6 @@ const AuthController = () => {
                 });
               } else {
                 try {
-                  console.log('postdata', postData)
                   var mailOptions = {
                     from: "srumijthu@gmail.com", // sender address
                     to: email, // list of receivers
@@ -265,8 +264,102 @@ const AuthController = () => {
           }
         }
         else{
-          res.send({ status: 'failed', msg: 'User not found.' })
-        }
+          try {
+            const user = await UserOtp.findOne({
+              where: {
+                email: email
+              }
+            }).catch(err => {
+              const errorMsg = err.errors ? err.errors[0].message : err.message;
+              return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+            });
+            if (user) {
+              var mailOptions = {
+                from: "srumijithu@gmail.com", // sender address
+                to: email, // list of receivers
+                subject: "Sploot account verification", // Subject line
+                text: otp, // plaintext body
+                // html: `<b>Your OTP is ${otp}</b>` // html body
+                html: `<div style="font-family: verdana; max-width:500px; margin-left">
+                <h1>Your one-time-password is ${otp}</h1>  <div><img src="cid:sploot_unique_id"/></div>
+                </div>
+                `,
+                attachments: [{
+                  filename: 'Spoolt.jpg',
+                  content: ImagelogoSrc,
+                  encoding: 'base64'
+                }]
+              }
+              await smtpTransport.sendMail(mailOptions, function (error, response) {
+                if (error) {
+                  console.log(error);
+                } else {
+                  UserOtp.update(
+                    { otp: otp },
+                    {
+                      where: {
+                        email: email
+                      }
+                    }, {
+                      returning: true
+                    })
+                    .then((data) => {
+                      // console.log(data)
+                      res.send({ status: 'success', msg: "OTP resend successfully", req: postData, res: data })
+                    })
+                    .catch(err => {
+                      const errorMsg = err.errors ? err.errors[0].message : err.message;
+                      return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+                    });
+                }
+              });
+            } else {
+              try {
+                var mailOptions = {
+                  from: "srumijthu@gmail.com", // sender address
+                  to: email, // list of receivers
+                  subject: "Sploot ", // Subject line
+                  text: otp, // plaintext body
+                  // html: `<b>Your OTP is ${otp}</b>` // html body
+                  html: `
+                  <div style="font-family: verdana; max-width:500px; margin-left">
+                  <h1>Your one-time-password is ${otp}</h1> <div><img src="cid:sploot_unique_id"/></div>
+                  </div>`,
+                  attachments: [{
+                    filename: 'Spoolt.jpg',
+                    content:ImagelogoSrc,
+                    encoding: 'base64'
+                  }]
+                }
+                // send mail with defined transport object
+                await smtpTransport.sendMail(mailOptions, function (error, response) {
+                  if (error) {
+                    console.log(error);
+                  } else {
+                    console.log("soytrnfhgb")
+                    const userOtp = UserOtp.create({
+                      email: email,
+                      otp: otp
+                    }, {
+                        returning: true
+                      })
+                      .then((data) => {
+                        return res.send({ status: 'success', msg: "OTP sent successfully", req: postData, res: data })
+                      })
+                      .catch(err => {
+                        const errorMsg = err.errors ? err.errors[0].message : err.message;
+                        return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+                      });
+                  }
+                });
+              }
+              catch (err) {
+                return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal servers error" });
+              }
+            }
+          } catch (err) {
+            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
+          }        }
         })
         .catch(err => {
           console.log(err);
