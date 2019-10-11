@@ -812,6 +812,7 @@ const AuthController = () => {
     createAndLoginUser,
     forgetPasswordSendOtp
   };
+
 };
 
 module.exports = AuthController();

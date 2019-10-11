@@ -1,6 +1,7 @@
 const express = require("express");
 const authRoutes = require("./auth.route");
 const mobileRoutes = require("./mobile.route");
+
 const adminRoutes = require("./admin.route");
 const secret = require('../config/config')
 const authService = require("../services/auth.service");
@@ -82,6 +83,7 @@ router.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
 router.use("/apim", mobileRoutes);
+
 router.use("/apia", adminRoutes);
 // router.use("/apia", adminpanelRoutes);
 

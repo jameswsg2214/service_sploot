@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const petDetailCtrl = require("../controllers/petdetails.controller");
+const mobilecmsCtrl = require("../controllers/cmsdetails.controller");
+
 
 // ------------------------petdetails-----------------------
 router.route("/getPetCategory").post(petDetailCtrl.getPetCategory);
@@ -49,6 +51,15 @@ router.route("/getImage").post(petDetailCtrl.getImage);
 router.route("/getallimagebydate").post(petDetailCtrl.getallimagebydate);
 
 router.route("/getMasterData").post(petDetailCtrl.getMasterData);
+
+
+/*======================cms details Routes==================== */
+router.route("/getCMSlist").post(mobilecmsCtrl.getCMSlist);
+router.route("/addCMSdetails").post(mobilecmsCtrl.addCMSdetails);
+router.route("/getCMSbyId").post(mobilecmsCtrl.getCMSbyId);
+router.route("/updateCMSdetails").put(mobilecmsCtrl.updateCMSdetails );
+router.route("/deleteCMSdetails").put(mobilecmsCtrl.deleteCMSdetails);
+
 
 module.exports = router;
 

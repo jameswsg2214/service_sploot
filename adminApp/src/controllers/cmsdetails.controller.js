@@ -1,13 +1,11 @@
 const httpStatus = require("http-status");
 const db = require("../config/sequelize");
 const _ = require("lodash");
-const bcryptService = require("../services/bcrypt.service");
-var fs = require("file-system")
 const CMSContent = db.TblCms;
 
 
 
-const cmdDetailsController = () => {
+const admincmdDetailsController = () => {
 	/**
 	 * Returns jwt token if valid username and password is provided
 	 * @param req
@@ -148,4 +146,4 @@ const getCMSbyId = async (req, res, next) => {
 };
 
 
-module.exports = cmdDetailsController();
+module.exports = admincmdDetailsController();

@@ -9,6 +9,7 @@ const petMedicationCtrl = require('../controllers/petmedication.controller');
 const noteCtrl = require ('../controllers/note.controller');
 const MedicineCntrl = require('../controllers/petMedicine.controller')
 
+
 /*====================== Pet details Routes =====================*/
 
 router.route("/getPetCategory").post(petdetailsCtrl.getPetCategory);
