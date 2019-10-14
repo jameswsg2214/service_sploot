@@ -19,7 +19,7 @@ const AuthController = () => {
 	 * @param next
 	 * @returns {*}
 	 */
-    const login = async (req, res, next) => {
+    const adminlogin = async (req, res, next) => {
         const userData = req.body;
         const UserTypeCondition={}
         UserTypeCondition.userTypeId=2,
@@ -60,7 +60,7 @@ const AuthController = () => {
         }
       };
 return {
-    login,
+  adminlogin
 };
 };
 module.exports = AuthController();

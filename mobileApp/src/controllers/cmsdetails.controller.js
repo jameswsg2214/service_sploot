@@ -41,7 +41,6 @@ const cmdDetailsController = () => {
 	if (postData) {
 		await CMSContent.create(
 			{
-				no: postData.id,
 				heading: postData.heading,
 				subheading: postData.subheading,
 				category: postData.category,

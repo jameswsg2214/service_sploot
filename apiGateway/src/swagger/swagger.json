@@ -1,6 +1,6 @@
 ﻿{
   "basePath": "",
-  "host": "localhost:3500",
+  "host": "localhost:3510",
   "info": {
     "description": "Sploot API",
     "version": "1.0.0",
@@ -15,6 +15,11 @@
     }
   },
   "tags": [
+    {
+      "name": "Mobile",
+      "description": "mobile"
+
+    },
     {
       "name": "User",
       "description": "user"
@@ -43,6 +48,527 @@
   },
   "swagger": "2.0",
   "paths": {
+    "/auth/login": {
+      "post": {
+        "description": "Login from Mobile App.",
+        "operationId": "appLogin",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Set Response token as Authorize Api-Key ( Value:<token> )",
+        "tags": [
+          "Mobile"
+        ]
+      }
+    },
+    "/auth/createAndLoginUser": {
+      "post": {
+        "description": "Login from Social Media(fb,Gmail);",
+        "operationId": "socialMediaLogin",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userName": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "googlePassword": {
+                  "type": "string"
+                },
+                "loginType": {
+                  "type": "integer"
+                },
+                "userTypeId": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Set Response token as Authorize Api-Key ( Value:<token> )",
+        "tags": [
+          "Mobile"
+        ]
+      }
+    },
+
+
+
+    "/auth/createUser": {
+      "post": {
+        "description": "To Create New user",
+        "operationId": "adduser",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/user"
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Mobile"
+        ]
+      }
+    },
+    "/auth/passwordChange": {
+      "post": {
+        "description": "To Update User Password",
+        "operationId": "update",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "User"
+        ]
+      }
+    },
+
+    "/auth/sendOtp": {
+      "post": {
+        "description": "Send Otp",
+        "operationId": "Otp Send",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                }
+              }            
+              }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Otp as a Response.",
+        "tags": [
+          "Mobile"
+        ]
+      }
+    },
+    "/auth/verifyOtp": {
+      "post": {
+        "description": "VerifyOtp",
+        "operationId": "Otp Send",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "otp": {
+                  "type": "number"
+                }
+              }            
+              }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Otp as a Response.",
+        "tags": [
+          "Mobile"
+        ]
+      }
+    },
+
+    "/auth/forgetPassword": {
+      "post": {
+        "description": "Get List of role Activitys",
+        "operationId": "activitys",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": ["string","number"]
+                }
+              }            
+              }
+          }
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch List of Activitys by UserId.",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/auth/forgetPasswordSendOtp": {
+      "post": {
+        "description": "Get List of role Activitys",
+        "operationId": "activitys",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": ["string"]
+                }
+              }            
+              }
+          }
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "403": {
+            "description": "You do not have necessary permissions for the resource",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch List of Activitys by UserId.",
+        "tags": [
+          "Mobile"
+        ]
+      }
+    },
+    "/apim/getCMSlist": {
+      "post": {
+        "description": "Get List of getCMSlist.",
+        "operationId": "getCMSlist",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch List of CMS in the system.",
+        "tags": [
+          "Mobile"
+        ]
+      }
+    },
+    
+    "/apim/getCountry": {
+      "post": {
+        "description": "Get List of Country.",
+        "operationId": "getCountry",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch List of Country in the system.",
+        "tags": [
+          "Mobile"
+        ]
+      }
+    },
+    "/apim/getStateByCountryId": {
+      "post": {
+        "description": "Get List of StateByCountryId.",
+        "operationId": "getStateByIdCountryId",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }            
+              }
+          }
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch List of State By Given CountryId",
+        "tags": [
+          "Mobile"
+        ]
+      }
+    },
+    "/apim/getCityByStateId": {
+      "post": {
+        "description": "Get List of getCityIdStateId.",
+        "operationId": "getCityIdStateId",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }            
+              }
+          }
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch List of City by Given StateId.",
+        "tags": [
+          "Mobile"
+        ]
+      }
+    },
     "/auth/adminlogin": {
       "post": {
         "description": "AdminLogin from Admin Web Portal.",
@@ -55,7 +581,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "username": {
+                "email": {
                   "type": "string"
                 },
                 "password": {
@@ -2349,21 +2875,10 @@
     "user": {
       "type": "object",
       "properties": {
-        "branchId": { "type": "integer" },
-        "branchName": { "type": "string" },
-        "userName": { "type": "string" },
-        "userTypeId": { "type":"integer" },
-        "phoneNo": { "type":"number" },
-        "email": { "type":"string" },
-        "gender": { "type":"string" },
-        "address": { "type":"string" },
-        "countryId": { "type":"integer" },
-        "zoneId": { "type":"integer" },
-        "stateId": { "type":"integer" },
-        "districtId": { "type":"integer" },
-        "reportingUserId": { "type":"integer" },
-        "active": { "type":"string" },
-        "modifiedBy": { "type":"string"}
+        "password: ": { "type": "string" },
+        "email: ": { "type":"string" },
+        "loginType: ": { "type":"number"},
+        "userTypeId": { "type":"number" }
         }
       },
     "rolemodel": {

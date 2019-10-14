@@ -388,7 +388,7 @@ const AuthController = () => {
       res.json(data)
     }).catch(err => {
       const errorMsg = err.errors ? err.errors[0].message : err.message;
-      return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+      return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg }); 
     });
     if (user) {
       if (user.dataValues.otp === verifyData.otp) {

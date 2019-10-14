@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const petDetailCtrl = require("../controllers/petdetails.controller");
 const mobilecmsCtrl = require("../controllers/cmsdetails.controller");
+const mobilelookupCtrl = require("../controllers/lookup.controller");
+
 
 
 // ------------------------petdetails-----------------------
@@ -59,6 +61,17 @@ router.route("/addCMSdetails").post(mobilecmsCtrl.addCMSdetails);
 router.route("/getCMSbyId").post(mobilecmsCtrl.getCMSbyId);
 router.route("/updateCMSdetails").put(mobilecmsCtrl.updateCMSdetails );
 router.route("/deleteCMSdetails").put(mobilecmsCtrl.deleteCMSdetails);
+
+
+/*======================LookUp details Routes==================== */
+router.route("/getCountry").post(mobilelookupCtrl.getCountry);
+router.route("/getStateByCountryId").post(mobilelookupCtrl.getStateByCountryId);
+router.route("/getCityByStateId").post(mobilelookupCtrl.getCityByStateId);
+
+
+
+
+
 
 
 module.exports = router;
