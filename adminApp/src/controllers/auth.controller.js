@@ -60,7 +60,7 @@ const AuthController = () => {
         }
       };
 return {
-  adminlogin
+  adminlogin,
 };
 };
 module.exports = AuthController();
