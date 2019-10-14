@@ -38,13 +38,13 @@ const AuthController = () => {
                 }
               else {
                 return res
-                .status(httpStatus.FAILED_DEPENDENCY)
+                .status(httpStatus.OK)
                 .json({ status: 'failed', msg: 'Password is incorrect' })
               }
             }
             else {
               return res
-              .status(httpStatus.BAD_REQUEST)
+              .status(httpStatus.OK)
               .json({ status: 'failed', msg: 'User not found.' })
               }
           } catch (err) {

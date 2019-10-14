@@ -76,7 +76,7 @@ const updateCMSdetails = async(req, res, next) => {
 			}
 			return res.status(httpStatus.OK).json({msg: 'updated Successfully'});
 		} else {
-			return res.status(httpStatus.BAD_REQUEST).json({msg: 'No should be provided'});
+			return res.status(httpStatus.OK).json({msg: 'No should be provided'});
 		}
 	} catch (err) {
 		console.log(err);
@@ -99,7 +99,7 @@ const deleteCMSdetails = async (req, res, next) => {
 				plain: true
 			}).catch(err => {
 				const errorMsg = err.errors ? err.errors[0].message : err.message;
-				return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+				return res.status(httpStatus.OK).json({ msg: errorMsg });
 			});
 		return res.status(httpStatus.OK).json({
 			status: "success", msg: "deleted"
@@ -123,7 +123,7 @@ const getCMSbyId = async (req, res, next) => {
 				plain: true
 			}).catch(err => {
 				const errorMsg = err.errors ? err.errors[0].message : err.message;
-				return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+				return res.status(httpStatus.OK).json({ msg: errorMsg });
 			});
 			return res.status(httpStatus.OK).json({
 				contentmanagement

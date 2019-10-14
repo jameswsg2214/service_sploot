@@ -60,7 +60,7 @@ const AuthController = () => {
           }
         }).catch(err => {
           const errorMsg = err.errors ? err.errors[0].message : err.message;
-          return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+          return res.status(httpStatus.OK).json({ msg: errorMsg });
         });
         if (user) {
           const loginType = user.dataValues.loginType
@@ -101,7 +101,7 @@ const AuthController = () => {
                       })
                       .catch(err => {
                         const errorMsg = err.errors ? err.errors[0].message : err.message;
-                        return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+                        return res.status(httpStatus.OK).json({ msg: errorMsg });
                       });
                   }
                 })
@@ -183,7 +183,7 @@ const AuthController = () => {
                 }
               }).catch(err => {
                 const errorMsg = err.errors ? err.errors[0].message : err.message;
-                return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+                return res.status(httpStatus.OK).json({ msg: errorMsg });
               });
               if (user) {
                 var mailOptions = {
@@ -221,7 +221,7 @@ const AuthController = () => {
                       })
                       .catch(err => {
                         const errorMsg = err.errors ? err.errors[0].message : err.message;
-                        return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+                        return res.status(httpStatus.OK).json({ msg: errorMsg });
                       });
                   }
                 });
@@ -261,7 +261,7 @@ const AuthController = () => {
                         })
                         .catch(err => {
                           const errorMsg = err.errors ? err.errors[0].message : err.message;
-                          return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+                          return res.status(httpStatus.OK).json({ msg: errorMsg });
                         });
                     }
                   });
@@ -283,7 +283,7 @@ const AuthController = () => {
               }
             }).catch(err => {
               const errorMsg = err.errors ? err.errors[0].message : err.message;
-              return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+              return res.status(httpStatus.OK).json({ msg: errorMsg });
             });
             if (user) {
               var mailOptions = {
@@ -321,7 +321,7 @@ const AuthController = () => {
                     })
                     .catch(err => {
                       const errorMsg = err.errors ? err.errors[0].message : err.message;
-                      return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+                      return res.status(httpStatus.OK).json({ msg: errorMsg });
                     });
                 }
               });
@@ -360,7 +360,7 @@ const AuthController = () => {
                       })
                       .catch(err => {
                         const errorMsg = err.errors ? err.errors[0].message : err.message;
-                        return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+                        return res.status(httpStatus.OK).json({ msg: errorMsg });
                       });
                   }
                 });
@@ -388,7 +388,7 @@ const AuthController = () => {
       res.json(data)
     }).catch(err => {
       const errorMsg = err.errors ? err.errors[0].message : err.message;
-      return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg }); 
+      return res.status(httpStatus.OK).json({ msg: errorMsg }); 
     });
     if (user) {
       if (user.dataValues.otp === verifyData.otp) {
@@ -452,7 +452,7 @@ const AuthController = () => {
         }
         else {
           return res
-          .status(httpStatus.BAD_REQUEST)
+          .status(httpStatus.OK)
           .json({ status: 'failed', msg: 'User not found.' })
           }
       } catch (err) {
@@ -464,11 +464,11 @@ const AuthController = () => {
       
     } else {
       return res
-          .status(httpStatus.BAD_REQUEST)
+          .status(httpStatus.OK)
           .json({ status: 'failed', msg: 'please provide data' })
     }
     return res
-      .status(httpStatus.BAD_REQUEST)
+      .status(httpStatus.OK)
       .json({ status: "failed", msg: "Email or password is wrong" });
   };
 
@@ -502,7 +502,7 @@ const AuthController = () => {
   //     res.send({ status: 'failed', msg: 'please provide data' })
   //   }
   //   return res
-  //     .status(httpStatus.BAD_REQUEST)
+  //     .status(httpStatus.OK)
   //     .json({ status: "failed", msg: "Email is wrong" });
   // };
 
@@ -515,7 +515,7 @@ const AuthController = () => {
     })
       .catch(err => {
         const errorMsg = err.errors ? err.errors[0].message : err.message;
-        return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+        return res.status(httpStatus.OK).json({ msg: errorMsg });
       });
     if (user) {
       const loginType = user.dataValues.loginType
@@ -587,7 +587,7 @@ const AuthController = () => {
             }
           }).catch(err => {
             const errorMsg = err.errors ? err.errors[0].message : err.message;
-            return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+            return res.status(httpStatus.OK).json({ msg: errorMsg });
           });
           if (user) {
             var mailOptions = {
@@ -625,7 +625,7 @@ const AuthController = () => {
                   })
                   .catch(err => {
                     const errorMsg = err.errors ? err.errors[0].message : err.message;
-                    return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+                    return res.status(httpStatus.OK).json({ msg: errorMsg });
                   });
               }
             });
@@ -665,7 +665,7 @@ const AuthController = () => {
                     })
                     .catch(err => {
                       const errorMsg = err.errors ? err.errors[0].message : err.message;
-                      return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+                      return res.status(httpStatus.OK).json({ msg: errorMsg });
                     });
                 }
               });
@@ -763,7 +763,7 @@ const AuthController = () => {
       }
     } else {
       return res
-        .status(httpStatus.BAD_REQUEST)
+        .status(httpStatus.OK)
         .json({ status: "error", msg: "Username is missing." });
     }
   };
@@ -797,7 +797,7 @@ const AuthController = () => {
       }
     } else {
       return res
-        .status(httpStatus.BAD_REQUEST)
+        .status(httpStatus.OK)
         .json({ status: "error", msg: "email and Password is missing." });
     }
   };
