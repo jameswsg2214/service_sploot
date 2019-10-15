@@ -1,6 +1,6 @@
 ﻿{
   "basePath": "",
-  "host": "13.235.241.15:3510",
+  "host": "localhost:3510",
   "info": {
     "description": "Sploot API",
     "version": "1.0.0",
@@ -128,9 +128,6 @@
         ]
       }
     },
-
-
-
     "/auth/createUser": {
       "post": {
         "description": "To Create New user",
@@ -324,7 +321,6 @@
         ]
       }
     },
-
     "/auth/forgetPassword": {
       "post": {
         "description": "Get List of role Activitys",
@@ -557,6 +553,393 @@
         "summary": "Fetch List of City by Given StateId.",
         "tags": [
           "Mobile"
+        ]
+      }
+    },
+    "/auth/adminlogin": {
+      "post": {
+        "description": "Login from Admin webportal App.",
+        "operationId": "AdminLogin",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Set Response token as Authorize Api-Key ( Value:<token> )",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/apia/getCMSlist": {
+      "post": {
+        "description": "Get List of getCMSlist.",
+        "operationId": "getCMSlist",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch List of CMS in the system.",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/apia/addCMSdetails": {
+      "post": {
+        "description": "Add New CMS.",
+        "operationId": "addCMSdetails",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "heading": {
+                  "type": "string"
+                },
+                "subheading": {
+                  "type": "string"
+                },
+                "schedule": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "tag": {
+                  "type": "string"
+                },
+                "authordetails": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "active": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "New Cms Add to the System.",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/apia/updateCMSdetails": {
+      "put": {
+        "description": "update  CMS.",
+        "operationId": "updateCMSdetails",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "no": {
+                  "type": "string"
+                },
+                "heading": {
+                  "type": "string"
+                },
+                "subheading": {
+                  "type": "string"
+                },
+                "schedule": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "tag": {
+                  "type": "string"
+                },
+                "authordetails": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "active": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Update Cms By Id.",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/apia/deleteCMSdetails": {
+      "put": {
+        "description": "Delete CMS By Id.",
+        "operationId": "deleteCMSdetails",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Deleted Successfully. ",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/apia/getCMSbyId": {
+      "post": {
+        "description": "getCMS By Id.",
+        "operationId": "getCMSbyId",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "get CMS by Id.",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/apia/getCountrylist": {
+      "post": {
+        "description": "Get List of Country.",
+        "operationId": "getCountry",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch List of Country in the system.",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/apia/getStatelistByCountryId": {
+      "post": {
+        "description": "Get List of StateByCountryId.",
+        "operationId": "getStateByIdCountryId",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }            
+              }
+          }
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch List of State By Given CountryId",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/apia/getCitylistByStateId": {
+      "post": {
+        "description": "Get List of getCityIdStateId.",
+        "operationId": "getCityIdStateId",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }            
+              }
+          }
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch List of City by Given StateId.",
+        "tags": [
+          "Admin"
         ]
       }
     },

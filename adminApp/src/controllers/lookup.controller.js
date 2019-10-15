@@ -6,9 +6,6 @@ const City = db.TblCity;
 
 
 
-
-
-
 const lookupController = () => {
 	/**
 	 * Returns jwt token if valid username and password is provided
@@ -18,7 +15,7 @@ const lookupController = () => {
 	 * @returns {*}
 	 */
 
-  const getCountry = async (req, res, next) => {
+  const getCountrylist = async (req, res, next) => {
     try {
       /* country Data */
       const country = await Country.findAll({
@@ -45,11 +42,10 @@ const lookupController = () => {
   // --------------------------------------------return----------------------------------
 
 
-  const getStateByCountryId = async (req, res, next) => {
+  const getStatelistByCountryId = async (req, res, next) => {
 	const { id } = req.body;
 	if (id) {
 		try {
-			var postData = req.body;
 			const states = await State.findAll({
 				where: {
 					countryId:id
@@ -72,11 +68,10 @@ const lookupController = () => {
 	}
 };
 
-const getCityByStateId= async (req, res, next) => {
+const getCitylistByStateId= async (req, res, next) => {
 	const { id } = req.body;
 	if (id) {
 		try {
-			var postData = req.body;
 			const city = await City.findAll({
 				where: {
 					stateId:id
@@ -99,9 +94,9 @@ const getCityByStateId= async (req, res, next) => {
 	}
 };
   return {
-    getCountry,
-    getStateByCountryId,
-    getCityByStateId
+    getCountrylist,
+    getStatelistByCountryId,
+    getCitylistByStateId
   };
 };
 

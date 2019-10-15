@@ -2,7 +2,9 @@ const express = require("express");
 const userRoutes = require("./user.route")
 const authRoutes = require("./auth.route");
 const boardRoutes = require("./board.route")
-const cmsRoutes = require("./cmsdetails.route")
+const cmsRoutes = require("./cmsdetails.route");
+const lookupRoutes = require("./lookup.route");
+
 
 const config = require("../config/config");
 
@@ -32,6 +34,8 @@ router.use("/auth", authRoutes);
 router.use('/user',userRoutes);
 router.use('/board',boardRoutes);
 router.use('/admincms',cmsRoutes);
+router.use('/lookup',lookupRoutes);
+
 
 
 module.exports = router

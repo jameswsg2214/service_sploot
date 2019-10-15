@@ -44,7 +44,7 @@ const lookupController = () => {
 	};
 
 	const getCountrylist = async (req, res, next) => {
-		api.makeServiceCall("POST", "admin", "/lookup/getCountry", req.body, req.headers)
+		api.makeServiceCall("POST", "admin", "/lookup/getCountrylist", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -55,7 +55,7 @@ const lookupController = () => {
     };
     
     const getStatelistByCountryId = async (req, res, next) => {
-		api.makeServiceCall("POST", "admin", "/lookup/getStateByCountryId", req.body, req.headers)
+		api.makeServiceCall("POST", "admin", "/lookup/getStatelistByCountryId", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
@@ -66,7 +66,7 @@ const lookupController = () => {
     };
     
     const getCitylistByStateId = async (req, res, next) => {
-		api.makeServiceCall("POST", "admin", "/lookup/getCityByStateId", req.body, req.headers)
+		api.makeServiceCall("POST", "admin", "/lookup/getCitylistByStateId", req.body, req.headers)
 			.then(response => {
 				res.send(response.data); // <= send data to the client
 			})
