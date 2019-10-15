@@ -1,6 +1,6 @@
 ﻿{
   "basePath": "",
-  "host": "localhost:3510",
+  "host": "http://13.235.241.15:3510",
   "info": {
     "description": "Sploot API",
     "version": "1.0.0",
@@ -26,8 +26,8 @@
     }
   ],
   "schemes": [
-    "https",
-    "http"
+    "http",
+    "https"
   ],
   "securityDefinitions": {
     "api_key": {
