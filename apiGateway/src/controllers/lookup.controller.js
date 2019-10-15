@@ -43,10 +43,48 @@ const lookupController = () => {
 			});
 	};
 
+	const getCountrylist = async (req, res, next) => {
+		api.makeServiceCall("POST", "admin", "/lookup/getCountry", req.body, req.headers)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+    };
+    
+    const getStatelistByCountryId = async (req, res, next) => {
+		api.makeServiceCall("POST", "admin", "/lookup/getStateByCountryId", req.body, req.headers)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+    };
+    
+    const getCitylistByStateId = async (req, res, next) => {
+		api.makeServiceCall("POST", "admin", "/lookup/getCityByStateId", req.body, req.headers)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
+
+
 	return {
         getCountry,
         getStateByCountryId,
-        getCityByStateId
+		getCityByStateId,
+		// admin
+		getCountrylist,
+		getStatelistByCountryId,
+		getCitylistByStateId
 	}
 };
 module.exports = lookupController();

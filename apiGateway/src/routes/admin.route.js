@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const adminCtrl = require("../controllers/admin.controller");
 const admincmsCtrl = require("../controllers/admincms.controller");
+const adminlookupCtrl = require("../controllers/lookup.controller");
 
 
 
@@ -26,5 +27,9 @@ router.route("/updateCMSdetails").put(admincmsCtrl.updateCMSdetails );
 router.route("/deleteCMSdetails").put(admincmsCtrl.deleteCMSdetails);
 
 
+/*======================LookUp details Routes==================== */
+router.route("/getCountrylist").post(adminlookupCtrl.getCountrylist);
+router.route("/getStatelistByCountryId").post(adminlookupCtrl.getStatelistByCountryId);
+router.route("/getCitylistByStateId").post(adminlookupCtrl.getCitylistByStateId);
 
 module.exports = router;

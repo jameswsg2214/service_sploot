@@ -13,7 +13,7 @@ router.route("/sendOtp").post(authCtrl.sendOtp);
 router.route("/verifyOtp").post(authCtrl.verifyOtp);
 router.route("/adminlogin").post(authCtrl.adminlogin);
 router.route("/forgetPasswordSendOtp").post(authCtrl.forgetPasswordSendOtp);
-
+router.route("/login").post(authCtrl.login);
 
 /** GET /api/auth/random-number - Protected route,
  * needs token returned by the above as header.

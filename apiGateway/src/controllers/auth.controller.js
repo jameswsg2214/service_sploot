@@ -86,7 +86,7 @@ const AuthController = () => {
   const adminlogin = async (req, res, next) => {
     console.log(req.body);
     api
-      .makeServiceCall("POST", "admin", "/auth/login", req.body, req.headers)
+      .makeServiceCall("POST", "admin", "/auth/adminlogin", req.body, req.headers)
       .then(response => {
         res.send(response.data); // <= send data to the client
       })
