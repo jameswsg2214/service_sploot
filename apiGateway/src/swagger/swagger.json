@@ -1,6 +1,6 @@
 ﻿{
   "basePath": "",
-  "host": "localhost:3510",
+  "host": "13.235.241.15:3510",
   "info": {
     "description": "Sploot API",
     "version": "1.0.0",
@@ -596,6 +596,34 @@
         ]
       }
     },
+    "/apia/getDashBoardSummary": {
+      "post": {
+        "description": "Get Dashboard Summary.",
+        "operationId": "getCMSlist",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch Dashboard Summary Info.",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    
     "/apia/getCMSlist": {
       "post": {
         "description": "Get List of getCMSlist.",

@@ -78,11 +78,9 @@ const addadmincategoryController = () => {
 				"TotalPatescount":450,
 				"TotalCMScount":400
 			};
-			return res.status(httpStatus.OK).json({
-			 status: "success", req: '', res: summaryData
-			});
+			return res.status(httpStatus.OK)
+			.json({ status: true, data:summaryData, message:"success" });
 		} catch (err) {
-			console.log(err);
 			return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
 		}
     };

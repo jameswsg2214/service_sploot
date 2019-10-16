@@ -21,17 +21,17 @@ const admincmdDetailsController = () => {
       });
       if (!cms) {
         return res
-          .status(httpStatus.OK)
-          .json({ status: "error", msg: "Data's not found" });
+		  .status(httpStatus.OK)
+		  .json({ status: false, data:cms, message:"Data's not found" });
       }
       return res
-        .status(httpStatus.OK)
-        .json({ status: "success", msg: "Fetched successfully", req: '', res: cms });
+		.status(httpStatus.OK)
+		.json({ status: true, data:cms, message:"Fetched successfully" });
     } catch (err) {
       const errorMsg = err.errors ? err.errors[0].message : err.message;
       return res
-        .status(httpStatus.INTERNAL_SERVER_ERROR)
-        .json({ status: "error", msg: errorMsg });
+		.status(httpStatus.INTERNAL_SERVER_ERROR)
+		.json({ status: false,message:errorMsg });
     }
   };
   const addCMSdetails = async (req, res, next) => {
@@ -51,14 +51,13 @@ const admincmdDetailsController = () => {
 			{
 				returning: true
 			}).then(data => {
-				console.log(data)
-				res.send({ status: "success", msg: "Inserted Successfully", req: postData, res: data })
+				res.send({ status:true, data:data ,message: "Inserted Successfully"})
 			}).catch(err => {
-				res.send({ status: "failed", msg: "failed to insert data", error: err })
+				res.send({ status:false,message:err })
 			})
 	}
 	else {
-		res.send({ status: 'failed', msg: 'Please enter cms data' })
+		res.send({ status:false, message: 'Please enter cms data' })
 	}
 };
 const updateCMSdetails = async(req, res, next) => {
@@ -72,15 +71,14 @@ const updateCMSdetails = async(req, res, next) => {
 				  }
 			});
 			if (updateData && req.files && req.files.length > 0) {
-				return res.status(httpStatus.OK).json();
+				return res.status(httpStatus.OK).json({status:true , message: 'updated Successfully'});
 			}
-			return res.status(httpStatus.OK).json({msg: 'updated Successfully'});
 		} else {
-			return res.status(httpStatus.OK).json({msg: 'No should be provided'});
+			return res.status(httpStatus.OK).json({status:false ,message: 'No should be provided'});
 		}
 	} catch (err) {
 		console.log(err);
-		return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: 'Internal server error' });
+		return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ status:false , message: 'Internal server error' });
 	}
 };
 //DELETE
@@ -99,14 +97,14 @@ const deleteCMSdetails = async (req, res, next) => {
 				plain: true
 			}).catch(err => {
 				const errorMsg = err.errors ? err.errors[0].message : err.message;
-				return res.status(httpStatus.OK).json({ msg: errorMsg });
+				return res.status(httpStatus.OK).json({ status:false, message: errorMsg });
 			});
 		return res.status(httpStatus.OK).json({
-			status: "success", msg: "deleted"
+			status:true, message: "deleted successfully."
 		});
 	} catch (err) {
 		console.log(err);
-		return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
+		return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ status:false ,message: "Internal server error" });
 	}
 
 };
@@ -123,14 +121,14 @@ const getCMSbyId = async (req, res, next) => {
 				plain: true
 			}).catch(err => {
 				const errorMsg = err.errors ? err.errors[0].message : err.message;
-				return res.status(httpStatus.OK).json({ msg: errorMsg });
+				return res.status(httpStatus.OK).json({ status:false ,message: errorMsg });
 			});
-			return res.status(httpStatus.OK).json({
-				contentmanagement
+			return res.status(httpStatus.OK).json({ 
+				status:true ,data:contentmanagement,message:"success"
 			});
 		} catch (err) {
 			console.log(err);
-			return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
+			return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({status:false , message: "Internal server error" });
 		}
 	}
 };

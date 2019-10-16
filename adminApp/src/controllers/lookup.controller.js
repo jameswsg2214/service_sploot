@@ -20,23 +20,22 @@ const lookupController = () => {
       /* country Data */
       const country = await Country.findAll({
         order: [
-            ['id', 'ASC'],
             ['countryName', 'ASC'],
         ]
       });
       if (!country) {
         return res
           .status(httpStatus.OK)
-          .json({ status: "error", msg: "Data's not found" });
+          .json({ status:false, message: "Data's not found" });
       }
       return res
         .status(httpStatus.OK)
-        .json({ status: "success", msg: "Fetched successfully", req: '', res: country });
+        .json({ status:true,data:country, message: "Fetched successfully" });
     } catch (err) {
       const errorMsg = err.errors ? err.errors[0].message : err.message;
       return res
         .status(httpStatus.INTERNAL_SERVER_ERROR)
-        .json({ status: "error", msg: errorMsg });
+        .json({ status:false, message: errorMsg });
     }
   };
   // --------------------------------------------return----------------------------------
@@ -51,19 +50,18 @@ const lookupController = () => {
 					countryId:id
                 },
                 order: [
-                    ['id', 'ASC'],
                     ['name', 'ASC'],
                 ]
 			}).catch(err => {
 				const errorMsg = err.errors ? err.errors[0].message : err.message;
-				return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+				return res.status(httpStatus.BAD_REQUEST).json({ status:false, message: errorMsg });
 			});
 			return res.status(httpStatus.OK).json({
-				states
+				status:true, data:states ,message:"success"
 			});
 		} catch (err) {
 			console.log(err);
-			return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
+			return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ status:false ,message: "Internal server error" });
 		}
 	}
 };
@@ -77,19 +75,18 @@ const getCitylistByStateId= async (req, res, next) => {
 					stateId:id
                 },
                 order: [
-                    ['id', 'ASC'],
                     ['name', 'ASC'],
                 ]
 			}).catch(err => {
 				const errorMsg = err.errors ? err.errors[0].message : err.message;
 				return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
 			});
-			return res.status(httpStatus.OK).json({
-				city
+			return res.status(httpStatus.OK).json({ status:true,
+				data:city,message:"success"
 			});
 		} catch (err) {
 			console.log(err);
-			return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
+			return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ status:false,message: "Internal server error" });
 		}
 	}
 };

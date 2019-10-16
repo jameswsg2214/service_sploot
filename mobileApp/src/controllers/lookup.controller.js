@@ -23,7 +23,6 @@ const lookupController = () => {
       /* country Data */
       const country = await Country.findAll({
         order: [
-            ['id', 'ASC'],
             ['countryName', 'ASC'],
         ]
       });
@@ -55,7 +54,6 @@ const lookupController = () => {
 					countryId:id
                 },
                 order: [
-                    ['id', 'ASC'],
                     ['name', 'ASC'],
                 ]
 			}).catch(err => {
@@ -82,7 +80,6 @@ const getCityByStateId= async (req, res, next) => {
 					stateId:id
                 },
                 order: [
-                    ['id', 'ASC'],
                     ['name', 'ASC'],
                 ]
 			}).catch(err => {

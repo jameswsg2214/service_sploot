@@ -34,29 +34,29 @@ const AuthController = () => {
                   const token = authService().issue({ id: user.dataValues.userId });
                   return res
                     .status(httpStatus.OK)
-                    .json({ status: "success", token, req: userData, res: user });
+                    .json({ status: true, token, data:user, message:"login Successfully." });
                 }
               else {
                 return res
                 .status(httpStatus.OK)
-                .json({ status: 'failed', msg: 'Password is incorrect' })
+                .json({ status: false, data:[] , message:"Password is incorrect" });
               }
             }
             else {
               return res
               .status(httpStatus.OK)
-              .json({ status: 'failed', msg: 'User not found.' })
+              .json({ status: false,data:[],message:"User not found." });
               }
           } catch (err) {
             const errorMsg = err.errors ? err.errors[0].message : err.message;
             return res
               .status(httpStatus.INTERNAL_SERVER_ERROR)
-              .json({ status: "error", msg: errorMsg });
+              .json({ status: false,message:errorMsg});
           }
         } else {
           return res
               .status(httpStatus.BAD_REQUEST)
-              .json({ status: 'failed', msg: 'please provide data' })
+              .json({ status: false,message:"please provide data"});
         }
       };
 return {
