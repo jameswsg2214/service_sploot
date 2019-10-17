@@ -688,6 +688,9 @@
                 "authordetails": {
                   "type": "string"
                 },
+                "category": {
+                  "type": "string"
+                },
                 "content": {
                   "type": "string"
                 },
