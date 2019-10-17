@@ -171,10 +171,10 @@ const AuthController = () => {
         .then(async (data) => {
           if (data != null) {
              if (data.dataValues.loginType == 2) {
-              res.send({ status: 'failed', msg: 'User already exists with Gmail' });
+              res.send({ status: false, message: 'User already exists with Gmail' });
             }
             else if (data.dataValues.loginType == 3) {
-              res.send({ status: 'failed', msg: 'User already exists with Facebook' });
+              res.send({ status:false, message: 'User already exists with Facebook' });
             } else {
             try {
               const user = await UserOtp.findOne({
@@ -217,11 +217,11 @@ const AuthController = () => {
                       })
                       .then((data) => {
                         // console.log(data)
-                        res.send({ status: 'success', msg: "OTP resend successfully", req: postData, res: data })
+                        res.send({ status:true,data:data, message: "OTP resend successfully"})
                       })
                       .catch(err => {
                         const errorMsg = err.errors ? err.errors[0].message : err.message;
-                        return res.status(httpStatus.OK).json({ msg: errorMsg });
+                        return res.status(httpStatus.OK).json({ status:false, message: errorMsg });
                       });
                   }
                 });
@@ -257,21 +257,21 @@ const AuthController = () => {
                         })
                         .then((data) => {
                           console.log(data)
-                          return res.send({ status: 'success', msg: "OTP sent successfully", req: postData, res: data })
+                          return res.send({ status:true,data:data, message: "OTP sent successfully" })
                         })
                         .catch(err => {
                           const errorMsg = err.errors ? err.errors[0].message : err.message;
-                          return res.status(httpStatus.OK).json({ msg: errorMsg });
+                          return res.status(httpStatus.OK).json({status:false, message: errorMsg });
                         });
                     }
                   });
                 }
                 catch (err) {
-                  return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal servers error" });
+                  return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({status:false, message: "Internal servers error" });
                 }
               }
             } catch (err) {
-              return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
+              return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({status:false, message: "Internal server error" });
             }
           }
         }
@@ -283,7 +283,7 @@ const AuthController = () => {
               }
             }).catch(err => {
               const errorMsg = err.errors ? err.errors[0].message : err.message;
-              return res.status(httpStatus.OK).json({ msg: errorMsg });
+              return res.status(httpStatus.OK).json({status:false, message: errorMsg });
             });
             if (user) {
               var mailOptions = {
@@ -317,11 +317,11 @@ const AuthController = () => {
                     })
                     .then((data) => {
                       // console.log(data)
-                      res.send({ status: 'success', msg: "OTP resend successfully", req: postData, res: data })
+                      res.send({ status:true,data:data,message: "OTP resend successfully"})
                     })
                     .catch(err => {
                       const errorMsg = err.errors ? err.errors[0].message : err.message;
-                      return res.status(httpStatus.OK).json({ msg: errorMsg });
+                      return res.status(httpStatus.OK).json({status:false, message: errorMsg });
                     });
                 }
               });
@@ -356,21 +356,21 @@ const AuthController = () => {
                         returning: true
                       })
                       .then((data) => {
-                        return res.send({ status: 'success', msg: "OTP sent successfully", req: postData, res: data })
+                        return res.send({ status:true,data:data, message: "OTP sent successfully" })
                       })
                       .catch(err => {
                         const errorMsg = err.errors ? err.errors[0].message : err.message;
-                        return res.status(httpStatus.OK).json({ msg: errorMsg });
+                        return res.status(httpStatus.OK).json({status:false ,message: errorMsg });
                       });
                   }
                 });
               }
               catch (err) {
-                return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal servers error" });
+                return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({status:false, message: "Internal servers error" });
               }
             }
           } catch (err) {
-            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
+            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({status:false,message: "Internal server error" });
           }        }
         })
         .catch(err => {
@@ -398,18 +398,18 @@ const AuthController = () => {
           }
         })
         if(UserOtp)
-         res.send({ status: 'success', msg: "Verified successfully", req: verifyData })
+         res.send({ status:true,data:verifyData, message: "Verified successfully"})
       } else {
         res.send({
-          status: "failed",
-          msg: "OTP is Invalid"
+          status:false,
+          message: "OTP is Invalid"
         });
       }
     }
     else {
       res.send({
-        status: "failed",
-        msg: "user not exist"
+        status: false,
+        message: "user not exist"
       });
     }
 
@@ -431,45 +431,45 @@ const AuthController = () => {
               const token = authService().issue({ id: user.dataValues.userId });
               return res
                 .status(httpStatus.OK)
-                .json({ status: "success", token, req: userData, res: user });
+                .json({ status: true, token, data: user ,message:"Login SuccessFully."});
             }
           else {
             return res
             .status(httpStatus.OK)
-            .json({ status: 'failed', msg: 'Password is incorrect' })
+            .json({ status:false, message: 'Password is incorrect' })
           }
           } 
           else if (user.dataValues.loginType == 2) {
             return res
             .status(httpStatus.OK)
-            .json({ status: 'failed', msg: 'User already exists with Gmail' });
+            .json({ status:false, message: 'User already exists with Gmail' });
           }
           else if (user.dataValues.loginType == 3) {
             return res
             .status(httpStatus.OK)
-            .json({ status: 'failed', msg: 'User already exists with Facebook' });
+            .json({ status:false, message: 'User already exists with Facebook' });
           }
         }
         else {
           return res
           .status(httpStatus.OK)
-          .json({ status: 'failed', msg: 'User not found.' })
+          .json({ status:false, message: 'User not found.' })
           }
       } catch (err) {
         const errorMsg = err.errors ? err.errors[0].message : err.message;
         return res
           .status(httpStatus.INTERNAL_SERVER_ERROR)
-          .json({ status: "error", msg: errorMsg });
+          .json({ status:false, message: errorMsg });
       }
       
     } else {
       return res
           .status(httpStatus.OK)
-          .json({ status: 'failed', msg: 'please provide data' })
+          .json({ status:false, message: 'please provide data' })
     }
     return res
       .status(httpStatus.OK)
-      .json({ status: "failed", msg: "Email or password is wrong" });
+      .json({ status:false, message: "Email or password is wrong" });
   };
 
   
@@ -521,12 +521,12 @@ const AuthController = () => {
       const loginType = user.dataValues.loginType
       if (postData.loginType == loginType) {
         const token = authService().issue({ id: user.dataValues.userId });
-        res.send({ status: "success", Token: token, req: postData, res: user.dataValues });
+        res.send({ status:true, Token: token, data: user.dataValues,message :"Login Successfully." });
       } else {
-        loginType == 1 ? res.send({ status: "failed", msg: "User Name already Exist" }) :
-          (loginType == 2 ? res.send({ status: "failed", msg: "User already have account with Google" }) :
-            (loginType == 3 ? res.send({ status: "failed", msg: "User already have account with Facebook" }) :
-              res.send({ status: "failed", msg: "Invalid login type" })));
+        loginType == 1 ? res.send({ status:false, message: "User Name already Exist" }) :
+          (loginType == 2 ? res.send({ status:false, message: "User already have account with Google" }) :
+            (loginType == 3 ? res.send({ status:false, message: "User already have account with Facebook" }) :
+              res.send({ status:false, message: "Invalid login type" })));
       }
     } else {
       if (postData.loginType == 2) {
@@ -541,7 +541,7 @@ const AuthController = () => {
           })
           .then((data) => {
             const token = authService().issue({ id: data.dataValues.userId });
-            res.send({ status: 'success', token: token, msg: "Successfully registered with google", req: postData, res: data });
+            res.send({ status:true, token: token,data:data, message: "Successfully registered with google" });
           })
       } else if (postData.loginType == 3) {
         User.create({
@@ -555,13 +555,13 @@ const AuthController = () => {
           })
           .then((data) => {
             const token = authService().issue({ id: data.dataValues.userId });
-            res.send({ status: 'success', token: token, msg: "Successfully registered with facebook", req: postData, res: data });
+            res.send({ status:true, token: token,data:data, message: "Successfully registered with facebook" });
           })
           .catch((err) => {
-            res.send({ status: 'failed', msg: "Failed to register", err: err });
+            res.send({ status:false, message: "Failed to register", err: err });
           })
       } else {
-        res.send({ status: "failed", msg: "Invalid login type" })
+        res.send({ status:false, message: "Invalid login type" })
       }
     }
   }
@@ -578,7 +578,7 @@ const AuthController = () => {
     })
       .then(async (data) => {
         if (data == null) {
-          res.send({ status: 'failed', msg: "User doesn't exist" })
+          res.send({ status:false, message: "User doesn't exist" })
         } else {
 
           const user = await UserOtp.findOne({
@@ -587,7 +587,7 @@ const AuthController = () => {
             }
           }).catch(err => {
             const errorMsg = err.errors ? err.errors[0].message : err.message;
-            return res.status(httpStatus.OK).json({ msg: errorMsg });
+            return res.status(httpStatus.OK).json({ status:false ,message: errorMsg });
           });
           if (user) {
             var mailOptions = {
@@ -621,11 +621,11 @@ const AuthController = () => {
                   })
                   .then((data) => {
                     console.log(data)
-                    res.send({ status: 'success', msg: "OTP resend successfully", req: postData, res: data })
+                    res.send({ status: true, data:data ,message: "OTP resend successfully" })
                   })
                   .catch(err => {
                     const errorMsg = err.errors ? err.errors[0].message : err.message;
-                    return res.status(httpStatus.OK).json({ msg: errorMsg });
+                    return res.status(httpStatus.OK).json({ status:false ,message: errorMsg });
                   });
               }
             });
@@ -661,17 +661,17 @@ const AuthController = () => {
                     })
                     .then((data) => {
                       console.log(data)
-                      return res.send({ status: 'success', msg: "OTP sent successfully", req: postData, res: data })
+                      return res.send({ status:true,data:data, message: "OTP sent successfully" })
                     })
                     .catch(err => {
                       const errorMsg = err.errors ? err.errors[0].message : err.message;
-                      return res.status(httpStatus.OK).json({ msg: errorMsg });
+                      return res.status(httpStatus.OK).json({status:false, message: errorMsg });
                     });
                 }
               });
             }
             catch (err) {
-              return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal servers error" });
+              return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ status:false ,message: "Internal servers error" });
             }
           }
 
@@ -751,20 +751,21 @@ const AuthController = () => {
             console.log(err);
           } else {
             return res.status(httpStatus.OK).json({
-              status: "success",
-              msg: otpCreate
+              status:true,
+              data:otpCreate,
+              message: "success"
             });
           }
         });
       } else {
         return res
           .status(httpStatus.OK)
-          .json({ status: "error", msg: "User not found" });
+          .json({ status:false, message: "User not found" });
       }
     } else {
       return res
         .status(httpStatus.OK)
-        .json({ status: "error", msg: "Username is missing." });
+        .json({ status: false, message: "Username is missing." });
     }
   };
 
@@ -789,16 +790,16 @@ const AuthController = () => {
           }
         )
           .then((data) => {
-            return res.send({ status: "success", msg: "Successfully updated.", req: postData, res: data });
+            return res.send({ status:true,data:data, message: "Successfully updated."});
           })
-          .catch(err => { res.send({ status: 'failed', msg: 'failed to update', req: postData, res: err }) })
+          .catch(err => { res.send({ status: false, message: 'failed to update',error: err }) })
       } else {
-        res.send({ status: 'failed', msg: 'email is not verified', req: postData })
+        res.send({ status:false, message: 'email is not verified' })
       }
     } else {
       return res
         .status(httpStatus.OK)
-        .json({ status: "error", msg: "email and Password is missing." });
+        .json({ status:false, message: "email and Password is missing." });
     }
   };
 
