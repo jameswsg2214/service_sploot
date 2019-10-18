@@ -59,8 +59,54 @@ const AuthController = () => {
               .json({ status: false,message:"please provide data"});
         }
       };
+
+    //create admin
+    const createadmin = async (req, res, next) => {
+      const userData = req.body;
+      if (userData) {
+        try {
+          const user = await User.findOne({
+            where: {
+              email: userData.email
+            }
+          .then((data) => {
+            if (data == null) {
+              res.send({ status: 'failed', msg: 'Email is not verified' })
+            } else {
+              const postData = req.body;
+              console.log('postdata', postData)
+              User.create({
+                password: postData.password,
+                email: postData.email,
+                loginType: postData.loginType,
+                userTypeId: 2
+              }, {
+                  returning: true
+                })
+                .then(async (data) => {
+                  await UserOtp.destroy({ where: { email: userData.email } })
+                  console.log('data=============>>>>>>', data)
+                  const token = authService().issue({ id: data.dataValues.userId });
+                  console.log('token==========>>>', token)
+                  res.send({ status: "success", msg: "Admin registered successfully", token: token, req: userData, res: data })
+                })
+                .catch(err => {
+                  const errorMsg = err.errors ? err.errors[0].message : err.message;
+                  return res.status(httpStatus.OK).json({ msg: errorMsg });
+                });
+            }
+          })
+          })
+        } catch (err) {
+          return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
+        }
+      } else {
+        res.send({ status: 'failed', msg: 'please provide data' })
+      }
+    };  
 return {
   adminlogin,
+  createadmin
 };
 };
 module.exports = AuthController();

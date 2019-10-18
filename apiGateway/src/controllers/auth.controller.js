@@ -96,6 +96,19 @@ const AuthController = () => {
       });
   };
 
+  const createadmin = async (req, res, next) => {
+    console.log(req.body);
+    api
+      .makeServiceCall("POST", "admin", "/auth/createadmin", req.body, req.headers)
+      .then(response => {
+        res.send(response.data); // <= send data to the client
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(err.response.status).json(err.response.data);
+      });
+  };
+
   const forgetPassword = async (req, res, next) => {
     console.log(req.body);
     api
@@ -180,6 +193,7 @@ const AuthController = () => {
     passwordChange,
     adminlogin,
     validateOtp,
+    createadmin,
     updateOtp,
     createAndLoginUser,
     forgetPasswordSendOtp

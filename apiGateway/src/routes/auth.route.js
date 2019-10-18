@@ -10,8 +10,9 @@ router.route("/createAndLoginUser").post(authCtrl.createAndLoginUser);
 router.route("/createUser").post(authCtrl.createUser);
 router.route("/passwordChange").post(authCtrl.passwordChange);
 router.route("/sendOtp").post(authCtrl.sendOtp);
-router.route("/verifyOtp").post(authCtrl.verifyOtp);
+router.route("/verifyOtp").post(authCtrl.verifyOtp); 
 router.route("/adminlogin").post(authCtrl.adminlogin);
+router.route("/createadmin").post(authCtrl.createadmin);
 router.route("/forgetPasswordSendOtp").post(authCtrl.forgetPasswordSendOtp);
 router.route("/login").post(authCtrl.login);
 
