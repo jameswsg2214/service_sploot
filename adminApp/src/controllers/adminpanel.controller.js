@@ -65,26 +65,52 @@ const cmdDetailsController = () => {
 	}
 };
 const updateCMSdetails = async(req, res, next) => {
-    const cmssData = req.body;
+	const cmssData = req.body;
 	try {
-		if(cmssData.no) {
-			const updateData = await CMSContent.update(cmssData, {
-				returning: true,
+		const updateData = await CMSContent.update({
+		}, {
 				where: {
 					no: cmssData.no
-				  }
+				},
+				returning: true,
+				plain: true
+			}).catch(err => {
+				const errorMsg = err.errors ? err.errors[0].message : err.message;
+				return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
 			});
-			if (updateData && req.files && req.files.length > 0) {
-				return res.status(httpStatus.OK).json();
-			}
-			return res.status(httpStatus.OK).json({msg: 'updated Successfully'});
-		} else {
-			return res.status(httpStatus.BAD_REQUEST).json({msg: 'No should be provided'});
-		}
+			return res.status(httpStatus.OK).json({
+				msg: 'updated Successfully', Data : updateData
+			});
 	} catch (err) {
 		console.log(err);
-		return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: 'Internal server error' });
+		return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
 	}
+
+	// console.log('This is data'+ cmssData)
+	// try {
+	// 	if(cmssData) {
+	// 		const updateData = await CMSContent.update({
+	// 			returning: true,
+	// 			where: {
+	// 				no: cmssData.no
+	// 			  }
+	// 		}).catch(err => {
+	// 			const errorMsg = err.errors ? err.errors[0].message : err.message;
+	// 			return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+	// 		});
+	// 		break;
+	// 		return res.status(httpStatus.OK).json({
+	// 			msg: 'updated Successfully', Data : updateData
+	// 		});
+	// 	} else {
+	// 		console.log('2')
+	// 		return res.status(httpStatus.BAD_REQUEST).json({msg: 'No should be provided'});
+	// 	}
+	// } catch (err) {
+	// 	console.log('1')
+	// 	console.log(err);
+	// 	return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: 'Internal server error' });
+	// }
 };
 //DELETE
 const deleteCMSdetails = async (req, res, next) => {

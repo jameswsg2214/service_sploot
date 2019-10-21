@@ -10,6 +10,8 @@ const path = require("path");
 const User = db.TblUser;
 const UserOtp = db.TblUserOtp
 const otpAuth = db.TblOtpAuth;
+const Userprofile = db.TblUserProfile;
+
 var auth = require('otplib/authenticator')
 const crypto = require('crypto')
 auth.options = { crypto };
@@ -803,6 +805,156 @@ const AuthController = () => {
     }
   };
 
+  const createuserprofile = async (req, res, next) => {
+    try {
+
+      const profileData = req.body;
+      console.log(profileData)
+
+			var flag = 'insert';
+			if (profileData.userId != undefined) {
+				const findUser = await Userprofile.findAll(
+					{
+						where: { userId: req.body.userId }
+					});
+				if (findUser.length > 0) {
+					flag = 'update';
+				}
+			}
+
+			if (flag == 'update') {
+				//update
+				Userprofile.update(
+					{
+            userId: profileData.userId,
+            UserName: profileData.UserName,
+            number: profileData.number,
+            email: profileData.email,
+            address: profileData.address,
+            country: profileData.country,
+            state: profileData.state,
+            city: profileData.city,
+            pin: profileData.pin
+					},
+					{
+						where: {
+							userId: profileData.userId
+						}
+					}
+				)
+					.then(() => {
+						return res.status(httpStatus.OK).json({
+							status: true, message: "Updated Successfully", data: profileData
+						});
+					})
+					.catch(() => {
+						return res.status(httpStatus.OK).json({
+							status: false, message: "Updation failed"
+						});
+					})
+			}
+			else {
+				console.log("undefined")
+				const userdata = Userprofile.create({
+
+          userId: profileData.userId,
+          UserName: profileData.UserName,
+          number: profileData.number,
+          email: profileData.email,
+          address: profileData.address,
+          country: profileData.country,
+          state: profileData.state,
+          city: profileData.city,
+          pin: profileData.pin
+
+
+				}, {
+						returning: true
+					})
+					.then(data => {
+						console.log(data)
+						res.json({ status: true, message: "Inserted Successfully", data: userdata })
+					})
+			}
+
+		}
+		catch (err) {
+			console.log(err);
+			res.json({ status:false, message: "Inserted Unsuccessfully" })
+		};
+    };
+    // if (profileData) {
+    //   await Userprofile.create(
+    //     {
+    //       userId: profileData.userId,
+    //       UserName: profileData.UserName,
+    //       number: profileData.number,
+    //       email: profileData.email,
+    //       address: profileData.address,
+    //       country: profileData.country,
+    //       state: profileData.state,
+    //       city: profileData.city,
+    //       pin: profileData.pin
+    //     },
+    //     {
+    //       returning: true
+    //     }).then(data => {
+    //       console.log(data)
+    //       res.send({ status: true, message: "Inserted Successfully", data: profileData})
+    //     }).catch(err => {
+    //       res.send({ status: false, message: "failed to insert data"})
+    //     })
+    // }
+    // else {
+    //   res.send({ status: 'failed', message: 'Please enter profile data' })
+    // }
+  // };
+
+
+  const getuserprofile = async (req, res, next) => {
+    try {
+      /* cms Data */
+      const allprofile = await Userprofile.findAll({
+      });
+      if (!allprofile) {
+        return res
+		  .status(httpStatus.OK)
+		  .json({ status: false, message:"Data's not found" });
+      }
+      return res
+		.status(httpStatus.OK)
+		.json({ status: true, data:allprofile, message:"Fetched successfully" });
+    } catch (err) {
+      const errorMsg = err.errors ? err.errors[0].message : err.message;
+      return res
+		.status(httpStatus.INTERNAL_SERVER_ERROR)
+		.json({ status: false,message:errorMsg });
+    }
+  };
+
+
+  const getprofilebyId = async (req, res, next) => {
+    const { id } = req.body;
+    if (id) {
+      try {
+        const singleuser = await Userprofile.findAll({
+          where: {
+            userId:id
+                  }
+        }).catch(err => {
+          const errorMsg = err.errors ? err.errors[0].message : err.message;
+          return res.status(httpStatus.BAD_REQUEST).json({ status:false, message: errorMsg });
+        });
+        return res.status(httpStatus.OK).json({
+          status:true, data:singleuser ,message:"data fetched! "
+        });
+      } catch (err) {
+        console.log(err);
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ status:false ,message: "Internal server error" });
+      }
+    }
+  };
+
   return {
     login,
     createUser,
@@ -810,7 +962,10 @@ const AuthController = () => {
     passwordChange,
     sendOtp,
     verifyOtp,
+    createuserprofile,
     createAndLoginUser,
+    getuserprofile,
+    getprofilebyId,
     forgetPasswordSendOtp
   };
 

@@ -35,8 +35,41 @@ const AuthController = () => {
 				console.log(err.response.status);
 				res.status(err.response.status).json(err.response.data);
 			});
+  };
+  
+  const createuserprofile = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/auth/createuserprofile", req.body, req.headers)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+  };
+  
+  const getuserprofile = async (req, res, next) => {
+		api.makeServiceCall("GET", "mobile", "/auth/getuserprofile", req.body, req.headers)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
 	};
   
+  const getprofilebyId = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/auth/getprofilebyId", req.body, req.headers)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
+
   const createAndLoginUser = async (req, res, next) => {
 		api.makeServiceCall("POST", "mobile", "/auth/createAndLoginUser", req.body, req.headers)
 			.then(response => {
@@ -194,7 +227,10 @@ const AuthController = () => {
     adminlogin,
     validateOtp,
     createadmin,
+    createuserprofile,
     updateOtp,
+    getuserprofile,
+    getprofilebyId,
     createAndLoginUser,
     forgetPasswordSendOtp
   };

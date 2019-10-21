@@ -131,7 +131,7 @@
     "/auth/createUser": {
       "post": {
         "description": "To Create New user",
-        "operationId": "adduser",
+        "operationId": "createuser",
         "parameters": [
           {
             "in": "body",
@@ -139,9 +139,29 @@
             "required": true,
             "schema": {
               "type": "object",
-              "$ref": "#/definitions/user"
+              "properties": {
+                "userName": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "googlePassword": {
+                  "type": "string"
+                },
+                "loginType": {
+                  "type": "string"
+                },
+                "userTypeId": {
+                  "type": "integer"
+                }
+              }
             }
           }
+        
         ],
         "produces": [
           "application/json",
