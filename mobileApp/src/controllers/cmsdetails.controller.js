@@ -25,10 +25,12 @@ const cmdDetailsController = () => {
         return res
           .status(httpStatus.OK)
           .json({ status:false, message: "Data's not found" });
-      }
+	  }
+	  var formatedData =  res;
+
       return res
         .status(httpStatus.OK)
-        .json({ status:true,data:cms,message: "Fetched successfully"});
+        .json({ status:true,data:formatedData,message: "Fetched successfully"});
     } catch (err) {
       const errorMsg = err.errors ? err.errors[0].message : err.message;
       return res

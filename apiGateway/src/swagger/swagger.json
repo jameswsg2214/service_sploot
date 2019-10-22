@@ -191,6 +191,139 @@
         ]
       }
     },
+    "/auth/createuserprofile": {
+      "post": {
+        "description": "Login from Social Media(fb,Gmail);",
+        "operationId": "createuserprofile",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "string"
+                },
+                "UserName": {
+                  "type": "string"
+                },
+                "number": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "address": {
+                  "type": "string"
+                },
+                "country": {
+                  "type": "string"
+                },
+                "state": {
+                  "type": "string"
+                },
+                "city": {
+                  "type": "string"
+                },
+                "pin": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Set Response token as Authorize Api-Key ( Value:<token> )",
+        "tags": [
+          "Mobile"
+        ]
+      }
+    },
+    "/auth/getprofilebyId": {
+      "post": {
+        "description": "Login from Social Media(fb,Gmail);",
+        "operationId": "getprofilebyId",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Set Response token as Authorize Api-Key ( Value:<token> )",
+        "tags": [
+          "Mobile"
+        ]
+      }
+    },
+    "/auth/getuserprofile": {
+      "get": {
+        "description": "Login from Social Media(fb,Gmail);",
+        "operationId": "getuserprofile",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+              
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Set Response token as Authorize Api-Key ( Value:<token> )",
+        "tags": [
+          "Mobile"
+        ]
+      }
+    },
     "/auth/passwordChange": {
       "post": {
         "description": "To Update User Password",

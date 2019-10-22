@@ -46,6 +46,22 @@ const addadmincategoryController = () => {
 					return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
 				});	
 
+				const Allpets = await Pets.count(
+					).catch(err => {
+						const errorMsg = err.errors ? err.errors[0].message : err.message;
+						return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+					});
+
+			const alldogs = await Pets.count({ where: { petCategoryId: '1' }}
+				).catch(err => {
+					const errorMsg = err.errors ? err.errors[0].message : err.message;
+					return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+				});
+				const allcats = await Pets.count({ where: { petCategoryId: '2' }}
+				).catch(err => {
+					const errorMsg = err.errors ? err.errors[0].message : err.message;
+					return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+				});
 				
 				const summaryData={
 				
@@ -96,9 +112,9 @@ const addadmincategoryController = () => {
 						TotalRegisteredUsercount:AllUsers,
 						TotalNewRegisteredUsercount:activeuserscount,
 						InactiveUsers:inactiveUsers,
-						TotalPets: 10,
-						Dogs:7,
-						Cats:3
+						TotalPets: Allpets,
+						Dogs:alldogs,
+						Cats:allcats
 					};
 			return res.status(httpStatus.OK)
 			.json({ status: true,data:summaryData,message:"success" });
@@ -107,44 +123,12 @@ const addadmincategoryController = () => {
 		}
 	};
 	
-	const getDashBoardPetsSummary = async (req, res, next) => {
-		console.log('api call' + req.body)
-		try {
-			const Allpets = await Pets.count(
-			).catch(err => {
-				const errorMsg = err.errors ? err.errors[0].message : err.message;
-				return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
-			});
-			// const alldogs = await Pets.count({ where: { petCategoryId: '1' }}
-			// 	).catch(err => {
-			// 		const errorMsg = err.errors ? err.errors[0].message : err.message;
-			// 		return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
-			// 	});
-			// 	const allcats = await Pets.count({ where: { petCategoryId: '2' }}
-			// 	).catch(err => {
-			// 		const errorMsg = err.errors ? err.errors[0].message : err.message;
-			// 		return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
-			// 	});
-				const petdata = {
-					allPetsCount:Allpets,
-					// allDogs:alldogs,
-					// allCats:allcats
-				};
-			        
-				
-			return res.status(httpStatus.OK)
-			.json({ status: true,data:petdata,message:"success" });
-		} 
-		catch (err) {
-			return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
-		}
-    };
+
 
 	return {
 	
 		getCategoryy,
 		getDashBoardSummary,
-		getDashBoardPetsSummary
  	};
 };
 module.exports = addadmincategoryController();

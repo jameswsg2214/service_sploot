@@ -45,6 +45,10 @@ module.exports = (sequelize, DataTypes) => {
          type: DataTypes.STRING(20),
           allowNull: false
         },
+        imagePath: {
+          type: DataTypes.ARRAY(DataTypes.STRING(256)),
+          allowNull: true
+        },
       },
       {
         tableName: "TblUserProfile",

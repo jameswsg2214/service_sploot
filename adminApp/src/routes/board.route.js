@@ -6,7 +6,6 @@ const router = express.Router();
 
 router.route("/getCategoryy").post(boardCtrl.getCategoryy);
 router.route("/getDashBoardSummary").post(boardCtrl.getDashBoardSummary);
-router.route("/getDashBoardPetsSummary").post(boardCtrl.getDashBoardPetsSummary);
 
 
 

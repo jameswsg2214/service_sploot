@@ -66,10 +66,10 @@ const AuthController = () => {
         });
         if (user) {
           const loginType = user.dataValues.loginType
-          loginType == 1 ? res.send({ status: "failed", msg: "User Name already Exist" }) :
-            (loginType == 2 ? res.send({ status: "failed", msg: "User already have account with google" }) :
-              (loginType == 3 ? res.send({ status: "failed", msg: "User already have account with facebook" }) :
-                res.send({ status: "failed", msg: "Invalid login type" })));
+          loginType == 1 ? res.send({ status: false, message: "User Name already Exist" }) :
+            (loginType == 2 ? res.send({ status: false, message: "User already have account with google" }) :
+              (loginType == 3 ? res.send({ status: false, message: "User already have account with facebook" }) :
+                res.send({ status: false, message: "Invalid login type" })));
         }
         else {
           if (userData.loginType == 1) {
@@ -82,7 +82,7 @@ const AuthController = () => {
               })
                 .then((data) => {
                   if (data == null) {
-                    res.send({ status: 'failed', msg: 'Email is not verified' })
+                    res.send({ status: false, message: 'Email is not verified' })
                   } else {
                     const postData = req.body;
                     console.log('postdata', postData)
@@ -99,7 +99,7 @@ const AuthController = () => {
                         console.log('data=============>>>>>>', data)
                         const token = authService().issue({ id: data.dataValues.userId });
                         console.log('token==========>>>', token)
-                        res.send({ status: "success", msg: "User registered successfully", token: token, req: userData, res: data })
+                        res.send({ status: true, message: "User registered successfully", token: token, req: userData, res: data })
                       })
                       .catch(err => {
                         const errorMsg = err.errors ? err.errors[0].message : err.message;
@@ -123,10 +123,10 @@ const AuthController = () => {
               })
               .then((data) => {
                 const token = authService().issue({ id: data.dataValues.userId });
-                res.send({ status: 'success', token: token, msg: "Successfully registered", req: userData, res: data });
+                res.send({ status: true, token: token, message: "Successfully registered", req: userData, res: data });
               })
               .catch((err) => {
-                res.send({ status: 'failed', msg: "Failed to register", err: err });
+                res.send({ status: false, message: "Failed to register", err: err });
               })
           } else if (userData.loginType == 3) {
             User.create({
@@ -140,21 +140,21 @@ const AuthController = () => {
               })
               .then((data) => {
                 const token = authService().issue({ id: data.dataValues.userId });
-                res.send({ status: 'success', token: token, msg: "Successfully registered", req: userData, res: data });
+                res.send({ status: false, token: token, message: "Successfully registered", req: userData, res: data });
               })
               .catch((err) => {
-                res.send({ status: 'failed', msg: "Failed to register", err: err });
+                res.send({ status: false, message: "Failed to register", err: err });
               })
           } else {
-            res.send({ status: "failed", msg: "Invalid login type" })
+            res.send({ status: false, message: "Invalid login type" })
           }
 
         }
       } catch (err) {
-        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: "Internal server error" });
       }
     } else {
-      res.send({ status: 'failed', msg: 'please provide data' })
+      res.send({ status: false, message: 'please provide data' })
     }
   };
 
@@ -834,7 +834,8 @@ const AuthController = () => {
             country: profileData.country,
             state: profileData.state,
             city: profileData.city,
-            pin: profileData.pin
+            pin: profileData.pin,
+            imagePath:profileData.imagePath
 					},
 					{
 						where: {
@@ -865,7 +866,8 @@ const AuthController = () => {
           country: profileData.country,
           state: profileData.state,
           city: profileData.city,
-          pin: profileData.pin
+          pin: profileData.pin,
+          imagePath:profileData.imagePath
 
 
 				}, {

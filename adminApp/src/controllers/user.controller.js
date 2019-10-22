@@ -40,11 +40,11 @@ const UserController = () => {
 					}
 				}).catch(err => {
 					const errorMsg = err.errors ? err.errors[0].message : err.message;
-					return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+					return res.status(httpStatus.BAD_REQUEST).json({ message: errorMsg });
 				});
 				 console.log(user)
 				if (user) {
-					return res.status(httpStatus.BAD_REQUEST).json({ msg: "User Name already Exist" });
+					return res.status(httpStatus.BAD_REQUEST).json({ message: "User Name already Exist" });
 				} else {
 					try {
 						const postData = req.body;
@@ -101,7 +101,7 @@ const UserController = () => {
 										console.log('error')
 									}
 									return res.status(httpStatus.OK).json({
-										msg: "OTP sent successfully"
+										message: "OTP sent successfully"
 									});
 								}
 							})
