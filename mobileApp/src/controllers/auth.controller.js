@@ -809,7 +809,7 @@ const AuthController = () => {
     try {
 
       const profileData = req.body;
-      console.log(profileData)
+      console.log('=========================>>>' + req.body)
 
 			var flag = 'insert';
 			if (profileData.userId != undefined) {
@@ -875,7 +875,7 @@ const AuthController = () => {
 					})
 					.then(data => {
 						console.log(data)
-						res.json({ status: true, message: "Inserted Successfully", data: userdata })
+						res.json({ status: true, message: "Inserted Successfully"})
 					})
 			}
 
