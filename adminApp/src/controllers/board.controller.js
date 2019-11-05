@@ -35,17 +35,13 @@ const addadmincategoryController = () => {
 				const errorMsg = err.errors ? err.errors[0].message : err.message;
 				return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
 			});
-			const activeuserscount = await User.count({ where: { active: '1' }}
-				).catch(err => {
-					const errorMsg = err.errors ? err.errors[0].message : err.message;
-					return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
-				});
-				const inactiveUsers = await User.count({ where: { active: '0' }}
-				).catch(err => {
-					const errorMsg = err.errors ? err.errors[0].message : err.message;
-					return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
-				});	
-
+			
+			// const activeuserscount = await db.sequelize.query('SELECT * FROM TblUser', { raw: true }
+			// ).catch(err => {
+			// 	const errorMsg = err.errors ? err.errors[0].message : err.message;
+			// 	return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+			// });
+	
 				const Allpets = await Pets.count(
 					).catch(err => {
 						const errorMsg = err.errors ? err.errors[0].message : err.message;
@@ -62,7 +58,7 @@ const addadmincategoryController = () => {
 					const errorMsg = err.errors ? err.errors[0].message : err.message;
 					return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
 				});
-				
+		
 				const summaryData={
 				
 						"TotalRegisteredUsercount":[
@@ -73,7 +69,7 @@ const addadmincategoryController = () => {
 							{"no": 16, "month": "May"},
 							{"no": 100, "month": "Jun"},
 							{"no": 65, "month": "July"},
-							{"no": 10, "month": "Aug"},
+							{"no": 10, "month": "Aug"},		 
 							{"no": 76, "month": "Sep"},
 							{"no": 23, "month": "Oct"},
 							{"no": 56, "month": "Nov"},
@@ -110,11 +106,9 @@ const addadmincategoryController = () => {
 							{"no": 10, "month": "Dec"}
 						],
 						TotalRegisteredUsercount:AllUsers,
-						TotalNewRegisteredUsercount:activeuserscount,
-						InactiveUsers:inactiveUsers,
-						TotalPets: Allpets,
-						Dogs:alldogs,
-						Cats:allcats
+						TotalPetscount: Allpets,
+						TotalDogscount:alldogs,
+						TotalCatscount:allcats
 					};
 			return res.status(httpStatus.OK)
 			.json({ status: true,data:summaryData,message:"success" });

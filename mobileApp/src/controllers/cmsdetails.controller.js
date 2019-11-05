@@ -16,26 +16,24 @@ const cmdDetailsController = () => {
 	 * @returns {*}
 	 */
 
-  const getCMSlist = async (req, res, next) => {
+ const getCMSlist = async (req, res, next) => {
     try {
       /* cms Data */
       const cms = await CMSContent.findAll({
       });
       if (!cms) {
         return res
-          .status(httpStatus.OK)
-          .json({ status:false, message: "Data's not found" });
-	  }
-	  var formatedData =  res;
-
+		  .status(httpStatus.OK)
+		  .json({ status: false, data:cms, message:"Data's not found" });
+      }
       return res
-        .status(httpStatus.OK)
-        .json({ status:true,data:formatedData,message: "Fetched successfully"});
+		.status(httpStatus.OK)
+		.json({ status: true, data:cms, message:"Fetched successfully" });
     } catch (err) {
       const errorMsg = err.errors ? err.errors[0].message : err.message;
       return res
-        .status(httpStatus.INTERNAL_SERVER_ERROR)
-        .json({ status:false, message: errorMsg });
+		.status(httpStatus.INTERNAL_SERVER_ERROR)
+		.json({ status: false,message:errorMsg });
     }
   };
   const addCMSdetails = async (req, res, next) => {
