@@ -41,7 +41,17 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0
-      }    
+      },
+      createdAt:{
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 0,
+        get : function()  {
+          if(this.getDataValue('createdAt')){
+            return this.getDataValue('createdAt').toISOString().slice(0,10);
+          }
+        },
+      }   
     },
     {
       tableName: "TblUser",

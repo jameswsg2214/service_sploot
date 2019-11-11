@@ -3,6 +3,7 @@ const _ = require("lodash");
 const moment = require("moment");
 var Sequelize = require('sequelize');
 const db = require("../config/sequelize");
+const Op = Sequelize.Op; 
 //const UploadHelper = require("../helpers/UploadHelper");
 
 const User = db.TblUser;
@@ -12,7 +13,9 @@ const addadmincategoryController = () => {
 
 	const getCategoryy = async (req, res, next) => {
 		try {
-			const sfabranch = await db.sequelize.query('select * from TblUser', { raw: true }
+			const sfabranch = await db.sequelize.query({
+				where: sequelize.where(sequelize.fn('date', sequelize.col('createdAt')),{ like: '2019-11-11%' }
+				)}
 			).catch(err => {
 				const errorMsg = err.errors ? err.errors[0].message : err.message;
 				return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
@@ -36,11 +39,11 @@ const addadmincategoryController = () => {
 				return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
 			});
 			
-			// const activeuserscount = await db.sequelize.query('SELECT * FROM TblUser', { raw: true }
-			// ).catch(err => {
-			// 	const errorMsg = err.errors ? err.errors[0].message : err.message;
-			// 	return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
-			// });
+			let activeusers = await User.findAll(
+			).catch(err => {
+				const errorMsg = err.errors ? err.errors[0].message : err.message;
+				return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+			});
 	
 				const Allpets = await Pets.count(
 					).catch(err => {
@@ -60,7 +63,6 @@ const addadmincategoryController = () => {
 				});
 		
 				const summaryData={
-				
 						"TotalRegisteredUsercount":[
 							{"no": 56, "month": "Jan"},
 							{"no": 18, "month": "Feb"},
@@ -108,7 +110,8 @@ const addadmincategoryController = () => {
 						TotalRegisteredUsercount:AllUsers,
 						TotalPetscount: Allpets,
 						TotalDogscount:alldogs,
-						TotalCatscount:allcats
+						TotalCatscount:allcats,
+						NewUser: (activeusers != null && activeusers !=undefined ) ? activeusers.length > 0 ? activeusers.filter((c=>c.createdAt === new Date().toISOString().substr(0,10))).length: 0 : 0
 					};
 			return res.status(httpStatus.OK)
 			.json({ status: true,data:summaryData,message:"success" });
