@@ -46,6 +46,7 @@ const admincmdDetailsController = () => {
 				tag: postData.tag,
 				authordetails: postData.authordetails,
 				content: postData.content,
+				titleImage: postData.titleImage,
 				active:"1"
 			},
 			{

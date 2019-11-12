@@ -36,6 +36,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(1000),
             allowNull: false,
           },
+          titleImage: {
+            type: DataTypes.STRING(10485760),
+            allowNull: false,
+          },
           active: {
             type: DataTypes.ENUM,
             values: ["0", "1"],

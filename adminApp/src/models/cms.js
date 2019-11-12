@@ -33,7 +33,11 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: false,
         },
         content: {
-          type: DataTypes.STRING(1000),
+          type: DataTypes.STRING(10485760),
+          allowNull: false,
+        },
+        titleImage: {
+          type: DataTypes.STRING(10485760),
           allowNull: false,
         },
         active: {

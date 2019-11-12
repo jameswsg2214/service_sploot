@@ -70,6 +70,7 @@ router.route("/getCityByStateId").post(mobilelookupCtrl.getCityByStateId);
 
 
 
+router.route("/addAppointment").post(mobilecmsCtrl.addAppointment);
 
 
 

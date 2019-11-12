@@ -29,6 +29,16 @@ const cmsDetailsController = () => {
 			});
 	};
 
+	const addAppointment = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/cmsdetails/addAppointment", req.body, req.headers)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
 
 	const getCMSbyId = async (req, res, next) => {
 		api.makeServiceCall("POST", "mobile", "/cmsdetails/getCMSbyId", req.body, req.headers)
@@ -81,7 +91,8 @@ const cmsDetailsController = () => {
 		getCMSbyId,
 		deleteCMSdetails,
         updateCMSdetails,
-        addCMSdetails,
+		addCMSdetails,
+		addAppointment
 	}
 };
 module.exports = cmsDetailsController();

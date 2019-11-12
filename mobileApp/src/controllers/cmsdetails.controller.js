@@ -4,6 +4,7 @@ const _ = require("lodash");
 const bcryptService = require("../services/bcrypt.service");
 var fs = require("file-system")
 const CMSContent = db.TblCms;
+const Appointment = db.TblAppointment;
 
 
 
@@ -36,6 +37,39 @@ const cmdDetailsController = () => {
 		.json({ status: false,message:errorMsg });
     }
   };
+
+  const addAppointment = async (req, res, next) => {
+	const appointmentData = req.body;
+	console.log(appointmentData)
+	if (appointmentData) {
+		await Appointment.create(
+			{
+				userId: appointmentData.userId,
+				petId: appointmentData.petId,
+				task_name: appointmentData.task_name,
+				start_date: appointmentData.start_date,
+				end_date: appointmentData.end_date,
+				repeat_type: appointmentData.repeat_type,
+				frequency_type_id: appointmentData.frequency_type_id,
+				every_frequency: appointmentData.every_frequency,
+				selective_week: appointmentData.selective_week,
+				active: appointmentData.active,
+				cat_type: appointmentData.cat_type
+			},
+			{
+				returning: true
+			}).then(data => {
+				console.log(data)
+				res.send({ status:true,data:appointmentData, message: "Inserted Successfully"})
+			}).catch(err => {
+				res.send({ status:false, message: "failed to insert data", error: err })
+			})
+	}
+	else {
+		res.send({ status:false, message: 'Please enter appointment data' })
+	}
+};
+
   const addCMSdetails = async (req, res, next) => {
 	const postData = req.body;
 	if (postData) {
@@ -141,6 +175,7 @@ const getCMSbyId = async (req, res, next) => {
   return {
 	getCMSlist,
 	addCMSdetails,
+	addAppointment,
 	updateCMSdetails,
 	deleteCMSdetails,
 	getCMSbyId
