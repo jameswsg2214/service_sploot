@@ -8,6 +8,8 @@ const Op = Sequelize.Op;
 
 const User = db.TblUser;
 const Pets = db.TblPetMaster;
+const Appointments = db.TblAppointment;
+
 
 const addadmincategoryController = () => {
 
@@ -119,6 +121,22 @@ const addadmincategoryController = () => {
 			return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
 		}
 	};
+
+	const getAppointmentsView = async (req, res, next) => {
+		try {
+			const AllAppointments = await Appointments.findAll(
+			).catch(err => {
+				const errorMsg = err.errors ? err.errors[0].message : err.message;
+				return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+			});
+			
+				
+			return res.status(httpStatus.OK)
+			.json({ status: true,data:AllAppointments,message:"success" });
+		} catch (err) {
+			return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
+		}
+	};
 	
 
 
@@ -126,6 +144,7 @@ const addadmincategoryController = () => {
 	
 		getCategoryy,
 		getDashBoardSummary,
+		getAppointmentsView
  	};
 };
 module.exports = addadmincategoryController();

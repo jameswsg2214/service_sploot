@@ -59,6 +59,17 @@ const AdminController = () => {
 			});
 	};
 
+	const getAppointmentsView = async (req, res, next) => {
+		api.makeServiceCall("POST", "admin", "/board/getAppointmentsView", req.body, req.headers)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+	};
+
 
 	const deleteUser = async (req, res, next) => {
 		api.makeServiceCall("PUT", "admin", "/user/deleteUser", req.body, req.headers)
@@ -108,6 +119,7 @@ const AdminController = () => {
 		getuserById,
 		updateUserbyId,
 		getDashBoardSummary,
+		getAppointmentsView
 	};
 };
 

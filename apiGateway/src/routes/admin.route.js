@@ -12,6 +12,7 @@ router.route("/deleteUser").put(adminCtrl.deleteUser);
 router.route("/createUser").post(adminCtrl.createUser);
 router.route("/verifyOtp").post(adminCtrl.verifyOtp);
 router.route("/getDashBoardSummary").post(adminCtrl.getDashBoardSummary);
+router.route("/getAppointmentsView").post(adminCtrl.getAppointmentsView);
 
 
 
