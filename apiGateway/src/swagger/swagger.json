@@ -229,6 +229,9 @@
                 },
                 "pin": {
                   "type": "string"
+                },
+                "imagePath": {
+                  "type": "string"
                 }
               }
             }
@@ -776,7 +779,33 @@
         ]
       }
     },
-    
+    "/apia/getAppointmentsView": {
+      "post": {
+        "description": "Get Appointments View.",
+        "operationId": "get appointments list",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch Appointments  Info.",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
     "/apia/getCMSlist": {
       "post": {
         "description": "Get List of getCMSlist.",

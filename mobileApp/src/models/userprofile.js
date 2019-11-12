@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: false
         },
         imagePath: {
-          type: DataTypes.STRING(500),
+          type: DataTypes.STRING(10,485,760),
           allowNull: false
         },
       },
