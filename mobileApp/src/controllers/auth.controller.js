@@ -523,7 +523,7 @@ const AuthController = () => {
       const loginType = user.dataValues.loginType
       if (postData.loginType == loginType) {
         const token = authService().issue({ id: user.dataValues.userId });
-        res.send({ status:true, Token: token, data: user.dataValues,message :"Login Successfully." });
+        res.send({ status:true, token: token, data: user.dataValues,message :"Login Successfully." });
       } else {
         loginType == 1 ? res.send({ status:false, message: "User Name already Exist" }) :
           (loginType == 2 ? res.send({ status:false, message: "User already have account with Google" }) :
