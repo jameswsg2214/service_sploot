@@ -18,10 +18,11 @@ const cmdDetailsController = () => {
 	 */
 
  const getCMSlist = async (req, res, next) => {
-	const selectData = req.body;
     try {
       /* cms Data */
-      const cms = await CMSContent.findAll({where: { category: selectData.category }});
+      const cms = await CMSContent.findAll(
+
+	  );
       if (!cms) {
         return res
 		  .status(httpStatus.OK)

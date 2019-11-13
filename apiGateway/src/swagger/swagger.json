@@ -586,21 +586,6 @@
             "api_key": []
           }
         ], 
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "category":{
-                  "type":"string"
-                }
-              }
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "successful operation",
