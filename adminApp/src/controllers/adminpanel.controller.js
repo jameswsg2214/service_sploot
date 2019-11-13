@@ -38,7 +38,6 @@ const cmdDetailsController = () => {
   };
   const addCMSdetails = async (req, res, next) => {
 	const postData = req.body;
-	console.log('===================================>>>', postData.titleImage)
 	if (postData) {
 		await CMSContent.create(
 			{

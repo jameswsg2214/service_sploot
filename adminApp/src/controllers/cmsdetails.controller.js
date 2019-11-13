@@ -62,7 +62,8 @@ const admincmdDetailsController = () => {
 	}
 };
 const updateCMSdetails = async(req, res, next) => {
-    const cmssData = req.body;
+	const cmssData = req.body;
+	console.log('=================>>>>', cmssData)
 	try {
 		if(cmssData.no) {
 			const updateData = await CMSContent.update(cmssData, {
@@ -71,9 +72,9 @@ const updateCMSdetails = async(req, res, next) => {
 					no: cmssData.no
 				  }
 			});
-			if (updateData && req.files && req.files.length > 0) {
+			// if (updateData && req.files && req.files.length > 0) {
 				return res.status(httpStatus.OK).json({status:true , message: 'updated Successfully'});
-			}
+			//}
 		} else {
 			return res.status(httpStatus.OK).json({status:false ,message: 'No should be provided'});
 		}
