@@ -5,7 +5,7 @@ var nodemailer = require("nodemailer");
 const bcryptService = require("../services/bcrypt.service");
 var otplib = require('otplib')
 const User = db.TblUser;
-const UserOtp = db.TblUserOtp
+const UserOtp = db.TblUserOtp;
 var xoauth2 = require('xoauth2');
 
 const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
@@ -30,91 +30,31 @@ const UserController = () => {
 	 */
 	
 	const createUser = async (req, res, next) => {
-
-		const { userName } = req.body;
-		if (userName) {
+		console.log('===============>>>' + req.body)
+		const postData = req.body;
+		if (postData) {
 			try {
-				const user = await User.findOne({ //this is working
-					where: {
-						userName: userName
-					}
-				}).catch(err => {
-					const errorMsg = err.errors ? err.errors[0].message : err.message;
-					return res.status(httpStatus.BAD_REQUEST).json({ message: errorMsg });
-				});
-				 console.log(user)
-				if (user) {
-					return res.status(httpStatus.BAD_REQUEST).json({ message: "User Name already Exist" });
-				} else {
-					try {
-						const postData = req.body;
-					     console.log('postdata', postData)
-						const data = await User.create({
-							userName: postData.userName,
-							password: postData.password,
-							email: postData.email,
-							verified: 0,
-						}, {
-								returning: true
-							})
-							.then(async (data)=>{
-								if (data) {
-									if (isNaN(data.email)) {
-										console.log("-------------->",data.email);
-										
-										//email
-										// setup e-mail data with unicode symbols
-										var userId = await User.findOne({
-											where:{email: data.email}
-										}, (err, data) => {
-											return data
-										});
-		
-										var mailOptions = {
-											from: "chandubhimapalli4@gmail.com", // sender address
-											to: data.email, // list of receivers
-											subject: "Hello ✔", // Subject line
-											text: token, // plaintext body
-											html: `<b>Your OTP is ${token}</b>` // html body
-										}
-		
-										// send mail with defined transport object
-										await smtpTransport.sendMail(mailOptions, function (error, response) {
-											if (error) {
-												 console.log(error);
-											} else {						
-												const userOtp = UserOtp.create({
-													userId: userId.dataValues.userId,
-													email: data.email,
-													otp: token
-												}, {
-														returning: true
-													})
-													.catch(err => {
-														const errorMsg = err.errors ? err.errors[0].message : err.message;
-														return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
-													});
-											}
-		
-										});
-									} else {
-										console.log('error')
-									}
-									return res.status(httpStatus.OK).json({
-										message: "OTP sent successfully"
-									});
-								}
-							})
-							.catch(err => {
-								 const errorMsg = err.errors ? err.errors[0].message : err.message;
-								return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
-							});
-
-						
-					} catch (err) {
-						return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
-					}
-				}
+					const data = await User.create({
+						userName: postData.userName,
+						password: postData.password,
+						email: postData.email,
+						googlePassword:postData.googlePassword,
+						loginType:postData.loginType,
+						userTypeId:postData.userTypeId,
+						userRole:postData.userRole,
+						verified: 0,
+					}, {
+							returning: true
+						})
+						.then(async (data)=>{
+								return res.status(httpStatus.OK).json({
+									message: "user added successfully"
+								});
+						})
+						.catch(err => {
+							 const errorMsg = err.errors ? err.errors[0].message : err.message;
+							return res.status(httpStatus.BAD_REQUEST).json({ msg: errorMsg });
+						});
 			} catch (err) {
 				return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ msg: "Internal server error" });
 			}

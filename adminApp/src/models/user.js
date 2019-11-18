@@ -12,10 +12,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      loginType:{
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       userName: {
         type: DataTypes.STRING(50),
         allowNull: true,
-        unique: true
       },
       password: {
         type: DataTypes.STRING(128),
@@ -32,6 +35,10 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         allowNull: true
       },
+      userRole: {
+        type: DataTypes.STRING(100),
+        allowNull: true
+      },
       active: {
         type: DataTypes.ENUM,
         values: ["0", "1"],
@@ -42,16 +49,16 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: 0
       },
-      createdAt:{
-        type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: 0,
-        get : function()  {
-          if(this.getDataValue('createdAt')){
-            return this.getDataValue('createdAt').toISOString().slice(0,10);
-          }
-        },
-      }   
+      // createdAt:{
+      //   type: DataTypes.STRING,
+      //   allowNull: false,
+      //   defaultValue: 0,
+      //   get : function()  {
+      //     if(this.getDataValue('createdAt')){
+      //       return this.getDataValue('createdAt').toISOString().slice(0,10);
+      //     }
+      //   },
+      // }   
     },
     {
       tableName: "TblUser",
