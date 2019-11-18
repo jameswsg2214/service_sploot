@@ -157,7 +157,11 @@
                 },
                 "userTypeId": {
                   "type": "integer"
+                },
+                "userRole": {
+                  "type": "string"
                 }
+                
               }
             }
           }
