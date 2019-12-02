@@ -582,7 +582,7 @@ const AuthController = () => {
         if (data == null) {
           res.send({ status:false, message: "User doesn't exist" })
         } else {
-
+          if(data.dataValues.loginType == 1){
           const user = await UserOtp.findOne({
             where: {
               email: postData.email
@@ -676,7 +676,13 @@ const AuthController = () => {
               return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ status:false ,message: "Internal servers error" });
             }
           }
-
+        }
+        else if( data.dataValues.loginType == 2){
+          res.send({ status:false, message: "User already exist in Gmail" })
+        }
+        else if(data.dataValues.loginType == 3){
+          res.send({ status:false, message: "User already exist in Facebook" })  
+        }
         }
       })
   }
