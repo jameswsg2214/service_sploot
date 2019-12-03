@@ -32,20 +32,10 @@ const UserController = () => {
 	const createUser = async (req, res, next) => {
 		console.log('===============>>>' + req.body)
 		const postData = req.body;
+		postData.verified = 0
 		if (postData) {
 			try {
-					const data = await User.create({
-						userName: postData.userName,
-						password: postData.password,
-						email: postData.email,
-						googlePassword:postData.googlePassword,
-						loginType:postData.loginType,
-						userTypeId:postData.userTypeId,
-						userRole:postData.userRole,
-						verified: 0,
-					}, {
-							returning: true
-						})
+					await User.create(postData)
 						.then(async (data)=>{
 								return res.status(httpStatus.OK).json({
 									message: "user added successfully"
@@ -60,7 +50,6 @@ const UserController = () => {
 			}
 		}
 	};
-
 	const verifyOtp = async (req, res) => {
 		const verifyData = req.body
 		const user = await UserOtp.findOne({
