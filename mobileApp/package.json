@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node index.js",
+    "start": "node mobileindex.js",
     "eslint": "gulp eslint",
     "prodbuild": "gulp prodbuild --color",
     "devbuild": "gulp devbuild --color"

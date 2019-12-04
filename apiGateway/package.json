@@ -3,7 +3,7 @@
   "version": "1.0.2",
   "private": true,
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon gatewayindex.js",
     "eslint": "gulp eslint",
     "prodbuild": "gulp prodbuild --color",
     "devbuild": "gulp devbuild --color"
