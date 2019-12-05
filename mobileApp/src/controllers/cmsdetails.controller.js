@@ -40,20 +40,29 @@ const cmdDetailsController = () => {
     }
   };
 
-  const addAppointment = async (req, res, next) => {
+//   
+
+const addAppointment = async (req, res, next) => {
 	const postData = req.body;
-	console.log(postData)
+	console.log("=====>>?>>>>",postData);
 	if (postData) {
-		await Appointment.create({postData},{returning: true})
-		.then(data => {
-				console.log(data)
-				res.send({ status:true,data:postData, message: "Inserted Successfully"})
-			}).catch(err => {
-				res.send({ status:false, message: "failed to insert data", error: err })
-			})
+		try {
+				await Appointment.create(postData,{returning:true})
+					.then(async (data)=>{
+							return res.status(httpStatus.OK).json({status:true,
+								message: "Added successfully"
+							});
+					})
+					.catch(err => {
+						 const errorMsg = err.errors ? err.errors[0].message : err.message;
+						 res.send({ status:false, message: "Failed to insert data", error: errorMsg })
+						});
+		} catch (err) {
+			return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: "Internal server error" });
+		}
 	}
-	else {
-		res.send({ status:false, message: 'Please enter appointment data' })
+	else{
+		res.send({ status:false, message: 'Please enter  data' })
 	}
 };
 
