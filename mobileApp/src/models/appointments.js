@@ -32,19 +32,19 @@ module.exports = (sequelize, DataTypes) => {
           },
         repeat_type: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
          },
         frequency_type_id: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
         },
         every_frequency: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
         },
         selective_week: {
             type: DataTypes.STRING(250),
-            allowNull: false,
+            allowNull: true,
         },
         active: {
             type: DataTypes.INTEGER,
@@ -52,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         cat_type: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
         },
       },
       {
