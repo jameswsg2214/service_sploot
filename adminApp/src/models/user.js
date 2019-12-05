@@ -44,6 +44,14 @@ module.exports = (sequelize, DataTypes) => {
         values: ["0", "1"],
         defaultValue: "1"
       },
+      googlePassword: {
+        type: DataTypes.STRING(128),
+        allowNull: true
+      },
+      facebookPassword: {
+        type: DataTypes.STRING(128),
+        allowNull: true
+      },
       verified:{
         type: DataTypes.INTEGER,
         allowNull: false,

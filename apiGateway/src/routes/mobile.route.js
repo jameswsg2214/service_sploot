@@ -72,6 +72,8 @@ router.route("/getCityByStateId").post(mobilelookupCtrl.getCityByStateId);
 
 router.route("/addAppointment").post(mobilecmsCtrl.addAppointment);
 
+/*======================New  Routes==================== */
+router.route("/createPet").post(mobilecmsCtrl.createPet);
 
 
 

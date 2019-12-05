@@ -82,6 +82,19 @@ const cmsDetailsController = () => {
 				console.log(err.response.status);
 				res.status(err.response.status).json(err.response.data);
 			});
+	};
+
+	/*========== creat Pet =============*/
+
+	const createPet = async (req, res, next) => {
+		api.makeServiceCall("POST", "mobile", "/cmsdetails/createPet", req.body, req.headers)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log(err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
     };
     
     
@@ -92,7 +105,8 @@ const cmsDetailsController = () => {
 		deleteCMSdetails,
         updateCMSdetails,
 		addCMSdetails,
-		addAppointment
+		addAppointment,
+		createPet
 	}
 };
 module.exports = cmsDetailsController();

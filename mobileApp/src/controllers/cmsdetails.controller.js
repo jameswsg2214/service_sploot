@@ -5,6 +5,7 @@ const bcryptService = require("../services/bcrypt.service");
 var fs = require("file-system")
 const CMSContent = db.TblCms;
 const Appointment = db.TblAppointment;
+const Pet = db.TblPet;
 
 
 
@@ -40,28 +41,13 @@ const cmdDetailsController = () => {
   };
 
   const addAppointment = async (req, res, next) => {
-	const appointmentData = req.body;
-	console.log(appointmentData)
-	if (appointmentData) {
-		await Appointment.create(
-			{
-				userId: appointmentData.userId,
-				petId: appointmentData.petId,
-				task_name: appointmentData.task_name,
-				start_date: appointmentData.start_date,
-				end_date: appointmentData.end_date,
-				repeat_type: appointmentData.repeat_type,
-				frequency_type_id: appointmentData.frequency_type_id,
-				every_frequency: appointmentData.every_frequency,
-				selective_week: appointmentData.selective_week,
-				active: appointmentData.active,
-				cat_type: appointmentData.cat_type
-			},
-			{
-				returning: true
-			}).then(data => {
+	const postData = req.body;
+	console.log(postData)
+	if (postData) {
+		await Appointment.create({postData},{returning: true})
+		.then(data => {
 				console.log(data)
-				res.send({ status:true,data:appointmentData, message: "Inserted Successfully"})
+				res.send({ status:true,data:postData, message: "Inserted Successfully"})
 			}).catch(err => {
 				res.send({ status:false, message: "failed to insert data", error: err })
 			})
@@ -70,6 +56,7 @@ const cmdDetailsController = () => {
 		res.send({ status:false, message: 'Please enter appointment data' })
 	}
 };
+
 
   const addCMSdetails = async (req, res, next) => {
 	const postData = req.body;
@@ -172,6 +159,32 @@ const getCMSbyId = async (req, res, next) => {
 		}
 	}
 };
+
+
+/* create pet*/
+const createPet = async (req, res, next) => {
+	const postData = req.body;
+	console.log("=====>>?>>>>",postData);
+	if (postData) {
+		try {
+				await Pet.create(postData,{returning:true})
+					.then(async (data)=>{
+							return res.status(httpStatus.OK).json({status:true,
+								message: "Added successfully"
+							});
+					})
+					.catch(err => {
+						 const errorMsg = err.errors ? err.errors[0].message : err.message;
+						 res.send({ status:false, message: "Failed to insert data", error: err })
+						});
+		} catch (err) {
+			return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: "Internal server error" });
+		}
+	}
+	else{
+		res.send({ status:false, message: 'Please enter  data' })
+	}
+};
   // --------------------------------------------return----------------------------------
   return {
 	getCMSlist,
@@ -179,7 +192,8 @@ const getCMSbyId = async (req, res, next) => {
 	addAppointment,
 	updateCMSdetails,
 	deleteCMSdetails,
-	getCMSbyId
+	getCMSbyId,
+	createPet
   };
 };
 

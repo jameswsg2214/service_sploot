@@ -33,4 +33,5 @@ router.route("/getCountrylist").post(adminlookupCtrl.getCountrylist);
 router.route("/getStatelistByCountryId").post(adminlookupCtrl.getStatelistByCountryId);
 router.route("/getCitylistByStateId").post(adminlookupCtrl.getCitylistByStateId);
 
+
 module.exports = router;
