@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
           type: DataTypes.STRING(250),
           allowNull: true
         },
+        userName: {
+          type: DataTypes.STRING(250),
+          allowNull: true
+        },
         start_date:{
             type: DataTypes.STRING,
             allowNull: false,
