@@ -79,7 +79,7 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
-// Synchronizing any model changes with database.
+//Synchronizing any model changes with database.
 // sequelize
 //   .sync({
 //     // force: true
