@@ -21,6 +21,7 @@ const AuthController = () => {
 	 */
     const adminlogin = async (req, res, next) => {
         const userData = req.body;
+        console.log(userData)
         const UserTypeCondition={}
         UserTypeCondition.password=userData.password,
         UserTypeCondition.email=userData.email
@@ -31,7 +32,7 @@ const AuthController = () => {
             })
             if (user != null) {
                 if (userData.password == (user.dataValues.password )) {
-                  const token = authService().issue({ id: user.dataValues.userId });
+                  const token = authService().issue();
                   return res
                     .status(httpStatus.OK)
                     .json({ status: true, token, data:user, message:"login Successfully." });

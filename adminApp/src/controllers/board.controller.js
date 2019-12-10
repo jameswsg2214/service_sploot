@@ -34,6 +34,7 @@ const addadmincategoryController = () => {
 
 
 	const getDashBoardSummary = async (req, res, next) => {
+		console.log('working ++++++++++++++')
 		try {
 			const AllUsers = await User.count(
 			).catch(err => {

@@ -27,7 +27,7 @@ function _validateToken(token) {
     } catch (err) {
       // err
       console.log('failed')
-      reject({ status: "error", msg: "Invalid Token", err: err });
+      reject({ status: false, msg: "Invalid Token", err: err });
     }
   });
 }
@@ -53,7 +53,7 @@ router.use(function(req, res, next) {
         },
         err => {
           res.status(403).send({
-            status: "error",
+            status: false,
             msg: "Failed to authenticate user",
             err: err
           });
