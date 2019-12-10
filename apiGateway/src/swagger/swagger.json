@@ -901,6 +901,87 @@
         ]
       }
     },
+    "/apia/addAdmindetails": {
+      "post": {
+        "description": "Add New Admin user.",
+        "operationId": "addAdmindetails",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userName": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "userRole": {
+                  "type": "string"
+                },
+                "active": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "New Admin Add to the System.",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/apia/getAdminlist": {
+      "post": {
+        "description": "Get List of Admin.",
+        "operationId": "getAdminlist",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ], 
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Fetch List of Admins in the system.",
+        "tags": [
+          "Mobile"
+        ]
+      }
+    },
     "/apia/updateCMSdetails": {
       "put": {
         "description": "update  CMS.",
