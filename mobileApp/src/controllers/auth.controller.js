@@ -66,7 +66,7 @@ const AuthController = () => {
         });
         if (user) {
           const loginType = user.dataValues.loginType
-          loginType == 1 ? res.send({ status: false, message: "User Name already Exist" }) :
+          loginType == 1 ? res.send({ status: false, message: "Sploot account already exist" }) :
             (loginType == 2 ? res.send({ status: false, message: "User already have account with google" }) :
               (loginType == 3 ? res.send({ status: false, message: "User already have account with facebook" }) :
                 res.send({ status: false, message: "Invalid login type" })));
@@ -525,7 +525,7 @@ const AuthController = () => {
         const token = authService().issue({ id: user.dataValues.userId });
         res.send({ status:true, token: token, data: user.dataValues,message :"Login Successfully." });
       } else {
-        loginType == 1 ? res.send({ status:false, message: "User Name already Exist" }) :
+        loginType == 1 ? res.send({ status:false, message: "Sploot account already exist" }) :
           (loginType == 2 ? res.send({ status:false, message: "User already have account with Google" }) :
             (loginType == 3 ? res.send({ status:false, message: "User already have account with Facebook" }) :
               res.send({ status:false, message: "Invalid login type" })));
