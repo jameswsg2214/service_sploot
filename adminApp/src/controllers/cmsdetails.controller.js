@@ -2,7 +2,7 @@ const httpStatus = require("http-status");
 const db = require("../config/sequelize");
 const _ = require("lodash");
 const CMSContent = db.TblCms;
-
+const AddAdminUser = db.TblAdminUser
 
 
 const admincmdDetailsController = () => {
@@ -134,13 +134,63 @@ const getCMSbyId = async (req, res, next) => {
 		}
 	}
 };
+
+
+const addAdmindetails = async (req, res, next) => {
+	const postData1 = req.body;
+	console.log('===================+++++++++++++++++jj',req.body)
+	if (postData1) {
+		await AddAdminUser.create(
+			{
+				userName: req.body.userName,
+				password:  req.body.password,
+				email:  req.body.email,
+				userRole:  req.body.userRole,
+				active:   req.body.active
+			},
+			{
+				returning: true
+			}).then(data => {
+				res.send({ status:true, data:postData1 ,message: "Inserted Successfully"})
+			})
+			.catch(err => {
+				res.send({ status:false,message:err })
+			})
+	}
+	else {
+		res.send({ status:false, message: 'Please enter cms data' })
+	}
+};
+
+  const getAdminlist = async (req, res, next) => {
+    try {
+      /* cms Data */
+      const adminList = await AddAdminUser.findAll({
+      });
+      if (!adminList) {
+        return res
+		  .status(httpStatus.OK)
+		  .json({ status: false, data:adminList, message:"Data's not found" });
+      }
+      return res
+		.status(httpStatus.OK)
+		.json({ status: true, data:adminList, message:"Fetched successfully" });
+    } catch (err) {
+      const errorMsg = err.errors ? err.errors[0].message : err.message;
+      return res
+		.status(httpStatus.INTERNAL_SERVER_ERROR)
+		.json({ status: false,message:errorMsg });
+    }
+  };
   // --------------------------------------------return----------------------------------
   return {
 	getCMSlist,
 	addCMSdetails,
 	updateCMSdetails,
 	deleteCMSdetails,
-	getCMSbyId
+	getCMSbyId,
+	addAdmindetails,
+	getAdminlist
   };
 };
 

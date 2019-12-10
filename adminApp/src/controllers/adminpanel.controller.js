@@ -7,6 +7,7 @@ const CMSContent = db.TblCms;
 
 
 
+
 const cmdDetailsController = () => {
 	/**
 	 * Returns jwt token if valid username and password is provided
@@ -65,6 +66,9 @@ const cmdDetailsController = () => {
 		res.send({ status: 'failed', msg: 'Please enter cms data' })
 	}
 };
+
+
+
 const updateCMSdetails = async(req, res, next) => {
 	const cmssData = req.body;
 	try {
@@ -170,7 +174,8 @@ const getCMSbyId = async (req, res, next) => {
 	addCMSdetails,
 	updateCMSdetails,
 	deleteCMSdetails,
-	getCMSbyId
+	getCMSbyId,
+
   };
 };
 

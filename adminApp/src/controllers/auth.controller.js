@@ -9,7 +9,7 @@ const _  = require('lodash');
 
 const User = db.TblUser;
 
-
+const AddAdminUser = db.TblAdminUser
 
 const AuthController = () => {
 	/**
@@ -22,11 +22,11 @@ const AuthController = () => {
     const adminlogin = async (req, res, next) => {
         const userData = req.body;
         const UserTypeCondition={}
-        UserTypeCondition.userTypeId=2,
+        UserTypeCondition.password=userData.password,
         UserTypeCondition.email=userData.email
         if (userData) {
           try {
-            const user = await User.findOne({
+            const user = await AddAdminUser.findOne({
               where: UserTypeCondition
             })
             if (user != null) {

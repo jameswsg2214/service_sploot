@@ -26,6 +26,9 @@ router.route("/addCMSdetails").post(admincmsCtrl.addCMSdetails);
 router.route("/getCMSbyId").post(admincmsCtrl.getCMSbyId);
 router.route("/updateCMSdetails").put(admincmsCtrl.updateCMSdetails );
 router.route("/deleteCMSdetails").put(admincmsCtrl.deleteCMSdetails);
+router.route("/addAdmindetails").post(admincmsCtrl.addAdmindetails);
+router.route("/getAdminlist").post(admincmsCtrl.getAdminlist);
+
 
 
 /*======================LookUp details Routes==================== */

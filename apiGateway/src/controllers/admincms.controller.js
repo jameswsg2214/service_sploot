@@ -74,14 +74,35 @@ const cmsDetailsController = () => {
 			});
     };
     
-    
-
+	const addAdmindetails = async (req, res, next) => {
+		api.makeServiceCall("POST", "admin", "/admincms/addAdmindetails", req.body, req.headers)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log('=================>>>>',err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+    };
+	
+	const getAdminlist = async (req, res, next) => {
+		api.makeServiceCall("POST", "admin", "/admincms/getAdminlist", req.body, req.headers)
+			.then(response => {
+				res.send(response.data); // <= send data to the client
+			})
+			.catch(err => {
+				console.log('=================>>>>',err.response.status);
+				res.status(err.response.status).json(err.response.data);
+			});
+    };
 	return {
 		getCMSlist,
 		getCMSbyId,
 		deleteCMSdetails,
         updateCMSdetails,
-        addCMSdetails,
+		addCMSdetails,
+		addAdmindetails,
+		getAdminlist
 	}
 };
 module.exports = cmsDetailsController();

@@ -7,7 +7,7 @@ const Op = Sequelize.Op;
 //const UploadHelper = require("../helpers/UploadHelper");
 
 const User = db.TblUser;
-const Pets = db.TblPetMaster;
+const Pets = db.TblPet;
 const Appointments = db.TblAppointment;
 
 
