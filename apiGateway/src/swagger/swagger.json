@@ -903,7 +903,7 @@
     },
     "/apia/addAdmindetails": {
       "post": {
-        "description": "Add New Admin user.",
+        "description": "Add New Admin users.",
         "operationId": "addAdmindetails",
         "produces": [
           "application/json",
