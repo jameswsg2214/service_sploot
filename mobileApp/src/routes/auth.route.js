@@ -9,6 +9,7 @@ const router = express.Router(); // eslint-disable-line new-cap
 /**
  * POST /api/auth/login - Returns token if correct username and password is provided
  */
+
 router.route("/login").post(authCtrl.login);
 router.route("/createUser").post(authCtrl.createUser);
 router.route("/passwordChange").post(authCtrl.passwordChange);
@@ -19,6 +20,8 @@ router.route("/createAndLoginUser").post(authCtrl.createAndLoginUser);
 router.route("/forgetPasswordSendOtp").post(authCtrl.forgetPasswordSendOtp);
 router.route("/createuserprofile").post(authCtrl.createuserprofile);
 router.route("/getuserprofile").get(authCtrl.getuserprofile);
+router.route("/remainderMail").post(authCtrl.remainderMail);
+
 router.route("/getprofilebyId").post(authCtrl.getprofilebyId);
 
 

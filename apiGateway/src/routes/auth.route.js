@@ -17,6 +17,7 @@ router.route("/forgetPasswordSendOtp").post(authCtrl.forgetPasswordSendOtp);
 router.route("/login").post(authCtrl.login);
 router.route("/createuserprofile").post(authCtrl.createuserprofile);
 router.route("/getuserprofile").get(authCtrl.getuserprofile);
+router.route("/remainderMail").post(authCtrl.remainderMail);
 router.route("/getprofilebyId").post(authCtrl.getprofilebyId);
 
 

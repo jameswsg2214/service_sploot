@@ -11,6 +11,7 @@ const User = db.TblUser;
 const UserOtp = db.TblUserOtp
 const otpAuth = db.TblOtpAuth;
 const Userprofile = db.TblUserProfile;
+var email = require('emailjs/email');
 
 var auth = require('otplib/authenticator')
 const crypto = require('crypto')
@@ -941,6 +942,51 @@ const AuthController = () => {
   };
 
 
+  const remainderMail = async (req, res, next) => {
+    const postData = req.body;
+    console.log('@@@@@@@@@@@@@@@@@@@@@' , postData);
+    console.log('************************' , postData.email)
+    try {
+      console.log('postdata', postData)
+              var mailOptions = {
+                from: "sploot.oasys@gmail.com", // sender address
+                to: postData.email, // list of receivers
+                subject: "Sploot Remainders ", // Subject line
+                text: 'hai', // plaintext body
+                // html: `<b>Your OTP is ${otp}</b>` // html body
+                html: `
+              <div style="font-family: verdana; max-width:500px; margin-left">
+              <h1>Dear ${postData.name},</h1>
+              <h1>Dear ${postData.medicine_name},</h1>
+              <h1>Dear ${postData.date},</h1>
+              <h1>Dear ${postData.title},</h1>
+              <h1>Dear ${postData.time},</h1>
+              </div>`,
+              attachments: [{
+                filename: 'Spoolt.jpg',
+                content:ImagelogoSrc,
+                encoding: 'base64'
+              }]
+              }
+              // send mail with defined transport object
+              await smtpTransport.sendMail(mailOptions, function (error, response) {
+                if (error) {
+                  console.log(error);
+                } else {
+                  return res
+		.status(httpStatus.OK)
+		.json({ status: true, message:"mail sent successfully" });
+                    
+                }
+              });     
+    } catch (err) {
+      const errorMsg = err.errors ? err.errors[0].message : err.message;
+      return res
+		.status(httpStatus.INTERNAL_SERVER_ERROR)
+		.json({ status: false,message:errorMsg });
+    }
+  };
+
   const getprofilebyId = async (req, res, next) => {
     const { id } = req.body;
     if (id) {
@@ -974,7 +1020,8 @@ const AuthController = () => {
     createAndLoginUser,
     getuserprofile,
     getprofilebyId,
-    forgetPasswordSendOtp
+    forgetPasswordSendOtp,
+    remainderMail
   };
 
 };
