@@ -958,10 +958,10 @@ const AuthController = () => {
                 html: `
               <div style="font-family: verdana; max-width:500px; margin-left">
               <h1>Dear ${postData.name},</h1>
-              <h1>Dear ${postData.medicine_name},</h1>
-              <h1>Dear ${postData.date},</h1>
-              <h1>Dear ${postData.title},</h1>
-              <h1>Dear ${postData.time},</h1>
+              <h2>Reminder title: ${postData.title},</h2>
+              <h2>Reminder for your: ${postData.medicine_name},</h2>
+              <h2>Date:${postData.date},</h2>
+              <h2>Reminder at: ${postData.time},</h2>
               </div>`,
               attachments: [{
                 filename: 'Spoolt.jpg',
