@@ -192,11 +192,12 @@ const AuthController = () => {
                 var mailOptions = {
                   from: "sploot.oasys@gmail.com", // sender address
                   to: email, // list of receivers
-                  subject: "Sploot account verification", // Subject line
+                  subject: "Sploot OTP", // Subject line
                   text: otp, // plaintext body
                   // html: `<b>Your OTP is ${otp}</b>` // html body
                   html: `<div style="font-family: verdana; max-width:500px; margin-left">
-                  <h1>Your one-time-password is ${otp}</h1>  <div><img src="cid:sploot_unique_id"/></div>
+                  <h4>Below is Your One Time Passcode for Sploot<h4>
+                  <h1>${otp}</h1>  <div><img src="cid:sploot_unique_id"/></div>
                   </div>
                   `,
                   attachments: [{
@@ -975,7 +976,7 @@ const AuthController = () => {
                 } else {
                   return res
 		.status(httpStatus.OK)
-		.json({ status: true, message:"mail sent successfully" });
+		.json({ status: true, message:"mail sent successfully", res:postData });
                     
                 }
               });     
