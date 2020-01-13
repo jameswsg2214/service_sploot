@@ -332,7 +332,7 @@ const AuthController = () => {
             } else {
               try {
                 var mailOptions = {
-                  from: "srumijthu@gmail.com", // sender address
+                  from: "sploot.oasys@gmail.com", // sender address
                   to: email, // list of receivers
                   subject: "Sploot ", // Subject line
                   text: otp, // plaintext body
