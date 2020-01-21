@@ -123,7 +123,7 @@ const AuthController = () => {
                           <center>
                           <p style="color:black;font-size:25px;text-align:center;margin-top:5%;font-weight:bold;">THANKS FOR SIGNING UP!</p>
                           <div>
-                          <p style="margin-top:3%;font-size:20px">We hope youlove it.</p>
+                          <p style="margin-top:1%;font-size:20px">We hope you love it.</p>
                           <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
                           <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow as on :</p>
                           <p style="color:black;display:inline-flex;text-align:center;">
@@ -200,7 +200,7 @@ const AuthController = () => {
                   <center>
                   <p style="color:black;font-size:25px;text-align:center;margin-top:5%;font-weight:bold;">THANKS FOR SIGNING UP!</p>
                   <div>
-                  <p style="margin-top:3%;font-size:20px">We hope youlove it.</p>
+                  <p style="margin-top:1%;font-size:20px">We hope you love it.</p>
                   <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
                   <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow as on :</p>
                   <p style="color:black;display:inline-flex;text-align:center;">
@@ -269,7 +269,7 @@ const AuthController = () => {
                   <center>
                   <p style="color:black;font-size:25px;text-align:center;margin-top:5%;font-weight:bold;">THANKS FOR SIGNING UP!</p>
                   <div>
-                  <p style="margin-top:3%;font-size:20px">We hope youlove it.</p>
+                  <p style="margin-top:1%;font-size:20px">We hope you love it.</p>
                   <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
                   <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow as on :</p>
                   <p style="color:black;display:inline-flex;text-align:center;">
