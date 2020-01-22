@@ -22,15 +22,14 @@ const ImagelogoSrc = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEBLAEsAAD/2wBDAAY
 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zv8A3yXy/I/SuG/9wj6v8zj68k94KACgDpfhx/yO2lf77f8AoDV6OU/75T/rozyM9/5F9X0X5o+hK++Py4KACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKAPBvix/wAjtd/7kf8A6AK+Gzv/AHyXy/I/SuG/9wj6v8zj68k94KACgDpfhx/yO2lf77f+gNXo5T/vlP8ArozyM9/5F9X0X5o+hK++Py4KACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKAPBvix/yO13/uR/8AoAr4bO/98l8vyP0rhv8A3CPq/wAzj68k94KACgDpfhx/yO2lf77f+gNXo5T/AL5T/rozyM9/5F9X0X5o+hK++Py4KACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKAPBvix/yO13/ALkf/oAr4bO/98l8vyP0rhv/AHCPq/zOPryT3goAKAOl+HH/ACO2lf77f+gNXo5T/vlP+ujPIz3/AJF9X0X5o+hK++Py4KACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKAP/9k='.split("base64,")[1];
 
 
-
 var smtpTransport = nodemailer.createTransport({
   service: 'gmail',
   host: 'smtp.googlemail.com', // Gmail Host
   port: 465, // Port
   secure: true, // this is true as port is 465
   auth: {
-    user: "sploot.oasys@gmail.com",
-    pass: "sploot@123" //give here correct gmail pwd
+    user: "boop@sploot.tech",
+    pass: "Niknit167!" //give here correct gmail pwd
   }
 });
 // var smtpTransport = nodemailer.createTransport({
@@ -101,7 +100,7 @@ const AuthController = () => {
                         const token = authService().issue({ id: data.dataValues.userId });
                         console.log('token==========>>>', token)
                         var mailOptions = {
-                          from: "sploot.oasys@gmail.com", // sender address
+                          from: "boop@sploot.tech", // sender address
                           to: userData.email, // list of receivers
                           subject: "Happy Splooting!", // Subject line
                           text: 'hai', // plaintext body
@@ -178,7 +177,7 @@ const AuthController = () => {
               .then(async(data) => {
                 const token = authService().issue({ id: data.dataValues.userId });
                 var mailOptions = {
-                  from: "sploot.oasys@gmail.com", // sender address
+                  from: "boop@sploot.tech", // sender address
                   to: userData.email, // list of receivers
                   subject: "Happy Splooting!", // Subject line
                 // plaintext body
@@ -247,7 +246,7 @@ const AuthController = () => {
               .then(async(data) => {
                 const token = authService().issue({ id: data.dataValues.userId });
                 var mailOptions = {
-                  from: "sploot.oasys@gmail.com", // sender address
+                  from: "boop@sploot.tech", // sender address
                   to: userData.email, // list of receivers
                   subject: "Happy Splooting!", // Subject line
                   text: 'hai', // plaintext body
@@ -348,7 +347,7 @@ const AuthController = () => {
                 });
                 if (user) {
                   var mailOptions = {
-                    from: "sploot.oasys@gmail.com", // sender address
+                    from: "boop@sploot.tech", // sender address
                     to: email, // list of receivers
                     subject: "Sploot SignUp OTP", // Subject line
                     text: otp, // plaintext body
@@ -416,7 +415,7 @@ const AuthController = () => {
                 } else {
                   try {
                     var mailOptions = {
-                      from: "sploot.oasys@gmail.com", // sender address
+                      from: "boop@sploot.tech", // sender address
                       to: email, // list of receivers
                       subject: "Sploot SignUp OTP ", // Subject line
                       text: otp, // plaintext body
@@ -502,7 +501,7 @@ const AuthController = () => {
               });
               if (user) {
                 var mailOptions = {
-                  from: "sploot.oasys@gmail.com", // sender address
+                  from: "boop@sploot.tech", // sender address
                   to: email, // list of receivers
                   subject: "Sploot SignUP OTP", // Subject line
                   text: otp, // plaintext body
@@ -570,7 +569,7 @@ const AuthController = () => {
               } else {
                 try {
                   var mailOptions = {
-                    from: "sploot.oasys@gmail.com", // sender address
+                    from: "boop@sploot.tech", // sender address
                     to: email, // list of receivers
                     subject: "Sploot SignUp OTP", // Subject line
                     text: otp, // plaintext body
@@ -861,7 +860,7 @@ const AuthController = () => {
             });
             if (user) {
               var mailOptions = {
-                from: "sploot.oasys@gmail.com", // sender address
+                from: "boop@sploot.tech", // sender address
                 to: postData.email, // list of receivers
                 subject: "Sploot Reset OTP", // Subject line
                 text: otp, // plaintext body
@@ -930,7 +929,7 @@ const AuthController = () => {
               try {
                 console.log('postdata', postData)
                 var mailOptions = {
-                  from: "sploot.oasys@gmail.com", // sender address
+                  from: "boop@sploot.tech", // sender address
                   to: postData.email, // list of receivers
                   subject: "Sploot Reset OTP ", // Subject line
                   text: otp, // plaintext body
@@ -1270,7 +1269,7 @@ const AuthController = () => {
     try {
       console.log('postdata', postData)
       var mailOptions = {
-        from: "sploot.oasys@gmail.com", // sender address
+        from: "boop@sploot.tech", // sender address
         to: postData.email, // list of receivers
         subject: "Sploot Remainders ", // Subject line
         text: 'hai', // plaintext body
