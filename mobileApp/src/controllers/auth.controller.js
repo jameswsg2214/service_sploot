@@ -28,8 +28,8 @@ var smtpTransport = nodemailer.createTransport({
   port: 465, // Port
   secure: true, // this is true as port is 465
   auth: {
-    user: "boop@sploot.tech",
-    pass: "Niknit167!" //give here correct gmail pwd
+    user: "sploot.oasys@gmail.com",
+    pass: "sploot@123" //give here correct gmail pwd
   }
 });
 // var smtpTransport = nodemailer.createTransport({
@@ -100,7 +100,7 @@ const AuthController = () => {
                         const token = authService().issue({ id: data.dataValues.userId });
                         console.log('token==========>>>', token)
                         var mailOptions = {
-                          from: "boop@sploot.tech", // sender address
+                          from: "sploot.oasys@gmail.com", // sender address
                           to: userData.email, // list of receivers
                           subject: "Happy Splooting!", // Subject line
                           text: 'hai', // plaintext body
@@ -177,7 +177,7 @@ const AuthController = () => {
               .then(async(data) => {
                 const token = authService().issue({ id: data.dataValues.userId });
                 var mailOptions = {
-                  from: "boop@sploot.tech", // sender address
+                  from: "sploot.oasys@gmail.com", // sender address
                   to: userData.email, // list of receivers
                   subject: "Happy Splooting!", // Subject line
                 // plaintext body
@@ -246,7 +246,7 @@ const AuthController = () => {
               .then(async(data) => {
                 const token = authService().issue({ id: data.dataValues.userId });
                 var mailOptions = {
-                  from: "boop@sploot.tech", // sender address
+                  from: "sploot.oasys@gmail.com", // sender address
                   to: userData.email, // list of receivers
                   subject: "Happy Splooting!", // Subject line
                   text: 'hai', // plaintext body
@@ -347,7 +347,7 @@ const AuthController = () => {
                 });
                 if (user) {
                   var mailOptions = {
-                    from: "boop@sploot.tech", // sender address
+                    from: "sploot.oasys@gmail.com", // sender address
                     to: email, // list of receivers
                     subject: "Sploot SignUp OTP", // Subject line
                     text: otp, // plaintext body
@@ -415,7 +415,7 @@ const AuthController = () => {
                 } else {
                   try {
                     var mailOptions = {
-                      from: "boop@sploot.tech", // sender address
+                      from: "sploot.oasys@gmail.com", // sender address
                       to: email, // list of receivers
                       subject: "Sploot SignUp OTP ", // Subject line
                       text: otp, // plaintext body
@@ -501,7 +501,7 @@ const AuthController = () => {
               });
               if (user) {
                 var mailOptions = {
-                  from: "boop@sploot.tech", // sender address
+                  from: "sploot.oasys@gmail.com", // sender address
                   to: email, // list of receivers
                   subject: "Sploot SignUP OTP", // Subject line
                   text: otp, // plaintext body
@@ -569,7 +569,7 @@ const AuthController = () => {
               } else {
                 try {
                   var mailOptions = {
-                    from: "boop@sploot.tech", // sender address
+                    from: "sploot.oasys@gmail.com", // sender address
                     to: email, // list of receivers
                     subject: "Sploot SignUp OTP", // Subject line
                     text: otp, // plaintext body
@@ -860,7 +860,7 @@ const AuthController = () => {
             });
             if (user) {
               var mailOptions = {
-                from: "boop@sploot.tech", // sender address
+                from: "sploot.oasys@gmail.com", // sender address
                 to: postData.email, // list of receivers
                 subject: "Sploot Reset OTP", // Subject line
                 text: otp, // plaintext body
@@ -929,7 +929,7 @@ const AuthController = () => {
               try {
                 console.log('postdata', postData)
                 var mailOptions = {
-                  from: "boop@sploot.tech", // sender address
+                  from: "sploot.oasys@gmail.com", // sender address
                   to: postData.email, // list of receivers
                   subject: "Sploot Reset OTP ", // Subject line
                   text: otp, // plaintext body
@@ -1269,7 +1269,7 @@ const AuthController = () => {
     try {
       console.log('postdata', postData)
       var mailOptions = {
-        from: "boop@sploot.tech", // sender address
+        from: "sploot.oasys@gmail.com", // sender address
         to: postData.email, // list of receivers
         subject: "Sploot Remainders ", // Subject line
         text: 'hai', // plaintext body
