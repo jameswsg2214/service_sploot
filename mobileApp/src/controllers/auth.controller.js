@@ -126,12 +126,12 @@ const AuthController = () => {
                           <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
                           <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow as on :</p>
                           <p style="color:black;display:inline-flex;text-align:center;">
-                         <a href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
+                         <a style="font-size:16px;" href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
                          <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
-                          <a href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
+                          <a style="font-size:16px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
                           <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
-                          <a><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
-                          <a href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
+                          <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
+                          <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
                           </p>
                           <p style="border-bottom:5px solid black;"></p>
                           </center>
@@ -203,13 +203,13 @@ const AuthController = () => {
                   <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
                   <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow as on :</p>
                   <p style="color:black;display:inline-flex;text-align:center;">
-                 <a href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
-                 <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
-                  <a href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
-                  <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
-                  <a><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
-                  <a href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
-                  </p>
+        <a style="font-size:16px;" href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
+        <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
+         <a style="font-size:16px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
+         <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
+         <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
+         <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
+         </p>
                   <p style="border-bottom:5px solid black;"></p>
                   </center>
                           `,
@@ -272,13 +272,13 @@ const AuthController = () => {
                   <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
                   <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow as on :</p>
                   <p style="color:black;display:inline-flex;text-align:center;">
-                 <a href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
-                 <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
-                  <a href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
-                  <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
-                  <a><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
-                  <a href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
-                  </p>
+        <a style="font-size:16px;" href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
+        <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
+         <a style="font-size:16px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
+         <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
+         <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
+         <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
+         </p>
                   <p style="border-bottom:5px solid black;"></p>
                   </center>
                           `,
@@ -373,13 +373,13 @@ const AuthController = () => {
         <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
         <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow as on :</p>
         <p style="color:black;display:inline-flex;text-align:center;">
-       <a href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
-       <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
-        <a href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
-        <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
-        <a><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
-        <a href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
-        </p>
+        <a style="font-size:16px;" href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
+        <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
+         <a style="font-size:16px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
+         <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
+         <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
+         <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
+         </p>
         <p style="border-bottom:5px solid black;"></p>
         </center>
                   `,
@@ -441,13 +441,13 @@ const AuthController = () => {
                       <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
                       <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow as on :</p>
                       <p style="color:black;display:inline-flex;text-align:center;">
-                     <a href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
-                     <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
-                      <a href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
-                      <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
-                      <a><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
-                      <a href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
-                      </p>
+        <a style="font-size:16px;" href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
+        <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
+         <a style="font-size:16px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
+         <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
+         <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
+         <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
+         </p>
                       <p style="border-bottom:5px solid black;"></p>
                       </center>
                     `,
@@ -527,13 +527,13 @@ const AuthController = () => {
                   <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
                   <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow as on :</p>
                   <p style="color:black;display:inline-flex;text-align:center;">
-                 <a href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
-                 <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
-                  <a href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
-                  <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
-                  <a><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
-                  <a href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
-                  </p>
+        <a style="font-size:16px;" href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
+        <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
+         <a style="font-size:16px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
+         <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
+         <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
+         <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
+         </p>
                   <p style="border-bottom:5px solid black;"></p>
                   </center>
                 `,
@@ -595,13 +595,13 @@ const AuthController = () => {
                     <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
                     <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow as on :</p>
                     <p style="color:black;display:inline-flex;text-align:center;">
-                   <a href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
-                   <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
-                    <a href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
-                    <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
-                    <a><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
-                    <a href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
-                    </p>
+        <a style="font-size:16px;" href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
+        <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
+         <a style="font-size:16px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
+         <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
+         <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
+         <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
+         </p>
                     <p style="border-bottom:5px solid black;"></p>
                     </center>
                   `,
@@ -886,13 +886,13 @@ const AuthController = () => {
                 <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
                 <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow as on :</p>
                 <p style="color:black;display:inline-flex;text-align:center;">
-               <a href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
-               <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
-                <a href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
-                <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
-                <a><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
-                <a href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
-                </p>
+        <a style="font-size:16px;" href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
+        <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
+         <a style="font-size:16px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
+         <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
+         <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
+         <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
+         </p>
                 <p style="border-bottom:5px solid black;"></p>
                 </center>
             `,
@@ -955,13 +955,13 @@ const AuthController = () => {
                   <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
                   <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow as on :</p>
                   <p style="color:black;display:inline-flex;text-align:center;">
-                 <a href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
-                 <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
-                  <a href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
-                  <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
-                  <a><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
-                  <a href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
-                  </p>
+                  <a style="font-size:16px;" href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
+                  <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
+                   <a style="font-size:16px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
+                   <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
+                   <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
+                   <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
+                   </p>
                   <p style="border-bottom:5px solid black;"></p>
                   </center>
               `,
@@ -1271,7 +1271,7 @@ const AuthController = () => {
       var mailOptions = {
         from: "sploot.oasys@gmail.com", // sender address
         to: postData.email, // list of receivers
-        subject: "Sploot Remainders ", // Subject line
+        subject: "Sploot Remainder", // Subject line
         text: 'hai', // plaintext body
         // html: `<b>Your OTP is ${otp}</b>` // html body
         html: `
@@ -1295,13 +1295,13 @@ const AuthController = () => {
         <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
         <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow as on :</p>
         <p style="color:black;display:inline-flex;text-align:center;">
-       <a href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
-       <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
-        <a href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
-        <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
-        <a><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
-        <a href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
-        </p>
+        <a style="font-size:16px;" href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
+        <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
+         <a style="font-size:16px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
+         <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
+         <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
+         <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
+         </p>
         <p style="border-bottom:5px solid black;"></p>
         </center>
                 `,
