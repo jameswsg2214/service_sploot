@@ -65,11 +65,15 @@ const AuthController = () => {
           return res.status(httpStatus.OK).json({ msg: errorMsg });
         });
         if (user) {
-          const loginType = user.dataValues.loginType
-          loginType == 1 ? res.send({ status: false, message: "Account Already Exists" }) :
-            (loginType == 2 ? res.send({ status: false, message: "User already have account with google" }) :
-              (loginType == 3 ? res.send({ status: false, message: "User already have account with facebook" }) :
-                res.send({ status: false, message: "Invalid login type" })));
+         // const loginType = user.dataValues.loginType
+          const token = authService().issue({ id: user.dataValues.userId });
+          return res
+            .status(httpStatus.OK)
+            .json({ status: true, token, data: user, message: "Login SuccessFully." });
+          // loginType == 1 ? res.send({ status: false, message: "Account Already Exists" }) :
+          //   (loginType == 2 ? res.send({ status: false, message: "User already have account with google" }) :
+          //     (loginType == 3 ? res.send({ status: false, message: "User already have account with facebook" }) :
+          //       res.send({ status: false, message: "Invalid login type" })));
         }
         else {
           if (userData.loginType == 1) {
@@ -124,23 +128,23 @@ const AuthController = () => {
                           <div>
                           <p style="margin-top:1%;font-size:20px">We hope you love it.</p>
                           <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
-                          <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow as on :</p>
+                          <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow us on :</p>
                           <p style="color:black;display:inline-flex;text-align:center;">
                          <a style="font-size:16px;" href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
-                         <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
+                         <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@wesploot</span></a>
                           <a style="font-size:16px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
-                          <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
-                          <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
-                          <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
+                          <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@wesploot</span></a>
+                          <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@wesploot</span></a>
+                          <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/wesploot</span></a>
                           </p>
                           <p style="border-bottom:5px solid black;"></p>
                           </center>
                                   `,
-                          // attachments: [{
-                          //   filename: 'Spoolt.jpg',
-                          //   content: ImagelogoSrc,
-                          //   encoding: 'base64'
-                          // }]
+                          attachments: [{
+                            filename: 'Spoolt.jpg',
+                            content: ImagelogoSrc,
+                            encoding: 'base64'
+                          }]
                         }
                         // send mail with defined transport object
                         await smtpTransport.sendMail(mailOptions, function (error, response) {
@@ -201,23 +205,23 @@ const AuthController = () => {
                   <div>
                   <p style="margin-top:1%;font-size:20px">We hope you love it.</p>
                   <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
-                  <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow as on :</p>
+                  <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow us on :</p>
                   <p style="color:black;display:inline-flex;text-align:center;">
         <a style="font-size:16px;" href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
-        <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
+        <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@wesploot</span></a>
          <a style="font-size:16px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
-         <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
-         <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
-         <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
+         <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@wesploot</span></a>
+         <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@wesploot</span></a>
+         <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/wesploot</span></a>
          </p>
                   <p style="border-bottom:5px solid black;"></p>
                   </center>
                           `,
-                  // attachments: [{
-                  //   filename: 'Spoolt.jpg',
-                  //   content: ImagelogoSrc,
-                  //   encoding: 'base64'
-                  // }]
+                  attachments: [{
+                    filename: 'Spoolt.jpg',
+                    content: ImagelogoSrc,
+                    encoding: 'base64'
+                  }]
                 }
                 // send mail with defined transport object
                 await smtpTransport.sendMail(mailOptions, function (error, response) {
@@ -270,23 +274,23 @@ const AuthController = () => {
                   <div>
                   <p style="margin-top:1%;font-size:20px">We hope you love it.</p>
                   <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
-                  <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow as on :</p>
+                  <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow us on :</p>
                   <p style="color:black;display:inline-flex;text-align:center;">
         <a style="font-size:16px;" href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
-        <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
+        <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@wesploot</span></a>
          <a style="font-size:16px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
-         <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
-         <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
-         <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
+         <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@wesploot</span></a>
+         <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@wesploot</span></a>
+         <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/wesploot</span></a>
          </p>
                   <p style="border-bottom:5px solid black;"></p>
                   </center>
                           `,
-                  // attachments: [{
-                  //   filename: 'Spoolt.jpg',
-                  //   content: ImagelogoSrc,
-                  //   encoding: 'base64'
-                  // }]
+                  attachments: [{
+                    filename: 'Spoolt.jpg',
+                    content: ImagelogoSrc,
+                    encoding: 'base64'
+                  }]
                 }
                 // send mail with defined transport object
                 await smtpTransport.sendMail(mailOptions, function (error, response) {
@@ -330,164 +334,168 @@ const AuthController = () => {
       })
         .then(async (data) => {
           if (data != null) {
-            if (data.dataValues.loginType == 2) {
-              res.send({ status: false, message: 'User already exists with Gmail' });
-            }
-            else if (data.dataValues.loginType == 3) {
-              res.send({ status: false, message: 'User already exists with Facebook' });
-            } else {
-              try {
-                const user = await UserOtp.findOne({
-                  where: {
-                    email: email
-                  }
-                }).catch(err => {
-                  const errorMsg = err.errors ? err.errors[0].message : err.message;
-                  return res.status(httpStatus.OK).json({ msg: errorMsg });
-                });
-                if (user) {
-                  var mailOptions = {
-                    from: "sploot.oasys@gmail.com", // sender address
-                    to: email, // list of receivers
-                    subject: "Sploot SignUp OTP", // Subject line
-                    text: otp, // plaintext body
-                    // html: `<b>Your OTP is ${otp}</b>` // html body
-                    html: `
-                    <center>
-        <div style="text-align:center;width:600px">
-        <div style="background-color:#ff5705;height:100px;">
-        <br>
-        <span style="color:white;font-size:50px;text-align:center;padding:5px;font-weight:bold;top:10px;">sploot</span>
-        </div>
-        <center>
-        <p style="width: 0;text-align:center;
-          height: 0;
-        margin-top:0px;
-          border-left: 25px solid transparent;
-          border-right: 25px solid transparent;
-          border-top: 20px solid #ff5705;"></p>
-        <center>
-        <p style="color:black;font-size:25px;text-align:center;margin-top:5%;font-weight:bold;">HERE'S YOUR SIGNUP OTP:</p>
-        <div>
-        <p style="border:4px solid black;padding:25px;margin-top:3%;font-size:20px">${otp}</p>
-        <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
-        <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow as on :</p>
-        <p style="color:black;display:inline-flex;text-align:center;">
-        <a style="font-size:16px;" href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
-        <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
-         <a style="font-size:16px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
-         <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
-         <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
-         <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
-         </p>
-        <p style="border-bottom:5px solid black;"></p>
-        </center>
-                  `,
-                    // attachments: [{
-                    //   filename: 'Spoolt.jpg',
-                    //   content: ImagelogoSrc,
-                    //   encoding: 'base64'
-                    // }]
-                  }
-                  await smtpTransport.sendMail(mailOptions, function (error, response) {
-                    if (error) {
-                      console.log(error);
-                    } else {
-                      UserOtp.update(
-                        { otp: otp },
-                        {
-                          where: {
-                            email: email
-                          }
-                        }, {
-                          returning: true
-                        })
-                        .then((data) => {
-                          // console.log(data)
-                          res.send({ status: true, data: data, message: "OTP resend successfully" })
-                        })
-                        .catch(err => {
-                          const errorMsg = err.errors ? err.errors[0].message : err.message;
-                          return res.status(httpStatus.OK).json({ status: false, message: errorMsg });
-                        });
-                    }
-                  });
-                } else {
-                  try {
-                    var mailOptions = {
-                      from: "sploot.oasys@gmail.com", // sender address
-                      to: email, // list of receivers
-                      subject: "Sploot SignUp OTP ", // Subject line
-                      text: otp, // plaintext body
-                      // html: `<b>Your OTP is ${otp}</b>` // html body
-                      html: `
-                      <center>
-                      <div style="text-align:center;width:600px">
-                      <div style="background-color:#ff5705;height:100px;">
-                      <br>
-                      <span style="color:white;font-size:50px;text-align:center;padding:5px;font-weight:bold;top:10px;">sploot</span>
-                      </div>
-                      <center>
-                      <p style="width: 0;text-align:center;
-                        height: 0;
-                      margin-top:0px;
-                        border-left: 25px solid transparent;
-                        border-right: 25px solid transparent;
-                        border-top: 20px solid #ff5705;"></p>
-                      <center>
-                      <p style="color:black;font-size:25px;text-align:center;margin-top:5%;font-weight:bold;">HERE'S YOUR SIGNUP OTP:</p>
-                      <div>
-                      <p style="border:4px solid black;padding:25px;margin-top:3%;font-size:20px">${otp}</p>
-                      <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
-                      <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow as on :</p>
-                      <p style="color:black;display:inline-flex;text-align:center;">
-        <a style="font-size:16px;" href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
-        <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
-         <a style="font-size:16px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
-         <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
-         <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
-         <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
-         </p>
-                      <p style="border-bottom:5px solid black;"></p>
-                      </center>
-                    `,
-                      // attachments: [{
-                      //   filename: 'Spoolt.jpg',
-                      //   content: ImagelogoSrc,
-                      //   encoding: 'base64'
-                      // }]
-                    }
-                    // send mail with defined transport object
-                    await smtpTransport.sendMail(mailOptions, function (error, response) {
-                      if (error) {
-                        console.log(error);
-                      } else {
-                        console.log("soytrnfhgb")
-                        const userOtp = UserOtp.create({
-                          email: email,
-                          otp: otp
-                        }, {
-                            returning: true
-                          })
-                          .then((data) => {
-                            console.log(data)
-                            return res.send({ status: true, data: data, message: "OTP sent successfully" })
-                          })
-                          .catch(err => {
-                            const errorMsg = err.errors ? err.errors[0].message : err.message;
-                            return res.status(httpStatus.OK).json({ status: false, message: errorMsg });
-                          });
-                      }
-                    });
-                  }
-                  catch (err) {
-                    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ status: false, message: "Internal servers error" });
-                  }
-                }
-              } catch (err) {
-                return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ status: false, message: "Internal server error" });
-              }
-            }
+
+            res.send({ status: false, message: 'User already exists' });
+
+
+        //     if (data.dataValues.loginType == 2) {
+        //       res.send({ status: false, message: 'User already exists with Gmail' });
+        //     }
+        //     else if (data.dataValues.loginType == 3) {
+        //       res.send({ status: false, message: 'User already exists with Facebook' });
+        //     } else {
+        //       try {
+        //         const user = await UserOtp.findOne({
+        //           where: {
+        //             email: email
+        //           }
+        //         }).catch(err => {
+        //           const errorMsg = err.errors ? err.errors[0].message : err.message;
+        //           return res.status(httpStatus.OK).json({ msg: errorMsg });
+        //         });
+        //         if (user) {
+        //           var mailOptions = {
+        //             from: "sploot.oasys@gmail.com", // sender address
+        //             to: email, // list of receivers
+        //             subject: "Sploot SignUp OTP", // Subject line
+        //             text: otp, // plaintext body
+        //             // html: `<b>Your OTP is ${otp}</b>` // html body
+        //             html: `
+        //             <center>
+        // <div style="text-align:center;width:600px">
+        // <div style="background-color:#ff5705;height:100px;">
+        // <br>
+        // <span style="color:white;font-size:50px;text-align:center;padding:5px;font-weight:bold;top:10px;">sploot</span>
+        // </div>
+        // <center>
+        // <p style="width: 0;text-align:center;
+        //   height: 0;
+        // margin-top:0px;
+        //   border-left: 25px solid transparent;
+        //   border-right: 25px solid transparent;
+        //   border-top: 20px solid #ff5705;"></p>
+        // <center>
+        // <p style="color:black;font-size:25px;text-align:center;margin-top:5%;font-weight:bold;">HERE'S YOUR SIGNUP OTP:</p>
+        // <div>
+        // <p style="border:4px solid black;padding:25px;margin-top:3%;font-size:20px">${otp}</p>
+        // <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
+        // <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow us on :</p>
+        // <p style="color:black;display:inline-flex;text-align:center;">
+        // <a style="font-size:16px;" href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
+        // <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@wesploot</span></a>
+        //  <a style="font-size:16px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
+        //  <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@wesploot</span></a>
+        //  <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@wesploot</span></a>
+        //  <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/wesploot</span></a>
+        //  </p>
+        // <p style="border-bottom:5px solid black;"></p>
+        // </center>
+        //           `,
+        //             attachments: [{
+        //               filename: 'Spoolt.jpg',
+        //               content: ImagelogoSrc,
+        //               encoding: 'base64'
+        //             }]
+        //           }
+        //           await smtpTransport.sendMail(mailOptions, function (error, response) {
+        //             if (error) {
+        //               console.log(error);
+        //             } else {
+        //               UserOtp.update(
+        //                 { otp: otp },
+        //                 {
+        //                   where: {
+        //                     email: email
+        //                   }
+        //                 }, {
+        //                   returning: true
+        //                 })
+        //                 .then((data) => {
+        //                   // console.log(data)
+        //                   res.send({ status: true, data: data, message: "OTP resend successfully" })
+        //                 })
+        //                 .catch(err => {
+        //                   const errorMsg = err.errors ? err.errors[0].message : err.message;
+        //                   return res.status(httpStatus.OK).json({ status: false, message: errorMsg });
+        //                 });
+        //             }
+        //           });
+        //         } else {
+        //           try {
+        //             var mailOptions = {
+        //               from: "sploot.oasys@gmail.com", // sender address
+        //               to: email, // list of receivers
+        //               subject: "Sploot SignUp OTP ", // Subject line
+        //               text: otp, // plaintext body
+        //               // html: `<b>Your OTP is ${otp}</b>` // html body
+        //               html: `
+        //               <center>
+        //               <div style="text-align:center;width:600px">
+        //               <div style="background-color:#ff5705;height:100px;">
+        //               <br>
+        //               <span style="color:white;font-size:50px;text-align:center;padding:5px;font-weight:bold;top:10px;">sploot</span>
+        //               </div>
+        //               <center>
+        //               <p style="width: 0;text-align:center;
+        //                 height: 0;
+        //               margin-top:0px;
+        //                 border-left: 25px solid transparent;
+        //                 border-right: 25px solid transparent;
+        //                 border-top: 20px solid #ff5705;"></p>
+        //               <center>
+        //               <p style="color:black;font-size:25px;text-align:center;margin-top:5%;font-weight:bold;">HERE'S YOUR SIGNUP OTP:</p>
+        //               <div>
+        //               <p style="border:4px solid black;padding:25px;margin-top:3%;font-size:20px">${otp}</p>
+        //               <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
+        //               <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow us on :</p>
+        //               <p style="color:black;display:inline-flex;text-align:center;">
+        // <a style="font-size:16px;" href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
+        // <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@wesploot</span></a>
+        //  <a style="font-size:16px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
+        //  <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@wesploot</span></a>
+        //  <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@wesploot</span></a>
+        //  <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/wesploot</span></a>
+        //  </p>
+        //               <p style="border-bottom:5px solid black;"></p>
+        //               </center>
+        //             `,
+        //               attachments: [{
+        //                 filename: 'Spoolt.jpg',
+        //                 content: ImagelogoSrc,
+        //                 encoding: 'base64'
+        //               }]
+        //             }
+        //             // send mail with defined transport object
+        //             await smtpTransport.sendMail(mailOptions, function (error, response) {
+        //               if (error) {
+        //                 console.log(error);
+        //               } else {
+        //                 console.log("soytrnfhgb")
+        //                 const userOtp = UserOtp.create({
+        //                   email: email,
+        //                   otp: otp
+        //                 }, {
+        //                     returning: true
+        //                   })
+        //                   .then((data) => {
+        //                     console.log(data)
+        //                     return res.send({ status: true, data: data, message: "OTP sent successfully" })
+        //                   })
+        //                   .catch(err => {
+        //                     const errorMsg = err.errors ? err.errors[0].message : err.message;
+        //                     return res.status(httpStatus.OK).json({ status: false, message: errorMsg });
+        //                   });
+        //               }
+        //             });
+        //           }
+        //           catch (err) {
+        //             return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ status: false, message: "Internal servers error" });
+        //           }
+        //         }
+        //       } catch (err) {
+        //         return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ status: false, message: "Internal server error" });
+        //       }
+        //     }
           }
           else {
             try {
@@ -503,7 +511,7 @@ const AuthController = () => {
                 var mailOptions = {
                   from: "sploot.oasys@gmail.com", // sender address
                   to: email, // list of receivers
-                  subject: "Sploot SignUP OTP", // Subject line
+                  subject: "Sploot Signup OTP", // Subject line
                   text: otp, // plaintext body
                   // html: `<b>Your OTP is ${otp}</b>` // html body
                   html: `
@@ -525,23 +533,23 @@ const AuthController = () => {
                   <div>
                   <p style="border:4px solid black;padding:25px;margin-top:3%;font-size:20px">${otp}</p>
                   <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
-                  <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow as on :</p>
+                  <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow us on :</p>
                   <p style="color:black;display:inline-flex;text-align:center;">
         <a style="font-size:16px;" href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
-        <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
+        <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@wesploot</span></a>
          <a style="font-size:16px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
-         <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
-         <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
-         <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
+         <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@wesploot</span></a>
+         <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@wesploot</span></a>
+         <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/wesploot</span></a>
          </p>
                   <p style="border-bottom:5px solid black;"></p>
                   </center>
                 `,
-                  // attachments: [{
-                  //   filename: 'Spoolt.jpg',
-                  //   content: ImagelogoSrc,
-                  //   encoding: 'base64'
-                  // }]
+                  attachments: [{
+                    filename: 'Spoolt.jpg',
+                    content: ImagelogoSrc,
+                    encoding: 'base64'
+                  }]
                 }
                 await smtpTransport.sendMail(mailOptions, function (error, response) {
                   if (error) {
@@ -593,23 +601,23 @@ const AuthController = () => {
                     <div>
                     <p style="border:4px solid black;padding:25px;margin-top:3%;font-size:20px">${otp}</p>
                     <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
-                    <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow as on :</p>
+                    <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow us on :</p>
                     <p style="color:black;display:inline-flex;text-align:center;">
         <a style="font-size:16px;" href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
-        <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
+        <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@wesploot</span></a>
          <a style="font-size:16px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
-         <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
-         <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
-         <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
+         <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@wesploot</span></a>
+         <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@wesploot</span></a>
+         <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/wesploot</span></a>
          </p>
                     <p style="border-bottom:5px solid black;"></p>
                     </center>
                   `,
-                    // attachments: [{
-                    //   filename: 'Spoolt.jpg',
-                    //   content: ImagelogoSrc,
-                    //   encoding: 'base64'
-                    // }]
+                    attachments: [{
+                      filename: 'Spoolt.jpg',
+                      content: ImagelogoSrc,
+                      encoding: 'base64'
+                    }]
                   }
                   // send mail with defined transport object
                   await smtpTransport.sendMail(mailOptions, function (error, response) {
@@ -711,12 +719,12 @@ const AuthController = () => {
           else if (user.dataValues.loginType == 2) {
             return res
               .status(httpStatus.OK)
-              .json({ status: false, message: 'User already exists with Gmail' });
+              .json({ status: true, token, data: user, message: "Login SuccessFully." });
           }
           else if (user.dataValues.loginType == 3) {
             return res
               .status(httpStatus.OK)
-              .json({ status: false, message: 'User already exists with Facebook' });
+              .json({ status: true, token, data: user, message: "Login SuccessFully." });
           }
         }
         else {
@@ -787,16 +795,20 @@ const AuthController = () => {
         return res.status(httpStatus.OK).json({ msg: errorMsg });
       });
     if (user) {
-      const loginType = user.dataValues.loginType
-      if (postData.loginType == loginType) {
-        const token = authService().issue({ id: user.dataValues.userId });
-        res.send({ status: true, token: token, data: user.dataValues, message: "Login Successfully." });
-      } else {
-        loginType == 1 ? res.send({ status: false, message: "Account Already Exists" }) :
-          (loginType == 2 ? res.send({ status: false, message: "User already have account with Google" }) :
-            (loginType == 3 ? res.send({ status: false, message: "User already have account with Facebook" }) :
-              res.send({ status: false, message: "Invalid login type" })));
-      }
+      // const loginType = user.dataValues.loginType
+      // if (postData.loginType == loginType) {
+      //   const token = authService().issue({ id: user.dataValues.userId });
+      //   res.send({ status: true, token: token, data: user.dataValues, message: "Login Successfully." });
+      // }
+      //  else {
+      //   loginType == 1 ? res.send({ status: false, message: "Account Already Exists" }) :
+      //     (loginType == 2 ? res.send({ status: false, message: "User already have account with Google" }) :
+      //       (loginType == 3 ? res.send({ status: false, message: "User already have account with Facebook" }) :
+      //         res.send({ status: false, message: "Invalid login type" })));
+      // }
+
+      const token = authService().issue({ id: user.dataValues.userId });
+      res.send({ status: true, token: token, data: user.dataValues, message: "Login Successfully." });
     } else {
       if (postData.loginType == 2) {
         User.create({
@@ -849,7 +861,7 @@ const AuthController = () => {
         if (data == null) {
           res.send({ status: false, message: "User doesn't exist" })
         } else {
-          if (data.dataValues.loginType == 1) {
+       //   if (data.dataValues.loginType == 1) {
             const user = await UserOtp.findOne({
               where: {
                 email: postData.email
@@ -884,23 +896,23 @@ const AuthController = () => {
                 <div>
                 <p style="border:4px solid black;padding:25px;margin-top:3%;font-size:20px">${otp}</p>
                 <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
-                <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow as on :</p>
+                <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow us on :</p>
                 <p style="color:black;display:inline-flex;text-align:center;">
         <a style="font-size:16px;" href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
-        <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
+        <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@wesploot</span></a>
          <a style="font-size:16px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
-         <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
-         <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
-         <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
+         <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@wesploot</span></a>
+         <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@wesploot</span></a>
+         <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/wesploot</span></a>
          </p>
                 <p style="border-bottom:5px solid black;"></p>
                 </center>
             `,
-                // attachments: [{
-                //   filename: 'Spoolt.jpg',
-                //   content: ImagelogoSrc,
-                //   encoding: 'base64'
-                // }]
+                attachments: [{
+                  filename: 'Spoolt.jpg',
+                  content: ImagelogoSrc,
+                  encoding: 'base64'
+                }]
               }
               await smtpTransport.sendMail(mailOptions, function (error, response) {
                 if (error) {
@@ -953,23 +965,23 @@ const AuthController = () => {
                   <div>
                   <p style="border:4px solid black;padding:25px;margin-top:3%;font-size:20px">${otp}</p>
                   <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
-                  <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow as on :</p>
+                  <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow us on :</p>
                   <p style="color:black;display:inline-flex;text-align:center;">
                   <a style="font-size:16px;" href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
-                  <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
+                  <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@wesploot</span></a>
                    <a style="font-size:16px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
-                   <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
-                   <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
-                   <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
+                   <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@wesploot</span></a>
+                   <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@wesploot</span></a>
+                   <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/wesploot</span></a>
                    </p>
                   <p style="border-bottom:5px solid black;"></p>
                   </center>
               `,
-                  // attachments: [{
-                  //   filename: 'Spoolt.jpg',
-                  //   content: ImagelogoSrc,
-                  //   encoding: 'base64'
-                  // }]
+                  attachments: [{
+                    filename: 'Spoolt.jpg',
+                    content: ImagelogoSrc,
+                    encoding: 'base64'
+                  }]
                 }
                 // send mail with defined transport object
                 await smtpTransport.sendMail(mailOptions, function (error, response) {
@@ -997,13 +1009,13 @@ const AuthController = () => {
                 return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ status: false, message: "Internal servers error" });
               }
             }
-          }
-          else if (data.dataValues.loginType == 2) {
-            res.send({ status: false, message: "User already exist in Gmail" })
-          }
-          else if (data.dataValues.loginType == 3) {
-            res.send({ status: false, message: "User already exist in Facebook" })
-          }
+          // }
+          // else if (data.dataValues.loginType == 2) {
+          //   res.send({ status: false, message: "User already exist in Gmail" })
+          // }
+          // else if (data.dataValues.loginType == 3) {
+          //   res.send({ status: false, message: "User already exist in Facebook" })
+          // }
         }
       })
   }
@@ -1293,23 +1305,23 @@ const AuthController = () => {
         <div>
         <p style="border:4px solid black;padding:25px;margin-top:3%;font-size:20px">${postData.medicine_name}</p>
         <p style="color:black;text-align:center;margin-top:5%;font-size:18px">happy splooting!</p>
-        <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow as on :</p>
+        <p style="color:black;text-align:center;margin-top:5%;font-size:18px">Follow us on :</p>
         <p style="color:black;display:inline-flex;text-align:center;">
         <a style="font-size:16px;" href="https://www.instagram.com/wesploot/?hl=en"> <span style="margin-right:10%;margin-top:2px;">
-        <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@websploot</span></a>
+        <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="25px">@wesploot</span></a>
          <a style="font-size:16px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
-         <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@websploot</span></a>
-         <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@websploot</span></a>
-         <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/websploot</span></a>
+         <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="25px">@wesploot</span></a>
+         <a style="font-size:16px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="25px">@wesploot</span></a>
+         <a style="font-size:16px;" href="http://www.facebook.com/wesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="25px">/wesploot</span></a>
          </p>
         <p style="border-bottom:5px solid black;"></p>
         </center>
                 `,
-        // attachments: [{
-        //   filename: 'Spoolt.jpg',
-        //   content: ImagelogoSrc,
-        //   encoding: 'base64'
-        // }]
+        attachments: [{
+          filename: 'Spoolt.jpg',
+          content: ImagelogoSrc,
+          encoding: 'base64'
+        }]
       }
       // send mail with defined transport object
       await smtpTransport.sendMail(mailOptions, function (error, response) {
