@@ -132,7 +132,7 @@ const AuthController = () => {
                           <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="20px">@wesploot</span></a>
                            <a style="font-size:14px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
                            <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="20px">@wesploot</span></a>
-                           <a style="font-size:14px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="20px">@wesploot</span></a>
+                           <a style="font-size:14px;" href="https://twitter.com/wesploot2"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="20px">@wesploot</span></a>
                            <a style="font-size:14px;" href="http://www.facebook.comwesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="20px"><br>wesploot</span></a>
                            </p>
                           <p style="border-bottom:5px solid black;"></p>
@@ -209,7 +209,7 @@ const AuthController = () => {
                           <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="20px">@wesploot</span></a>
                            <a style="font-size:14px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
                            <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="20px">@wesploot</span></a>
-                           <a style="font-size:14px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="20px">@wesploot</span></a>
+                           <a style="font-size:14px;" href="https://twitter.com/wesploot2"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="20px">@wesploot</span></a>
                            <a style="font-size:14px;" href="http://www.facebook.comwesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="20px"><br>wesploot</span></a>
                            </p>
                   <p style="border-bottom:5px solid black;"></p>
@@ -278,7 +278,7 @@ const AuthController = () => {
                   <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="20px">@wesploot</span></a>
                    <a style="font-size:14px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
                    <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="20px">@wesploot</span></a>
-                   <a style="font-size:14px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="20px">@wesploot</span></a>
+                   <a style="font-size:14px;" href="https://twitter.com/wesploot2"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="20px">@wesploot</span></a>
                    <a style="font-size:14px;" href="http://www.facebook.comwesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="20px"><br>wesploot</span></a>
                    </p>
                   <p style="border-bottom:5px solid black;"></p>
@@ -537,7 +537,7 @@ const AuthController = () => {
                           <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="20px">@wesploot</span></a>
                            <a style="font-size:14px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
                            <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="20px">@wesploot</span></a>
-                           <a style="font-size:14px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="20px">@wesploot</span></a>
+                           <a style="font-size:14px;" href="https://twitter.com/wesploot2"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="20px">@wesploot</span></a>
                            <a style="font-size:14px;" href="http://www.facebook.comwesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="20px"><br>wesploot</span></a>
                            </p>
                   <p style="border-bottom:5px solid black;"></p>
@@ -605,7 +605,7 @@ const AuthController = () => {
                     <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="20px">@wesploot</span></a>
                      <a style="font-size:14px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
                      <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="20px">@wesploot</span></a>
-                     <a style="font-size:14px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="20px">@wesploot</span></a>
+                     <a style="font-size:14px;" href="https://twitter.com/wesploot2"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="20px">@wesploot</span></a>
                      <a style="font-size:14px;" href="http://www.facebook.comwesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="20px"><br>wesploot</span></a>
                      </p>
                     <p style="border-bottom:5px solid black;"></p>
@@ -900,7 +900,7 @@ const AuthController = () => {
                 <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="20px">@wesploot</span></a>
                  <a style="font-size:14px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
                  <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="20px">@wesploot</span></a>
-                 <a style="font-size:14px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="20px">@wesploot</span></a>
+                 <a style="font-size:14px;" href="https://twitter.com/wesploot2"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="20px">@wesploot</span></a>
                  <a style="font-size:14px;" href="http://www.facebook.comwesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="20px"><br>wesploot</span></a>
                  </p>
                 <p style="border-bottom:5px solid black;"></p>
@@ -969,7 +969,7 @@ const AuthController = () => {
                           <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="20px">@wesploot</span></a>
                            <a style="font-size:14px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
                            <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="20px">@wesploot</span></a>
-                           <a style="font-size:12x;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="20px">@wesploot</span></a>
+                           <a style="font-size:14px;" href="https://twitter.com/wesploot2"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="20px">@wesploot</span></a>
                            <a style="font-size:14px;" href="http://www.facebook.comwesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="20px"><br>wesploot</span></a>
                            </p>
                   <p style="border-bottom:5px solid black;"></p>
@@ -1309,7 +1309,7 @@ const AuthController = () => {
                           <img src="https://i.pinimg.com/originals/ff/0e/20/ff0e20de4718fe14cdd256c81c5db771.png" height="20px">@wesploot</span></a>
                            <a style="font-size:14px;" href="https://vm.tiktok.com/4UM5Xc/"><span style="margin-right:10%;margin-top:2px;">
                            <img src="https://i.dlpng.com/static/png/5344193-tiktok-png-and-tiktok-transparent-clipart-free-download-tik-tok-logo-transparent-260_260_preview.png" height="20px">@wesploot</span></a>
-                           <a style="font-size:14px;"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="20px">@wesploot</span></a>
+                           <a style="font-size:14px;" href="https://twitter.com/wesploot2"><span style="margin-right:10%;margin-top:2px;"><img src="https://i.dlpng.com/static/png/6822906_preview.png" height="20px">@wesploot</span></a>
                            <a style="font-size:14px;" href="http://www.facebook.comwesploot"><span style="margin-right:10%;margin-top:2px;"><img src="https://oyebesmartest.com/public/uploads/preview/rounded-facebook-logo-icon-png-hddbzdrabkgu.png" height="20px"><br>wesploot</span></a>
                            </p>
         <p style="border-bottom:5px solid black;"></p>
