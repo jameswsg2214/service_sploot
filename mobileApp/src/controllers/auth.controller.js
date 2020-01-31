@@ -30,16 +30,6 @@ var smtpTransport = nodemailer.createTransport({
     pass: "Niknit167!" //give here correct gmail pwd
   }
 });
-// var smtpTransport = nodemailer.createTransport({
-//   host: 'smtp.gmail.com',
-//   port: 465,
-//   secure: true,
-//   domain: 'gmail.com',
-//   auth: {
-//     user: "boop@sploot.tech  ",
-//     pass: "sploot@123" //give here correct gmail pwd
-//   }
-// });
 
 const AuthController = () => {
   /**
