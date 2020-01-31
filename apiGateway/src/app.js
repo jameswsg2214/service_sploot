@@ -38,9 +38,9 @@ const APIError = require("./helpers/APIError");
 const config = require("./config/config");
 const mongodb = require("./mongodb");
 
-mongodb.connect(function (err) {
-  if (err) console.log("Unable to connect to mongoDB", err);
-});
+// mongodb.connect(function (err) {
+//   if (err) console.log("Unable to connect to mongoDB", err);
+// });
 
 const app = express();
 // const apiRoutes     = 	express.Router();
